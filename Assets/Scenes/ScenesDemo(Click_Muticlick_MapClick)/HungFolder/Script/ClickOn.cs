@@ -13,7 +13,7 @@ public class ClickOn : MonoBehaviour
     private Material Green;
     [HideInInspector]
     public bool currentselect = false;
-    private MeshRenderer myrend;
+
     private AIAgent agent;
 
     private void Awake()
@@ -22,7 +22,6 @@ public class ClickOn : MonoBehaviour
     }
     void Start()
     {
-        myrend = GetComponent<MeshRenderer>();
         Camera.main.gameObject.GetComponent<Click>().SelectableObjects.Add(this.gameObject);
         Debug.Log(agent);
         ClickMe();
@@ -35,12 +34,9 @@ public class ClickOn : MonoBehaviour
         if (currentselect == true)
         {
             agent.Select();
-
-            Debug.Log("true");
         }
         else
         {
-            Debug.Log("fALSE");
             agent.UnSelect();
         }
            

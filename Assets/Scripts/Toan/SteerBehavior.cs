@@ -20,7 +20,6 @@ namespace AI
             float maxSpeed = agent.MaxSpeed;
             if (desireDir.sqrMagnitude > 0.1f)
             {
-                // Vector3 result = desireDir.normalized * maxSpeed - agent.Velocity;
                 Vector3 result = desireDir - agent.Velocity;
                 return result;
             }

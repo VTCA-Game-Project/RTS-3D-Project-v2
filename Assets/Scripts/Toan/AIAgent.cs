@@ -11,10 +11,7 @@ namespace Agent
         private SteerBehavior steerBh;
         private FlockBehavior flockBh;
 
-        private Vector3 position;
-        private Vector3 heading;
         private Vector3 steering;
-        private Vector3 velocity;
 
         private bool isSelected = false;
         public Pointer target;
@@ -37,8 +34,7 @@ namespace Agent
             // using projection
             get
             {
-                velocity = Vector3.ProjectOnPlane(rigid.velocity, Vector3.up);
-                return velocity;
+                return Vector3.ProjectOnPlane(rigid.velocity, Vector3.up);
             }
         }
         public float MaxSpeed
@@ -48,35 +44,18 @@ namespace Agent
         }
         public Vector3 Position
         {
-            //get
-            //{
-            //    position = transform.position;
-            //    position.y = 0;
-            //    return position;
-            //}
-
             // using projection
             get
             {
-                position = Vector3.ProjectOnPlane(transform.position, Vector3.up);
-                return position;
+                return Vector3.ProjectOnPlane(transform.position, Vector3.up);                
             }
         }
         public Vector3 Heading
         {
-            //get
-            //{
-            //    heading = transform.forward;
-            //    heading.y = 0;
-            //    heading = heading.normalized;
-            //    return heading;
-            //}
-
             // using projection
             get
             {
-                heading = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-                return heading;
+                return Vector3.ProjectOnPlane(transform.forward, Vector3.up);
             }
         }
         public bool IsSelected
@@ -95,24 +74,23 @@ namespace Agent
         {
             steerBh = AIUtils.steerBehaviorInstance;
             flockBh = AIUtils.flockBehaviorInstance;
-            isSelected = false;
+            isSelected = true;
         }
         private void FixedUpdate()
         {
             if (IsSelected)
             {
-
-
                 steering = Vector3.zero;
                 neighbours = StoredManager.GetNeighbours(this);
+
                 steering += steerBh.Seek(this, target.Position);
-                // steering += steerBh.Arrive(this, target.Position);
                 steering += flockBh.Separation(this, neighbours) * separation;
                 steering += flockBh.Alignment(this, neighbours) * alignment;
                 steering += flockBh.Cohesion(this, neighbours) * cohesion;
 
-
                 rigid.velocity += steering / rigid.mass;
+                rigid.velocity = Truncate(rigid.velocity);
+
                 transform.forward += rigid.velocity;
             }
 #if UNITY_EDITOR
@@ -120,9 +98,9 @@ namespace Agent
 #endif
         }
 
-        private Vector3 Truncate()
+        private Vector3 Truncate(Vector3 desireVel)
         {
-            return rigid.velocity.magnitude > maxSpeed ? rigid.velocity.normalized * maxSpeed : rigid.velocity;
+            return desireVel.magnitude > maxSpeed ? desireVel.normalized * maxSpeed : desireVel;
         }
         public void Select() { isSelected = true; }
         public void UnSelect() { isSelected = false; }
