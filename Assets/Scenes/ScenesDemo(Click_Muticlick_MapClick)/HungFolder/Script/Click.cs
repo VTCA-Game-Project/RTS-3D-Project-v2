@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Manager;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ public class Click : MonoBehaviour {
     void Awake()
     {
         SelectObject = new List<GameObject>();
-        SelectableObjects= new List<GameObject>();
+        SelectableObjects = new List<GameObject>();
+      
     }
     void Update ()
     {
@@ -28,7 +30,7 @@ public class Click : MonoBehaviour {
         { ClearSelection(); }
             if (Input.GetMouseButtonDown(0))
         {
-            ClearSelection();
+           // ClearSelection();
             mousepos1 = _camraycast.ScreenToViewportPoint(Input.mousePosition);
             RaycastHit rayHit;
             
@@ -37,7 +39,7 @@ public class Click : MonoBehaviour {
             if (Physics.Raycast(ray ,out rayHit,Mathf.Infinity, Clicklayer))
             {
                ClickOn _clickon= rayHit.collider.GetComponent<ClickOn>();
-
+                Debug.Log(rayHit.collider.name);
 
                 ClearSelection();
                 SelectObject.Add(rayHit.collider.gameObject);

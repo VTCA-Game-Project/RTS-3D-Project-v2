@@ -87,28 +87,36 @@ namespace Agent
 
         private void Awake()
         {
+            gameObject.AddComponent<ClickOn>();
             StoredManager.AddAgent(this);
+
         }
         private void Start()
         {
             steerBh = AIUtils.steerBehaviorInstance;
             flockBh = AIUtils.flockBehaviorInstance;
+            isSelected = false;
         }
         private void FixedUpdate()
         {
-            steering = Vector3.zero;
-            neighbours = StoredManager.GetNeighbours(this);
-            steering += steerBh.Seek(this, target.Position);
-            // steering += steerBh.Arrive(this, target.Position);
-            steering += flockBh.Separation(this, neighbours) * separation;
-            steering += flockBh.Alignment(this, neighbours) * alignment;
-            steering += flockBh.Cohesion(this, neighbours) * cohesion;
+            if (IsSelected)
+            {
 
 
-            rigid.velocity += steering / rigid.mass;
-            transform.forward += rigid.velocity;
+                steering = Vector3.zero;
+                neighbours = StoredManager.GetNeighbours(this);
+                steering += steerBh.Seek(this, target.Position);
+                // steering += steerBh.Arrive(this, target.Position);
+                steering += flockBh.Separation(this, neighbours) * separation;
+                steering += flockBh.Alignment(this, neighbours) * alignment;
+                steering += flockBh.Cohesion(this, neighbours) * cohesion;
+
+
+                rigid.velocity += steering / rigid.mass;
+                transform.forward += rigid.velocity;
+            }
 #if UNITY_EDITOR
-            Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
+            //Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
         }
 

@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using Agent;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClickOn : MonoBehaviour {
+public class ClickOn : MonoBehaviour
+{
 
 
     [SerializeField]
@@ -12,26 +14,35 @@ public class ClickOn : MonoBehaviour {
     [HideInInspector]
     public bool currentselect = false;
     private MeshRenderer myrend;
+    private AIAgent agent;
 
-    
-	void Start () {
+    private void Awake()
+    {
+        agent = GetComponent<AIAgent>();
+    }
+    void Start()
+    {
         myrend = GetComponent<MeshRenderer>();
         Camera.main.gameObject.GetComponent<Click>().SelectableObjects.Add(this.gameObject);
-
+        Debug.Log(agent);
         ClickMe();
-	}
-	
-	// Update is called once per frame
-	
+    }
+
+    // Update is called once per frame
+
     public void ClickMe()
     {
         if (currentselect == true)
-            myrend.material = Green;
+        {
+            agent.Select();
+
+            Debug.Log("true");
+        }
         else
-            myrend.material = red;
-    }
-    public void addAbleObject(ref List<GameObject> rep)
-    {
-        rep.Add(this.gameObject);
+        {
+            Debug.Log("fALSE");
+            agent.UnSelect();
+        }
+           
     }
 }
