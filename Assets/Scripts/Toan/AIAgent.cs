@@ -12,8 +12,10 @@ namespace Agent
         private FlockBehavior flockBh;
 
         private Vector3 steering;
+        private Vector3 aceleration;
 
         private bool isSelected = false;
+        private bool isReachedTarget = true;
         public Pointer target;
         public Rigidbody rigid;
         public float BoundRadius;
@@ -62,6 +64,11 @@ namespace Agent
         {
             get { return isSelected; }
         }
+        public bool IsReachedTarget
+        {
+            get { return isReachedTarget; }
+            protected set { isReachedTarget = value; }
+        }
         #endregion
 
         private void Awake()
@@ -81,29 +88,47 @@ namespace Agent
             if (IsSelected)
             {
                 steering = Vector3.zero;
-                neighbours = StoredManager.GetNeighbours(this);
+                aceleration = Vector3.zero;
+                if (!isReachedTarget)
+                {
+                    steering += steerBh.Seek(this, target.Position);
+                }
+                    neighbours = StoredManager.GetNeighbours(this);                    
+                    steering += flockBh.Separation(this, neighbours) * separation;
+                    steering += flockBh.Alignment(this, neighbours) * alignment;
+                    steering += flockBh.Cohesion(this, neighbours) * cohesion;
 
-                steering += steerBh.Seek(this, target.Position);
-                steering += flockBh.Separation(this, neighbours) * separation;
-                steering += flockBh.Alignment(this, neighbours) * alignment;
-                steering += flockBh.Cohesion(this, neighbours) * cohesion;
-
-                rigid.velocity += steering / rigid.mass;
-                rigid.velocity = Truncate(rigid.velocity);
-
-                transform.forward += rigid.velocity;
+                    aceleration = steering / rigid.mass;
+                    rigid.velocity = Truncate(rigid.velocity + aceleration);
+                    RotateAgent();
+                
             }
 #if UNITY_EDITOR
-            //Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
+            // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
         }
 
+        private void RotateAgent()
+        {
+            if (rigid.velocity.magnitude > 0.1f)
+            {
+                transform.forward += rigid.velocity;
+            }
+            else
+            {
+                isReachedTarget = true;
+            }
+        }
         private Vector3 Truncate(Vector3 desireVel)
         {
             return desireVel.magnitude > maxSpeed ? desireVel.normalized * maxSpeed : desireVel;
         }
         public void Select() { isSelected = true; }
         public void UnSelect() { isSelected = false; }
+        public void MoveToTarget()
+        {
+            isReachedTarget = false;
+        }
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
