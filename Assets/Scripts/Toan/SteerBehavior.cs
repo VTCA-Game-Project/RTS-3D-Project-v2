@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Agent;
+using Common;
 using EnumCollection;
 
 namespace AI
@@ -44,12 +44,12 @@ namespace AI
         public Vector3 Arrive(AIAgent agent, Vector3 target)
         {
             Vector3 toTarget = target - agent.Position;
-            float dist = toTarget.magnitude;
+            float dist = toTarget.sqrMagnitude;
             if (dist > 0)
             {
                 float speed = dist / ((float)deceleration * DecelerationTweaker);
                 speed = Mathf.Min(speed, agent.MaxSpeed);
-                toTarget = toTarget * speed / dist;
+                toTarget = toTarget * speed / Mathf.Sqrt(dist);
 
                 Vector3 desireVel = toTarget - agent.Velocity;
                 return desireVel;

@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using AI;
 using Manager;
+using Utils;
 
-namespace Agent
+namespace Common
 {
-    public class AIAgent : MonoBehaviour
+    public class AIAgent : GameEntity
     {
         private SteerBehavior steerBh;
         private FlockBehavior flockBh;
@@ -31,7 +30,7 @@ namespace Agent
         public bool drawGizmos = true;
 
         #region Properties
-        public Vector3 Velocity
+        public override Vector3 Velocity
         {
             // using projection
             get
@@ -44,22 +43,26 @@ namespace Agent
             get { return maxSpeed; }
             protected set { maxSpeed = value; }
         }
-        public Vector3 Position
-        {
-            // using projection
-            get
-            {
-                return Vector3.ProjectOnPlane(transform.position, Vector3.up);                
-            }
-        }
-        public Vector3 Heading
-        {
-            // using projection
-            get
-            {
-                return Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-            }
-        }
+
+        #region Old Properties
+        //public Vector3 Position
+        //{
+        //    // using projection
+        //    get
+        //    {
+        //        return Vector3.ProjectOnPlane(transform.position, Vector3.up);                
+        //    }
+        //}
+        //public Vector3 Heading
+        //{
+        //    // using projection
+        //    get
+        //    {
+        //        return Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+        //    }
+        //}
+        #endregion
+
         public bool IsSelected
         {
             get { return isSelected; }
@@ -89,19 +92,19 @@ namespace Agent
             {
                 steering = Vector3.zero;
                 aceleration = Vector3.zero;
-                if (!isReachedTarget)
-                {
-                    steering += steerBh.Seek(this, target.Position);
-                }
-                    neighbours = StoredManager.GetNeighbours(this);                    
-                    steering += flockBh.Separation(this, neighbours) * separation;
-                    steering += flockBh.Alignment(this, neighbours) * alignment;
-                    steering += flockBh.Cohesion(this, neighbours) * cohesion;
+                //if (!isReachedTarget)
+                //{
+                steering += steerBh.Seek(this, target.Position);
+                //}
+                neighbours = StoredManager.GetNeighbours(this);
+                steering += flockBh.Separation(this, neighbours) * separation;
+                steering += flockBh.Alignment(this, neighbours) * alignment;
+                steering += flockBh.Cohesion(this, neighbours) * cohesion;
 
-                    aceleration = steering / rigid.mass;
-                    rigid.velocity = Truncate(rigid.velocity + aceleration);
-                    RotateAgent();
-                
+                aceleration = steering / rigid.mass;
+                rigid.velocity = Truncate(rigid.velocity + aceleration);
+                RotateAgent();
+
             }
 #if UNITY_EDITOR
             // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
@@ -110,7 +113,7 @@ namespace Agent
 
         private void RotateAgent()
         {
-            if (rigid.velocity.magnitude > 0.1f)
+            if (rigid.velocity.sqrMagnitude > (0.1f * 0.1f))
             {
                 transform.forward += rigid.velocity;
             }
@@ -121,7 +124,8 @@ namespace Agent
         }
         private Vector3 Truncate(Vector3 desireVel)
         {
-            return desireVel.magnitude > maxSpeed ? desireVel.normalized * maxSpeed : desireVel;
+            return desireVel.sqrMagnitude > (maxSpeed * maxSpeed) ? 
+                            desireVel.normalized * maxSpeed : desireVel;
         }
         public void Select() { isSelected = true; }
         public void UnSelect() { isSelected = false; }
