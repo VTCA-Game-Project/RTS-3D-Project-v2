@@ -1,33 +1,35 @@
 ﻿using EnumCollection;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GlobalGameStatus
+using Common;
+namespace Manager
 {
-    private static List<ConstructId> constructsCantBuild = new List<ConstructId>();
-
-    public static void NewConstructBuilded(Construct construct)
+    public class GlobalGameStatus
     {
-        ConstructId[] unlock = construct.Owned;
-        for (int i = 0; i < unlock.Length; i++)
+        private static List<ConstructId> constructsCantBuild = new List<ConstructId>();
+
+        public static void NewConstructBuilded(Construct construct)
         {
-            constructsCantBuild.Add(unlock[i]);
+            ConstructId[] unlock = construct.Owned;
+            for (int i = 0; i < unlock.Length; i++)
+            {
+                constructsCantBuild.Add(unlock[i]);
 #if UNITY_EDITOR
-            Debug.Log(unlock[i] + " add cant build list");
+                Debug.Log(unlock[i] + " add cant build list");
 #endif
+            }
         }
-    }
 
-    public static void ConstructDestroyed(Construct construct)
-    {
-        ConstructId[] unlock = construct.Owned;
-        for (int i = 0; i < unlock.Length; i++)
+        public static void ConstructDestroyed(Construct construct)
         {
-            constructsCantBuild.RemoveAt(constructsCantBuild.IndexOf((unlock[i])));
+            ConstructId[] unlock = construct.Owned;
+            for (int i = 0; i < unlock.Length; i++)
+            {
+                constructsCantBuild.RemoveAt(constructsCantBuild.IndexOf((unlock[i])));
 #if UNITY_EDITOR
-            Debug.Log(unlock[i] + " remove cant build list");
+                Debug.Log(unlock[i] + " remove cant build list");
 #endif
+            }
         }
     }
 }

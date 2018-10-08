@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using AI;
 using UnityEngine;
 
-namespace AI
+namespace Utils
 {
     public class AIUtils 
     {

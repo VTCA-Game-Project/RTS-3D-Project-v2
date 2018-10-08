@@ -1,6 +1,4 @@
-﻿using Agent;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Common;
 using UnityEngine;
 
 namespace AI
@@ -60,7 +58,7 @@ namespace AI
             }
             if (count <= 0) return Vector3.zero;
             centerOfMass /= count;
-            return AIUtils.steerBehaviorInstance.Seek(agent, centerOfMass);
+            return Utils.AIUtils.steerBehaviorInstance.Seek(agent, centerOfMass);
         }
 
     }

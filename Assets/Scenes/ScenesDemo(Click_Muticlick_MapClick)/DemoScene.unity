@@ -2338,15 +2338,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 1637666394126480, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
-      propertyPath: m_Name
-      value: GrizzlyTank (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 571893979}
+    - target: {fileID: 1637666394126480, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
+      propertyPath: m_Name
+      value: GrizzlyTank (4)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
   m_IsPrefabAsset: 0
