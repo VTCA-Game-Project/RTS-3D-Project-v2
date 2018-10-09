@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace AI
 {
-    public class ObstacleAvoidance : MonoBehaviour
+    public class ObstacleAvoidance : GameEntity
     {
+        
 
     }
 }

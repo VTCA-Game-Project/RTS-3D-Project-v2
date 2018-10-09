@@ -6,28 +6,29 @@ namespace Manager
 {
     public class StoredManager
     {
-        public static List<AIAgent> agents = new List<AIAgent>();
-        public static List<Construct> constructs = new List<Construct>();
+        public static List<AIAgent> Agents = new List<AIAgent>();
+        public static List<Construct> Constructs = new List<Construct>();
+        public static List<Obstacle> Obstacles = new List<Obstacle>();
 
         // agent
         public static void AddAgent(AIAgent agent)
         {
-            agents.Add(agent);
+            Agents.Add(agent);
         }
         public static void RemoveAgent(AIAgent agent)
         {
-            agents.RemoveAt(agents.IndexOf(agent));
+            Agents.RemoveAt(Agents.IndexOf(agent));
         }
         // AI uitls
         public static AIAgent[] GetNeighbours(AIAgent agent)
         {
             List<AIAgent> result = new List<AIAgent>();
             float sqrBoundRadius = agent.NeighbourRadius * agent.NeighbourRadius;
-            for(int i = 0; i < agents.Count; i++)
+            for (int i = 0; i < Agents.Count; i++)
             {
-                if(agents[i] != agent && Vector3.SqrMagnitude(agent.Position - agents[i].Position) <= sqrBoundRadius)
+                if (Agents[i] != agent && Vector3.SqrMagnitude(agent.Position - Agents[i].Position) <= sqrBoundRadius)
                 {
-                    result.Add(agents[i]);
+                    result.Add(Agents[i]);
                 }
             }
             return result.ToArray();
@@ -35,7 +36,7 @@ namespace Manager
         // constructs
         public static void AddConstruct(Construct construct)
         {
-            constructs.Add(construct);
+            Constructs.Add(construct);
             GlobalGameStatus.NewConstructBuilded(construct);
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " added");
@@ -43,7 +44,7 @@ namespace Manager
         }
         public static void RemoveConstruct(Construct construct)
         {
-            constructs.RemoveAt(constructs.IndexOf(construct));
+            Constructs.RemoveAt(Constructs.IndexOf(construct));
             GlobalGameStatus.ConstructDestroyed(construct);
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " destroyed");
@@ -62,6 +63,33 @@ namespace Manager
             for (int i = 0; i < constructs.Count; i++)
             {
                 if (constructs[i].IsUsePower) constructs[i].IsActive = true;
+        // obstacle
+        public static void AddObstacle(Obstacle obs)
+        {
+            Obstacles.Add(obs);
+        }
+        public static void RemoveObstacle(Obstacle obs)
+        {
+            Obstacles.RemoveAt(Obstacles.IndexOf(obs));
+        }
+        public static Obstacle[] GetObstacle(AIAgent agent)
+        {
+            List<Obstacle> result = new List<Obstacle>();
+            for (int i = 0; i < Obstacles.Count; i++)
+            {
+                if(Vector3.Distance(agent.Position,Obstacles[i].Position) <= agent.detectBoxLenght)
+                {
+                    result.Add(Obstacles[i]);
+                }
+            }
+            return result.ToArray();
+        }
+
+        public static void WhiteAll()
+        {
+            for (int i = 0; i < Obstacles.Count; i++)
+            {
+                Obstacles[i].White();
             }
         }
     }
