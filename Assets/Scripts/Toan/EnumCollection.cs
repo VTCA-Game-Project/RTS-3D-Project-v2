@@ -20,5 +20,23 @@ namespace EnumCollection
         Normal,
         Slow,
     }
+
+    public enum PayGoldStatus
+    {
+        Terminal, // remain gold equal 0
+        Success,  // success 
+        Pause     // remain gold less than require gold
+    }
+
+    public enum Vehicle
+    {
+        GrizzlyTank,
+    }
+
+    public enum Soldier
+    {
+        Builder,
+        Infantry
+    }
 }
 

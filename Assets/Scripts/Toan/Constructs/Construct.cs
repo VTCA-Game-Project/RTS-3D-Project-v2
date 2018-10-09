@@ -4,13 +4,17 @@ using UnityEngine;
 
 namespace Common
 {
-    public class Construct : MonoBehaviour
+    public abstract class Construct : MonoBehaviour
     {
 
-        private ConstructId[] onwed;
-        private int hp;
+        protected ConstructId[] onwed;
+        protected int ConsumePower { get; set; }
+        protected int hp;
+        
 
-        public ConstructId Id;
+        public bool IsActive { get; set; }
+        public bool IsUsePower { get; protected set; }
+        public ConstructId Id { get; protected set; }
         public ConstructId[] Owned
         {
             get { return onwed; }
@@ -21,13 +25,14 @@ namespace Common
             get { return hp; }
             protected set { hp = value; }
         }
-        private void Start()
+
+        public abstract void Produce();
+        protected virtual void Start()
         {
             Init();
-            Build();
         }
 
-        private void Init()
+        protected void Init()
         {
             switch (Id)
             {
@@ -71,15 +76,16 @@ namespace Common
                     break;
             }
         }
-        private void UnlockConstruct()
+        protected void UnlockConstruct()
         {
             StoredManager.AddConstruct(this);
         }
 
         // public method
-        public void Build()
+        public virtual void Build()
         {
             UnlockConstruct();
+            GlobalGameStatus.IncreaseRequirePower(ConsumePower);
         }
 
         public void RecieveDamage(int damage)
@@ -88,15 +94,21 @@ namespace Common
             if (hp <= 0) hp = 0;
         }
 
-        public void DestroyConstruct()
+        public virtual void DestroyConstruct()
         {
             StoredManager.RemoveConstruct(this);
+            GlobalGameStatus.DecreaseRequirePower(ConsumePower);
             Destroy(this.gameObject);
         }
 
-        private void Update()
+        public void Reqair()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            // do something
+        }
+        
+        protected virtual void Update()
+        {
+            if (Hp <= 0)
             {
                 DestroyConstruct();
             }

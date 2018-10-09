@@ -23,7 +23,6 @@ public class ClickOn : MonoBehaviour
     void Start()
     {
         Camera.main.gameObject.GetComponent<Click>().SelectableObjects.Add(this.gameObject);
-      
         ClickMe();
     }
 
