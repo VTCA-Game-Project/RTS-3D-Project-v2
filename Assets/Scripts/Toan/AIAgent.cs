@@ -7,18 +7,19 @@ namespace Common
 {
     public class AIAgent : GameEntity
     {
-        private SteerBehavior steerBh;
-        private FlockBehavior flockBh;
+        protected SteerBehavior steerBh;
+        protected FlockBehavior flockBh;
+        protected ObstacleAvoidance avoidanceBh;
 
-        private Vector3 steering;
-        private Vector3 aceleration;
+        protected Vector3 steering;
+        protected Vector3 aceleration;
+        protected bool isSelected = false;
+        protected bool isReachedTarget = true;       
+        protected AIAgent[] neighbours;
+        protected Obstacle[] obstacles;
 
-        private bool isSelected = false;
-        private bool isReachedTarget = true;
-        private Rigidbody agentRigid;
-        private MeshRenderer meshRenderer;
-        private AIAgent[] neighbours;
-        private Obstacle[] obstacles;
+        public Rigidbody AgentRigid { get; protected set; }
+        public MeshRenderer meshRenderer { get; protected set; }
 
         public Pointer target;
         public float separation;
@@ -27,8 +28,8 @@ namespace Common
         public float maxSpeed;
         //public int index;
         [Header("Obstacle avoidance")]
-        public float detectBoxLenght;
-        public float minDetectionBoxLenght;
+        public float DetectBoxLenght;
+        public float MinDetectionBoxLenght;
 
 #if UNITY_EDITOR
         [Header("Debug")]
@@ -43,7 +44,7 @@ namespace Common
             // using projection
             get
             {
-                return Vector3.ProjectOnPlane(agentRigid.velocity, Vector3.up);
+                return Vector3.ProjectOnPlane(AgentRigid.velocity, Vector3.up);
             }
         }
         public float MaxSpeed
@@ -86,15 +87,18 @@ namespace Common
 
 
             StoredManager.AddAgent(this);
-            agentRigid = GetComponent<Rigidbody>();
+            AgentRigid = GetComponent<Rigidbody>();
             meshRenderer = GetComponentInChildren<MeshRenderer>();
             target = FindObjectOfType<Pointer>();
             BoundRadius = 2;
+            NeighbourRadius = 10.0f;
         }
         private void Start()
         {
             steerBh = AIUtils.steerBehaviorInstance;
             flockBh = AIUtils.flockBehaviorInstance;
+            avoidanceBh = new ObstacleAvoidance();
+
             isSelected = true;
         }
         private void FixedUpdate()
@@ -114,10 +118,12 @@ namespace Common
 
 
                 // obstacle avoidance test
-                steering += ObstacleAvoidance();
+                obstacles = StoredManager.GetObstacle(this);
+                DetectBoxLenght = avoidanceBh.CalculateDetectBoxLenght(this);
+                steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles);
 
-                aceleration = steering / agentRigid.mass;
-                agentRigid.velocity = TruncateVel(agentRigid.velocity + aceleration);
+                aceleration = steering / AgentRigid.mass;
+                AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
                 RotateAgent();
 
             }
@@ -128,9 +134,9 @@ namespace Common
 
         private void RotateAgent()
         {
-            if (agentRigid.velocity.sqrMagnitude > (0.1f * 0.1f))
+            if (AgentRigid.velocity.sqrMagnitude > (0.1f * 0.1f))
             {
-                transform.forward += agentRigid.velocity;
+                transform.forward += AgentRigid.velocity;
             }
             else
             {
@@ -149,61 +155,6 @@ namespace Common
             isReachedTarget = false;
         }
 
-        Obstacle closestObs = null;
-
-        private Vector3 ObstacleAvoidance()
-        {
-            detectBoxLenght = minDetectionBoxLenght + (agentRigid.velocity.sqrMagnitude / (float)(maxSpeed * maxSpeed)) * maxSpeed;
-            obstacles = StoredManager.GetObstacle(this);
-            StoredManager.WhiteAll();
-            // find losed obstacle
-
-            Vector3 localPosObstacle = Vector3.negativeInfinity;
-
-            float distToClosest = (closestObs != null) ? Vector3.Distance(closestObs.Position, Position) : float.MaxValue;
-            float dist = 0.0f;
-
-            for (int i = 0; i < obstacles.Length; i++)
-            {
-                dist = Vector3.Distance(obstacles[i].Position, Position);
-                if (dist < distToClosest)
-                {
-                    distToClosest = dist;
-                    closestObs = obstacles[i];
-                }
-                localPosObstacle = MathUtils.ToLocalPoint(transform, obstacles[i].Position);
-                //Debug.Log("Index: " + obstacles[i].Index + " World point: " + obstacles[i].Position +
-                //       " | Local point: " + localPosObstacle);
-
-
-            }
-
-            if (closestObs)
-            {
-                float x1, x2;
-                Vector3 closestLocal = MathUtils.ToLocalPoint(transform, closestObs.Position);
-                closestObs.Red();
-                if (closestLocal.z > 0 && MathUtils.CalculateQuadraticBetweenCircleAndXAxis(
-                       new Vector2(closestLocal.z, closestLocal.x),
-                       closestObs.BoundRadius + BoundRadius/2.0f, out x1, out x2))
-                {
-#if UNITY_EDITOR
-                    Debug.Log("Index : " + closestObs.Index + " Local instersection: x1 = " + x1 + " x2 = " + x2 + " local pos: " +
-                        MathUtils.ToLocalPoint(transform, closestObs.Position));
-                    float closestIZ = Mathf.Min(x1, x2);
-                    float multiplier = 1.0f + (detectBoxLenght - closestIZ) / detectBoxLenght;
-
-                    float xF = (5 - closestLocal.x) * multiplier;
-                    float zF = (5 - closestIZ);
-
-                    return transform.TransformVector(new Vector3(xF, 0, zF));
-#endif  
-                }
-            }
-            return Vector3.zero;
-            //if (closestObs != null)
-            //    Debug.Log("Closest index: " + closestObs.Index);
-        }
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -213,8 +164,11 @@ namespace Common
                 Gizmos.color = Color.black;
                 Gizmos.DrawWireSphere(transform.position, meshRenderer.bounds.extents.x);
 
-                Gizmos.color = Color.blue;
-                Gizmos.DrawRay(transform.position, transform.forward * detectBoxLenght);
+                if (AgentRigid != null)
+                {
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawRay(transform.position, transform.forward * DetectBoxLenght);
+                }
             }
         }
 #endif

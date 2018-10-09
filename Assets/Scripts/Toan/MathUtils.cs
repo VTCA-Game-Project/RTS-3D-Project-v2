@@ -9,6 +9,10 @@ namespace Utils
             return localTrans.InverseTransformPoint(point);
         }
 
+        public static Vector3 ToWorldVector(Transform localTrans,Vector3 vector)
+        {
+            return localTrans.TransformVector(vector);
+        }
         public static bool CalculateQuadraticBetweenCircleAndXAxis(Vector2 center,float R, out float x1, out float x2)
         {
             // (a,b) = Center

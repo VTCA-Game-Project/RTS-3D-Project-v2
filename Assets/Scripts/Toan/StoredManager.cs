@@ -79,7 +79,7 @@ namespace Manager
             List<Obstacle> result = new List<Obstacle>();
             for (int i = 0; i < Obstacles.Count; i++)
             {
-                if(Vector3.Distance(agent.Position,Obstacles[i].Position) <= agent.detectBoxLenght)
+                if(Vector3.Distance(agent.Position,Obstacles[i].Position) <= agent.DetectBoxLenght)
                 {
                     result.Add(Obstacles[i]);
                 }
