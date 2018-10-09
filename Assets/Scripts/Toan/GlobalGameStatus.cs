@@ -6,7 +6,7 @@ namespace Manager
 {
     public class GlobalGameStatus
     {
-        private static List<ConstructId> constructsCantBuild = new List<ConstructId>();
+        public static List<ConstructId> constructsCantBuild = new List<ConstructId>();
 
         public static void NewConstructBuilded(Construct construct)
         {

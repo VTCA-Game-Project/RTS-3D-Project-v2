@@ -42,7 +42,11 @@ public class ButtonDownUnitBar : MonoBehaviour
                 this.State = StateUnitButton.OTA;
              
                 break;
-           
+            case "":
+                this.State = StateUnitButton.NONE;
+
+                break;
+
         }
 
         parentbuttondow.UnitElementactive();
