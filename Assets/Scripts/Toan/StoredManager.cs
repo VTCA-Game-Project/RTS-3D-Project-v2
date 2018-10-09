@@ -49,5 +49,20 @@ namespace Manager
             Debug.Log(construct.Id + " destroyed");
 #endif
         }
+
+        public static void PowerLow()
+        {
+            for(int i = 0; i < constructs.Count; i++)
+            {
+                if (constructs[i].IsUsePower) constructs[i].IsActive = false;
+            }
+        }
+        public static void PowerHight()
+        {
+            for (int i = 0; i < constructs.Count; i++)
+            {
+                if (constructs[i].IsUsePower) constructs[i].IsActive = true;
+            }
+        }
     }
 }

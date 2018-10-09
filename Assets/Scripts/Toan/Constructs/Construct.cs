@@ -4,12 +4,16 @@ using UnityEngine;
 
 namespace Common
 {
-    public class Construct : MonoBehaviour
+    public abstract class Construct : MonoBehaviour
     {
 
         protected ConstructId[] onwed;
+        protected int ConsumePower { get; set; }
         protected int hp;
+        
 
+        public bool IsActive { get; set; }
+        public bool IsUsePower { get; protected set; }
         public ConstructId Id { get; protected set; }
         public ConstructId[] Owned
         {
@@ -21,6 +25,8 @@ namespace Common
             get { return hp; }
             protected set { hp = value; }
         }
+
+        public abstract void Produce();
         protected virtual void Start()
         {
             Init();
@@ -79,6 +85,7 @@ namespace Common
         public virtual void Build()
         {
             UnlockConstruct();
+            GlobalGameStatus.IncreaseRequirePower(ConsumePower);
         }
 
         public void RecieveDamage(int damage)
@@ -90,6 +97,7 @@ namespace Common
         public virtual void DestroyConstruct()
         {
             StoredManager.RemoveConstruct(this);
+            GlobalGameStatus.DecreaseRequirePower(ConsumePower);
             Destroy(this.gameObject);
         }
 
@@ -97,6 +105,7 @@ namespace Common
         {
             // do something
         }
+        
         protected virtual void Update()
         {
             if (Hp <= 0)

@@ -8,4 +8,13 @@ namespace InterfaceCollection
         Vector3 Heading { get; }
         Vector3 Velocity { get; }
     }
+
+    interface IAttackable
+    {
+        void Attack();
+    }
+    interface IDetectEnemy
+    {
+        void DetectEnemy();
+    }
 }

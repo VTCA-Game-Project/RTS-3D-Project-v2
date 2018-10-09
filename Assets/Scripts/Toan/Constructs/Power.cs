@@ -13,6 +13,9 @@ public class Power : Construct
     {
         Id = ConstructId.Power;
         PowerVolume = 10;
+        ConsumePower = 0;
+        IsActive = true;
+        IsUsePower = false;
         base.Start();
     }
 
@@ -26,5 +29,10 @@ public class Power : Construct
     {
         GlobalGameStatus.PowerBuildDestroyed(this);
         base.DestroyConstruct();
+    }
+
+    public override void Produce()
+    {
+        return;
     }
 }

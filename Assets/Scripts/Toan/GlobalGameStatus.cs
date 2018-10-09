@@ -6,8 +6,35 @@ namespace Manager
 {
     public class GlobalGameStatus
     {
+        protected static int remainPower = 0;
+        protected static int requirePower = 0;
+
+        public static int RequirePower
+        {
+            get { return requirePower; }
+            protected set
+            {
+                requirePower = value;
+                if (RemainPower < RequirePower)
+                    StoredManager.PowerLow();
+                else
+                    StoredManager.PowerHight();
+            }
+        }
+        public static int RemainPower
+        {
+            get { return remainPower; }
+            protected set
+            {
+                remainPower = value;
+                if (RemainPower < RequirePower)
+                    StoredManager.PowerLow();
+                else
+                    StoredManager.PowerHight();
+            }
+        }
         public static float Gold { get; protected set; }
-        public static int Power { get; protected set; }
+
         public static List<ConstructId> ConstructsCantBuild = new List<ConstructId>();
 
         public static void NewConstructBuilded(Construct construct)
@@ -43,7 +70,7 @@ namespace Manager
         {
             debt = requireGold;
             if (Gold <= 0) return PayGoldStatus.Terminal;
-            if(Gold < requireGold)
+            if (Gold < requireGold)
             {
                 debt = requireGold - Gold;
                 return PayGoldStatus.Pause;
@@ -54,12 +81,21 @@ namespace Manager
 
         public static void PowerBuilded(Power building)
         {
-            Power += building.PowerVolume;
+            RemainPower += building.PowerVolume;
         }
 
         public static void PowerBuildDestroyed(Power building)
         {
-            Power -= building.PowerVolume;
+            RemainPower -= building.PowerVolume;
+        }
+
+        public static void IncreaseRequirePower(int plus)
+        {
+            RequirePower += plus;
+        }
+        public static void DecreaseRequirePower(int subtract)
+        {
+            RequirePower -= subtract;
         }
     }
 }
