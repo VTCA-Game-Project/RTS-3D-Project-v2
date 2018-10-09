@@ -154,13 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rigid: {fileID: 54154899138658644}
-  BoundRadius: 5
-  NeighbourRadius: 15
   separation: 18
   cohesion: 0.3
   alignment: 0
   maxSpeed: 5
-  index: 0
-  neighbours: []
+  detectBoxLenght: 0
+  minDetectionBoxLenght: 0
   drawGizmos: 0

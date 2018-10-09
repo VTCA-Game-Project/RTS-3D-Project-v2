@@ -1,5 +1,7 @@
 ﻿using Common;
 using EnumCollection;
+using UnityEngine;
+using Utils;
 
 namespace Building
 {
@@ -14,6 +16,19 @@ namespace Building
             IsUsePower = false;
             ConsumePower = 0;
             base.Start();
+        }
+
+        public GameObject ProduceVehicle(Vehicle vehicle)
+        {
+            string name = "";
+            switch (vehicle)
+            {
+                case Vehicle.GrizzlyTank:
+                    name = "GrizzlyTank";
+                    break;
+            }
+            
+            return AssetUtils.Instance.GetAsset(name) as GameObject;
         }
     }
 }

@@ -53,16 +53,18 @@ namespace Manager
 
         public static void PowerLow()
         {
-            for(int i = 0; i < constructs.Count; i++)
+            for(int i = 0; i < Constructs.Count; i++)
             {
-                if (constructs[i].IsUsePower) constructs[i].IsActive = false;
+                if (Constructs[i].IsUsePower) Constructs[i].IsActive = false;
             }
         }
         public static void PowerHight()
         {
-            for (int i = 0; i < constructs.Count; i++)
+            for (int i = 0; i < Constructs.Count; i++)
             {
-                if (constructs[i].IsUsePower) constructs[i].IsActive = true;
+                if (Constructs[i].IsUsePower) Constructs[i].IsActive = true;
+            }
+        }
         // obstacle
         public static void AddObstacle(Obstacle obs)
         {

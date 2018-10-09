@@ -27,5 +27,16 @@ namespace EnumCollection
         Success,  // success 
         Pause     // remain gold less than require gold
     }
+
+    public enum Vehicle
+    {
+        GrizzlyTank,
+    }
+
+    public enum Soldier
+    {
+        Builder,
+        Infantry
+    }
 }
 
