@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Common.Entity;
 using Manager;
 using UnityEngine;
 using Utils;
@@ -7,24 +7,32 @@ namespace AI
 {
     public class ObstacleAvoidance
     {
+        private static readonly ObstacleAvoidance instance = new ObstacleAvoidance();
+
+        private float agentRadius;
+        private float detectBoxLenght;
         private Obstacle closestObs = null;
-        private float BoundRadius;
+        private Vector3 localPosObstacle;
+
+        private ObstacleAvoidance() { }
+        public static ObstacleAvoidance Instance { get { return instance; } }
 
         public float CalculateDetectBoxLenght(AIAgent agent)
         {
             return agent.MinDetectionBoxLenght
-                + (agent.AgentRigid.velocity.sqrMagnitude / (agent.maxSpeed * agent.maxSpeed))
-                * agent.maxSpeed;
+                + (agent.AgentRigid.velocity.sqrMagnitude / (agent.MaxSpeed * agent.MaxSpeed))
+                * agent.MaxSpeed;
         }
         public Vector3 GetObsAvoidanceForce(AIAgent agent, Obstacle[] obstacles)
         {
-            float detectBoxLenght = agent.DetectBoxLenght;
-            BoundRadius = agent.BoundRadius;           
+            closestObs      = null;
+            detectBoxLenght = agent.DetectBoxLenght;
+            agentRadius     = agent.BoundRadius;           
 
             StoredManager.WhiteAll();
-            // find losed obstacle
-            Vector3 localPosObstacle = Vector3.negativeInfinity;
 
+            // find losed obstacle
+            localPosObstacle = Vector3.negativeInfinity;
             float distToClosest = (closestObs != null) ? Vector3.Distance(closestObs.Position, agent.Position) : float.MaxValue;
             float dist = 0.0f;
 
@@ -40,13 +48,14 @@ namespace AI
             }
             if (closestObs)
             {
-                float x1, x2;
-                Vector3 closestLocal = MathUtils.ToLocalPoint(agent.transform, closestObs.Position);
                 closestObs.Red();
+
+                float x1, x2;
+                Vector3 closestLocal = MathUtils.ToLocalPoint(agent.transform, closestObs.Position);                
                 if (closestLocal.z > 0 && 
                     MathUtils.CalculateQuadraticBetweenCircleAndXAxis(
                        new Vector2(closestLocal.z, closestLocal.x),
-                       closestObs.BoundRadius + BoundRadius, out x1, out x2))
+                       closestObs.BoundRadius + agentRadius, out x1, out x2))
                 {
                     Debug.Log("Index : " + closestObs.Index + " Local instersection: x1 = " + x1 + " x2 = " + x2 + " local pos: " +
                         MathUtils.ToLocalPoint(agent.transform, closestObs.Position));

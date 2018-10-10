@@ -1,11 +1,12 @@
 ﻿using Manager;
 using UnityEngine;
 
-namespace Common
+namespace Common.Entity
 {
     public class Obstacle : GameEntity
     {
         private MeshRenderer meshRenderer;
+
         public float BoundRadius { get; set; }
         public int Index;
         private void Awake()

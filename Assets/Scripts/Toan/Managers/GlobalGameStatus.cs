@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
+using Common.Building;
+
 namespace Manager
 {
     public class GlobalGameStatus
@@ -24,6 +26,7 @@ namespace Manager
                     StoredManager.PowerHight();
             }
         }
+
         public static int RemainPower
         {
             get { return remainPower; }
@@ -36,8 +39,6 @@ namespace Manager
                     StoredManager.PowerHight();
             }
         }
-
-
 
         public static void NewConstructBuilded(Construct construct)
         {
@@ -95,6 +96,7 @@ namespace Manager
         {
             RequirePower += plus;
         }
+
         public static void DecreaseRequirePower(int subtract)
         {
             RequirePower -= subtract;

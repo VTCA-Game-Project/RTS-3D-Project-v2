@@ -2,6 +2,7 @@
 
 namespace InterfaceCollection
 {
+    // interface for properties
     interface IGameEntiy
     {
         Vector3 Position { get; }
@@ -9,6 +10,7 @@ namespace InterfaceCollection
         Vector3 Velocity { get; }
     }
 
+    // interface for behavior
     interface IAttackable
     {
         void Attack();
@@ -17,5 +19,10 @@ namespace InterfaceCollection
     {
         void DetectEnemy();
     }
+    interface IProduce
+    {
+        GameObject Produce(System.Enum type);
+    }
+    // 
 }
 

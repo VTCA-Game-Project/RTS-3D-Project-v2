@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Common.Entity;
 using UnityEngine;
 
 namespace AI
@@ -62,7 +62,7 @@ namespace AI
             }
             if (count <= 0) return Vector3.zero;
             centerOfMass /= count;
-            return Utils.Singleton.SteerBehavior.Seek(agent, centerOfMass);
+            return Pattern.Singleton.SteerBehavior.Seek(agent, centerOfMass);
         }
 
         public static FlockBehavior Instance { get { return instance; } }

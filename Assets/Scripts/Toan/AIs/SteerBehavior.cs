@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Common;
+using Common.Entity;
 using EnumCollection;
 
 namespace AI

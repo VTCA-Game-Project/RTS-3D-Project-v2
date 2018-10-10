@@ -1,14 +1,12 @@
-﻿using Common;
-using EnumCollection;
+﻿using EnumCollection;
+using Pattern;
 using UnityEngine;
 using Utils;
 
-namespace Building
+namespace Common.Building
 {
     public class Barrack : Construct
     {
-        public override void Produce() { }
-
         protected override void Start()
         {
             Id = ConstructId.Barrack;
@@ -18,19 +16,13 @@ namespace Building
             base.Start();
         }
 
-        public GameObject ProduceSoldier(Soldier soldier)
+        public GameObject Produce(System.Enum type)
         {
-            string name = "";
-            switch (soldier)
+            if (type.GetType() == typeof(Soldier))
             {
-                case Soldier.Builder:
-                    name = "Builder";
-                    break;
-                case Soldier.Infantry:
-                    name = "Infantry";
-                    break;
+                return Singleton.AssetUtils.GetAsset(type.ToString()) as GameObject;
             }
-            return AssetUtils.Instance.GetAsset(name) as GameObject;
+            return null;
         }
     }
 }

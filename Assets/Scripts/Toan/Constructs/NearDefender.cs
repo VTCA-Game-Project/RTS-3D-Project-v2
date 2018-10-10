@@ -3,7 +3,7 @@ using EnumCollection;
 using Common;
 using InterfaceCollection;
 
-namespace Building
+namespace Common.Building
 {
     public class NearDefender : Construct, IAttackable, IDetectEnemy
     {
@@ -19,15 +19,8 @@ namespace Building
         {
             base.Update();
         }
-        public override void Produce()
-        {
-            if (IsActive)
-            {
-                DetectEnemy();
-            }
-        }
 
-
+        // inferface implementation
         public void Attack()
         {
 

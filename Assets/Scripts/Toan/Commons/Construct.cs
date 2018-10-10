@@ -9,8 +9,7 @@ namespace Common
 
         protected ConstructId[] onwed;
         protected int ConsumePower { get; set; }
-        protected int hp;
-        
+        protected int hp;        
 
         public bool IsActive { get; set; }
         public bool IsUsePower { get; protected set; }
@@ -26,7 +25,6 @@ namespace Common
             protected set { hp = value; }
         }
 
-        public abstract void Produce();
         protected virtual void Start()
         {
             Init();

@@ -1,34 +1,29 @@
 ﻿using UnityEngine;
 using AI;
 using Manager;
-using Utils;
+using Pattern;
 
-namespace Common
+namespace Common.Entity
 {
     public class AIAgent : GameEntity
     {
+        protected Vector3 steering;
+        protected Vector3 aceleration;
+
+        protected AIAgent[] neighbours;
+        protected Obstacle[] obstacles;
         protected SteerBehavior steerBh;
         protected FlockBehavior flockBh;
         protected ObstacleAvoidance avoidanceBh;
 
-        protected Vector3 steering;
-        protected Vector3 aceleration;
-        protected bool isSelected = false;
-        protected bool isReachedTarget = true;       
-        protected AIAgent[] neighbours;
-        protected Obstacle[] obstacles;
-
-        public Rigidbody AgentRigid { get; protected set; }
-        public MeshRenderer meshRenderer { get; protected set; }
 
         public Pointer target;
         public float separation;
         public float cohesion;
         public float alignment;
-        public float maxSpeed;
+
         //public int index;
         [Header("Obstacle avoidance")]
-        public float DetectBoxLenght;
         public float MinDetectionBoxLenght;
 
 #if UNITY_EDITOR
@@ -37,69 +32,47 @@ namespace Common
 #endif
 
         #region Properties
-        public float BoundRadius { get; protected set; }
-        public float NeighbourRadius { get; protected set; }
+        public float MaxSpeed           { get; protected set; }
+        public float BoundRadius        { get; protected set; }
+        public float NeighbourRadius    { get; protected set; }
+        public float DetectBoxLenght    { get; protected set; }
+
+        public bool IsSelected          { get; protected set; }
+        public bool IsReachedTarget     { get; protected set; }
+
+        // component properties
+        public Rigidbody AgentRigid      { get; protected set; }
+        public MeshRenderer MeshRenderer { get; protected set; }
+
+        // override interface
         public override Vector3 Velocity
         {
             // using projection
-            get
-            {
-                return Vector3.ProjectOnPlane(AgentRigid.velocity, Vector3.up);
-            }
+            get { return Vector3.ProjectOnPlane(AgentRigid.velocity, Vector3.up); }
         }
-        public float MaxSpeed
-        {
-            get { return maxSpeed; }
-            protected set { maxSpeed = value; }
-        }
-        public bool IsSelected
-        {
-            get { return isSelected; }
-        }
-        public bool IsReachedTarget
-        {
-            get { return isReachedTarget; }
-            protected set { isReachedTarget = value; }
-        }
-        #region Old Properties
-        //public Vector3 Position
-        //{
-        //    // using projection
-        //    get
-        //    {
-        //        return Vector3.ProjectOnPlane(transform.position, Vector3.up);                
-        //    }
-        //}
-        //public Vector3 Heading
-        //{
-        //    // using projection
-        //    get
-        //    {
-        //        return Vector3.ProjectOnPlane(transform.forward, Vector3.up);
-        //    }
-        //}
-        #endregion
         #endregion
 
         private void Awake()
         {
-            gameObject.AddComponent<ClickOn>();
-
+            // gameObject.AddComponent<ClickOn>();
+            target = FindObjectOfType<Pointer>();
 
             StoredManager.AddAgent(this);
             AgentRigid = GetComponent<Rigidbody>();
-            meshRenderer = GetComponentInChildren<MeshRenderer>();
-            target = FindObjectOfType<Pointer>();
-            BoundRadius = 2;
+            MeshRenderer = GetComponentInChildren<MeshRenderer>();
+
+            BoundRadius = MeshRenderer.bounds.extents.x;
             NeighbourRadius = 10.0f;
+            IsSelected = true;
+            IsReachedTarget = false;
         }
         private void Start()
         {
             steerBh = Singleton.SteerBehavior;
             flockBh = Singleton.FlockBehavior;
-            avoidanceBh = new ObstacleAvoidance();
+            avoidanceBh = Singleton.ObstacleAvoidance;
 
-            isSelected = true;
+            MaxSpeed = 12;
         }
         private void FixedUpdate()
         {
@@ -140,29 +113,29 @@ namespace Common
             }
             else
             {
-                isReachedTarget = true;
+                IsReachedTarget = true;
             }
         }
         private Vector3 TruncateVel(Vector3 desireVel)
         {
-            return desireVel.sqrMagnitude > (maxSpeed * maxSpeed) ?
-                            desireVel.normalized * maxSpeed : desireVel;
+            return desireVel.sqrMagnitude > (MaxSpeed * MaxSpeed) ?
+                            desireVel.normalized * MaxSpeed : desireVel;
         }
-        public void Select() { isSelected = true; }
-        public void UnSelect() { isSelected = false; }
+        public void Select() { IsSelected = true; }
+        public void UnSelect() { IsSelected = false; }
         public void MoveToTarget()
         {
-            isReachedTarget = false;
+            IsReachedTarget = false;
         }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (meshRenderer == null) meshRenderer = GetComponentInChildren<MeshRenderer>();
+            if (MeshRenderer == null) MeshRenderer = GetComponentInChildren<MeshRenderer>();
             if (drawGizmos)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(transform.position, meshRenderer.bounds.extents.x);
+                Gizmos.DrawWireSphere(transform.position, MeshRenderer.bounds.extents.x);
 
                 if (AgentRigid != null)
                 {

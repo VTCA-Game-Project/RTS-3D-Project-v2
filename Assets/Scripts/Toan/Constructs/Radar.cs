@@ -1,16 +1,17 @@
-﻿using Common;
-using EnumCollection;
+﻿using EnumCollection;
 
-public class Radar : Construct
+namespace Common.Building
 {
-    public override void Produce() { }
-
-    protected override void Start()
+    public class Radar : Construct
     {
-        Id = ConstructId.Radar;
-        IsUsePower = true;
-        IsActive = true;
-        ConsumePower = 20;       
-        base.Start();
+
+        protected override void Start()
+        {
+            Id = ConstructId.Radar;
+            IsUsePower = true;
+            IsActive = true;
+            ConsumePower = 20;
+            base.Start();
+        }
     }
 }
