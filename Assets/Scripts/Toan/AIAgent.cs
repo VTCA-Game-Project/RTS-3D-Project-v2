@@ -95,8 +95,8 @@ namespace Common
         }
         private void Start()
         {
-            steerBh = AIUtils.steerBehaviorInstance;
-            flockBh = AIUtils.flockBehaviorInstance;
+            steerBh = Singleton.SteerBehavior;
+            flockBh = Singleton.FlockBehavior;
             avoidanceBh = new ObstacleAvoidance();
 
             isSelected = true;

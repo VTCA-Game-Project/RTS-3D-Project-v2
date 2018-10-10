@@ -3,20 +3,17 @@ using UnityEngine;
 
 namespace Utils
 {
-    public class AssetUtils : MonoBehaviour
+    public class AssetUtils
     {
-        public static AssetUtils Instance;
+        private static readonly AssetUtils instance = new AssetUtils();
         private Dictionary<int, Object> assets;
 
-        private void Awake()
+        private AssetUtils()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(Instance.gameObject);
             assets = new Dictionary<int, Object>();
             Load(@"Prefabs", false);
         }
+
         public void Load(string path, bool clearPreload)
         {
             if (clearPreload) assets.Clear();
@@ -36,6 +33,11 @@ namespace Utils
 #endif
             return asset;
 
+        }
+
+        public static AssetUtils Instance
+        {
+            get { return instance; }
         }
     }
 }

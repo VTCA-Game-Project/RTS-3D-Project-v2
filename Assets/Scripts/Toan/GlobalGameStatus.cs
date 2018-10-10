@@ -5,8 +5,8 @@ using Common;
 namespace Manager
 {
     public class GlobalGameStatus
-    {    public static float Gold { get; protected set; }
-
+    {
+        public static float Gold { get; protected set; }
         public static List<ConstructId> ConstructsCantBuild = new List<ConstructId>();
 
         protected static int remainPower = 0;
@@ -36,7 +36,7 @@ namespace Manager
                     StoredManager.PowerHight();
             }
         }
-    
+
 
 
         public static void NewConstructBuilded(Construct construct)

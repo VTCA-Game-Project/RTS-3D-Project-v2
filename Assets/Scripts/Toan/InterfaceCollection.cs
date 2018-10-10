@@ -18,3 +18,4 @@ namespace InterfaceCollection
         void DetectEnemy();
     }
 }
+
