@@ -258,7 +258,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1637666394126480, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -273,7 +273,7 @@ Prefab:
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
       propertyPath: MinDetectionBoxLenght
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -570,7 +570,7 @@ Prefab:
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
       propertyPath: MinDetectionBoxLenght
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -997,7 +997,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1637666394126480, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -1012,7 +1012,7 @@ Prefab:
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
       propertyPath: MinDetectionBoxLenght
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -1314,7 +1314,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1637666394126480, guid: 573b1a7e137655349b7d36856c352b61, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
@@ -1329,7 +1329,7 @@ Prefab:
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}
       propertyPath: MinDetectionBoxLenght
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114875075236224450, guid: 573b1a7e137655349b7d36856c352b61,
         type: 2}

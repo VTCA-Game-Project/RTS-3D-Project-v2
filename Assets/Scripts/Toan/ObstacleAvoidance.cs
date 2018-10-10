@@ -43,9 +43,10 @@ namespace AI
                 float x1, x2;
                 Vector3 closestLocal = MathUtils.ToLocalPoint(agent.transform, closestObs.Position);
                 closestObs.Red();
-                if (closestLocal.z > 0 && MathUtils.CalculateQuadraticBetweenCircleAndXAxis(
+                if (closestLocal.z > 0 && 
+                    MathUtils.CalculateQuadraticBetweenCircleAndXAxis(
                        new Vector2(closestLocal.z, closestLocal.x),
-                       closestObs.BoundRadius + BoundRadius / 2.0f, out x1, out x2))
+                       closestObs.BoundRadius + BoundRadius, out x1, out x2))
                 {
                     Debug.Log("Index : " + closestObs.Index + " Local instersection: x1 = " + x1 + " x2 = " + x2 + " local pos: " +
                         MathUtils.ToLocalPoint(agent.transform, closestObs.Position));
