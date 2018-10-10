@@ -5,6 +5,10 @@ namespace AI
 {
     public class FlockBehavior
     {
+        private static readonly FlockBehavior instance = new FlockBehavior();
+
+        private FlockBehavior() { }
+
         public Vector3 Separation(AIAgent agent, AIAgent[] neighbours)
         {
             Vector3 steerForce = Vector3.zero;
@@ -58,8 +62,10 @@ namespace AI
             }
             if (count <= 0) return Vector3.zero;
             centerOfMass /= count;
-            return Utils.AIUtils.steerBehaviorInstance.Seek(agent, centerOfMass);
+            return Utils.Singleton.SteerBehavior.Seek(agent, centerOfMass);
         }
+
+        public static FlockBehavior Instance { get { return instance; } }
 
     }
 }

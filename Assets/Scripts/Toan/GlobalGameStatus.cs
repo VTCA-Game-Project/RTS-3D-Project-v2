@@ -6,6 +6,9 @@ namespace Manager
 {
     public class GlobalGameStatus
     {
+        public static float Gold { get; protected set; }
+        public static List<ConstructId> ConstructsCantBuild = new List<ConstructId>();
+
         protected static int remainPower = 0;
         protected static int requirePower = 0;
 
@@ -33,9 +36,8 @@ namespace Manager
                     StoredManager.PowerHight();
             }
         }
-        public static float Gold { get; protected set; }
 
-        public static List<ConstructId> ConstructsCantBuild = new List<ConstructId>();
+
 
         public static void NewConstructBuilded(Construct construct)
         {

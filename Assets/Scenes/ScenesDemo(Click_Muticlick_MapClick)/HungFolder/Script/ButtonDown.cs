@@ -17,9 +17,11 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
     private ButtonDownUnitBar UnitBarControl;
     private void Awake()
     {
-        UnitBar.SetActive ( false);
+        UnitBar.SetActive ( true);
         UnitBarControl= UnitBar.GetComponent<ButtonDownUnitBar>();
     }
+    
+   
     public void OnPointerDown(PointerEventData eventData)
     {
         string even = eventData.pointerEnter.name.ToString();
@@ -82,7 +84,7 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
     // Use this for initialization
     void Start()
     {
-
+        UnitBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -104,18 +106,20 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
 
             if(_butel.Selected==true)
             {
+                EnableUnitBar();
                 _butel.ChangeButtonColor(_butel);
                 UnitBarControl.ChangeState(_butel.name);
-               
 
+              
 
-                EnableUnitBar();
+              
                 
             }
             else
             {
                 _butel.ChangeButtonColor(_butel);
-                
+               
+
             }
 
         }
@@ -147,11 +151,13 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
             {
                 DisableUnitBar();
               
+
             }
         }
     }
     public void UnitElementactive()
     {
+       
         for(int i =0;i<UnitList.Length;i++)
         {
 

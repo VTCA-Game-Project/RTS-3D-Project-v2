@@ -6,14 +6,18 @@ namespace AI
 {
     public class SteerBehavior
     {
+        private static readonly SteerBehavior instance = new SteerBehavior();
+
         private const float DecelerationTweaker = 0.3f;
 
-        public Deceleration deceleration;
         public float SafeDist { get; set; }
-        public SteerBehavior()
+        public Deceleration Deceleration { get; set; }
+
+        private SteerBehavior()
         {
-            deceleration = Deceleration.Normal;
+            Deceleration = Deceleration.Normal;
         }
+
         public Vector3 Seek(AIAgent agent, Vector3 target)
         {
             Vector3 desireDir = target - agent.Position;
@@ -29,11 +33,11 @@ namespace AI
         public Vector3 Flee(AIAgent agent, Vector3 target)
         {
             float distToTarget = Vector3.SqrMagnitude(target - agent.Position);
-            float panicDist = Mathf.Pow(agent.BoundRadius + SafeDist,2);
+            float panicDist = Mathf.Pow(agent.BoundRadius + SafeDist, 2);
 
             if (distToTarget < panicDist)
             {
-                Vector3 desireVel = - Seek(agent, target);
+                Vector3 desireVel = -Seek(agent, target);
                 // scale the force inversely proportional to the agent's target
                 desireVel /= Mathf.Sqrt(distToTarget);
                 return desireVel;
@@ -47,7 +51,7 @@ namespace AI
             float dist = toTarget.sqrMagnitude;
             if (dist > 0)
             {
-                float speed = dist / ((float)deceleration * DecelerationTweaker);
+                float speed = dist / ((float)Deceleration * DecelerationTweaker);
                 speed = Mathf.Min(speed, agent.MaxSpeed);
                 toTarget = toTarget * speed / Mathf.Sqrt(dist);
 
@@ -56,5 +60,7 @@ namespace AI
             }
             return Vector3.zero;
         }
+
+        public static SteerBehavior Instance { get { return instance; } }
     }
 }
