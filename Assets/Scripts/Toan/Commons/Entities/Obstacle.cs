@@ -7,12 +7,15 @@ namespace Common.Entity
     {
         private MeshRenderer meshRenderer;
 
+#if UNITY_EDITOR
+        public bool Debug;
+#endif
         public float BoundRadius { get; set; }
         public int Index;
         private void Awake()
         {
             meshRenderer = GetComponent<MeshRenderer>();
-            BoundRadius = meshRenderer.bounds.extents.x;
+            BoundRadius = meshRenderer.bounds.extents.magnitude;
 #if UNITY_EDITOR
             White();
 #endif
@@ -30,8 +33,11 @@ namespace Common.Entity
         }
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, BoundRadius + 1);
+            if (Debug)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, BoundRadius);
+            }
         }
 #endif
     }

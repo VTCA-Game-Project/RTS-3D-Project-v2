@@ -21,27 +21,28 @@ namespace Common.Entity
         public float separation;
         public float cohesion;
         public float alignment;
+        public float seekingWeight;
 
-        //public int index;
-        [Header("Obstacle avoidance")]
-        public float MinDetectionBoxLenght;
+        public float MinDetectionBoxLenght { get; protected set; }
 
 #if UNITY_EDITOR
         [Header("Debug")]
         public bool drawGizmos = true;
 #endif
-
+        /// <summary>
+        /// <params name = "BoundRange">2 * Radius</params>
+        /// </summary>
         #region Properties
-        public float MaxSpeed           { get; protected set; }
-        public float BoundRadius        { get; protected set; }
-        public float NeighbourRadius    { get; protected set; }
-        public float DetectBoxLenght    { get; protected set; }
+        public float MaxSpeed { get; protected set; }
+        public float BoundRange { get; protected set; }
+        public float NeighbourRadius { get; protected set; }
+        public float DetectBoxLenght { get; protected set; }
 
-        public bool IsSelected          { get; protected set; }
-        public bool IsReachedTarget     { get; protected set; }
+        public bool IsSelected { get; protected set; }
+        public bool IsReachedTarget { get; protected set; }
 
         // component properties
-        public Rigidbody AgentRigid      { get; protected set; }
+        public Rigidbody AgentRigid { get; protected set; }
         public MeshRenderer MeshRenderer { get; protected set; }
 
         // override interface
@@ -61,10 +62,12 @@ namespace Common.Entity
             AgentRigid = GetComponent<Rigidbody>();
             MeshRenderer = GetComponentInChildren<MeshRenderer>();
 
-            BoundRadius = MeshRenderer.bounds.extents.x;
-            NeighbourRadius = 10.0f;
+            BoundRange = MeshRenderer.bounds.extents.magnitude;
+            MinDetectionBoxLenght = BoundRange;
+            NeighbourRadius = 8.0f;
             IsSelected = true;
             IsReachedTarget = false;
+
         }
         private void Start()
         {
@@ -82,7 +85,7 @@ namespace Common.Entity
                 aceleration = Vector3.zero;
                 //if (!isReachedTarget)
                 //{
-                steering += steerBh.Seek(this, target.Position);
+                steering += steerBh.Seek(this, target.Position) * seekingWeight;
                 //}
                 neighbours = StoredManager.GetNeighbours(this);
                 steering += flockBh.Separation(this, neighbours) * separation;
@@ -91,11 +94,13 @@ namespace Common.Entity
 
 
                 // obstacle avoidance test
-                obstacles = StoredManager.GetObstacle(this);
-                DetectBoxLenght = avoidanceBh.CalculateDetectBoxLenght(this);
-                steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles);
-
-                aceleration = steering / AgentRigid.mass;
+                if (AgentRigid.velocity.sqrMagnitude > 0.01f)
+                {
+                    DetectBoxLenght = avoidanceBh.CalculateDetectBoxLenght(this);
+                    obstacles = StoredManager.GetObstacle(this);
+                    steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles) * 1.5f;
+                }
+                aceleration = steering * Mathf.Pow(AgentRigid.mass, -1);
                 AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
                 RotateAgent();
 
@@ -107,9 +112,11 @@ namespace Common.Entity
 
         private void RotateAgent()
         {
-            if (AgentRigid.velocity.sqrMagnitude > (0.1f * 0.1f))
+            if (AgentRigid.velocity.sqrMagnitude > (1.0f))
             {
-                transform.forward += AgentRigid.velocity;
+                transform.forward += AgentRigid.velocity * Mathf.Pow(AgentRigid.mass, -1);
+                Debug.Log(AgentRigid.velocity.sqrMagnitude);
+                // transform.forward = Vector3.RotateTowards(Heading, Velocity, 0.2f, 0.2f);
             }
             else
             {
@@ -135,7 +142,7 @@ namespace Common.Entity
             if (drawGizmos)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(transform.position, MeshRenderer.bounds.extents.x);
+                Gizmos.DrawWireSphere(transform.position, BoundRange);
 
                 if (AgentRigid != null)
                 {

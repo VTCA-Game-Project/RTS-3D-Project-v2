@@ -62,7 +62,6 @@ public class Pointer : MonoBehaviour
                                 layerMask: LayerMask.GetMask("Place")))
             {
                 Position = hitInfo.point;
-                Debug.Log(hitInfo.collider.name);
             }
         }
 

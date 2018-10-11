@@ -33,7 +33,7 @@ namespace AI
         public Vector3 Flee(AIAgent agent, Vector3 target)
         {
             float distToTarget = Vector3.SqrMagnitude(target - agent.Position);
-            float panicDist = Mathf.Pow(agent.BoundRadius + SafeDist, 2);
+            float panicDist = Mathf.Pow(agent.BoundRange + SafeDist, 2);
 
             if (distToTarget < panicDist)
             {
