@@ -44,7 +44,7 @@ namespace Common.Entity
 
         // component properties
         public Rigidbody AgentRigid { get; protected set; }
-        public MeshRenderer MeshRenderer { get; protected set; }
+        public SkinnedMeshRenderer SkinMeshRenderer { get; protected set; }
 
         // override interface
         public override Vector3 Velocity
@@ -61,11 +61,11 @@ namespace Common.Entity
 
             StoredManager.AddAgent(this);
             AgentRigid = GetComponent<Rigidbody>();
-            MeshRenderer = GetComponentInChildren<MeshRenderer>();
+            SkinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
-            Radius = MeshRenderer.bounds.extents.magnitude * 0.5f;
+            Radius = SkinMeshRenderer.bounds.extents.x;
             MinDetectionBoxLenght = Radius;
-            NeighbourRadius = 8.0f;
+            NeighbourRadius = 5.0f;
             IsSelected = true;
             IsReachedTarget = false;
 
@@ -76,7 +76,7 @@ namespace Common.Entity
             flockBh = Singleton.FlockBehavior;
             avoidanceBh = Singleton.ObstacleAvoidance;
 
-            MaxSpeed = 12;
+            MaxSpeed = 5;
         }
         private void FixedUpdate()
         {
@@ -137,11 +137,11 @@ namespace Common.Entity
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            if (MeshRenderer == null) MeshRenderer = GetComponentInChildren<MeshRenderer>();
+            if (SkinMeshRenderer == null) SkinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             if (drawGizmos)
             {
                 Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(transform.position, NeighbourRadius);
+                Gizmos.DrawWireSphere(transform.position, Radius);
 
                 if (AgentRigid != null)
                 {
