@@ -48,7 +48,8 @@ namespace Manager
             float sqrBoundRadius = agent.NeighbourRadius * agent.NeighbourRadius;
             for (int i = 0; i < agents.Count; i++)
             {
-                if (agents[i] != agent && Vector3.SqrMagnitude(agent.Position - agents[i].Position) <= sqrBoundRadius)
+                if (agents[i] != agent && 
+                    Vector3.SqrMagnitude(agent.Position - agents[i].Position) <= sqrBoundRadius)
                 {
                     result.Add(agents[i]);
                 }

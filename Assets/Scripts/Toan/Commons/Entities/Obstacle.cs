@@ -15,7 +15,7 @@ namespace Common.Entity
         private void Awake()
         {
             meshRenderer = GetComponent<MeshRenderer>();
-            BoundRadius = meshRenderer.bounds.extents.magnitude;
+            BoundRadius = meshRenderer.bounds.extents.x;
 #if UNITY_EDITOR
             White();
 #endif
