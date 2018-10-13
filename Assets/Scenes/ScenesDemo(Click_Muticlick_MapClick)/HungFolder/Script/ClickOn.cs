@@ -6,14 +6,8 @@ using UnityEngine;
 public class ClickOn : MonoBehaviour
 {
 
-
-    [SerializeField]
-    private Material red;
-    [SerializeField]
-    private Material Green;
     [HideInInspector]
     public bool currentselect = false;
-
     private AIAgent agent;
 
     private void Awake()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1183,7 +1183,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &187620385
 GameObject:
@@ -1493,10 +1493,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!114 &247870456
@@ -1507,11 +1507,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 247870454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 247870457}
-  rigid: {fileID: 0}
+  Animations: {fileID: 247870457}
 --- !u!111 &247870457
 Animation:
   m_ObjectHideFlags: 0
@@ -1640,6 +1639,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -1879,7 +1882,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300144380
 GameObject:
@@ -2190,10 +2193,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!114 &352791003
@@ -2204,11 +2207,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 352791001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 352791004}
-  rigid: {fileID: 0}
+  Animations: {fileID: 352791004}
 --- !u!111 &352791004
 Animation:
   m_ObjectHideFlags: 0
@@ -3259,6 +3261,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -4120,7 +4126,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582112888
 GameObject:
@@ -4378,7 +4384,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 500218492}
   - {fileID: 1432355508}
@@ -4598,7 +4604,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 1504499478}
   - {fileID: 829853259}
@@ -4997,10 +5003,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!114 &683789853
@@ -5011,11 +5017,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 683789851}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 683789854}
-  rigid: {fileID: 0}
+  Animations: {fileID: 683789854}
 --- !u!111 &683789854
 Animation:
   m_ObjectHideFlags: 0
@@ -5833,7 +5838,7 @@ Transform:
   - {fileID: 669461024}
   - {fileID: 627052355}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &782432135
 MonoBehaviour:
@@ -5843,11 +5848,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 782432132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 782432133}
-  rigid: {fileID: 0}
+  Animations: {fileID: 782432133}
 --- !u!114 &782432136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5860,10 +5864,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!54 &782432137
@@ -6074,7 +6078,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 1152817764}
   - {fileID: 826773629}
@@ -6593,11 +6597,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
-  avoidanceWeight: 1.5
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
+  avoidanceWeight: 2
   drawGizmos: 1
 --- !u!114 &894102867
 MonoBehaviour:
@@ -6607,11 +6611,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 894102865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 894102868}
-  rigid: {fileID: 0}
+  Animations: {fileID: 894102868}
 --- !u!111 &894102868
 Animation:
   m_ObjectHideFlags: 0
@@ -7205,6 +7208,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -7454,7 +7461,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011043786
 GameObject:
@@ -7619,7 +7626,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 463878417}
   - {fileID: 1931054271}
@@ -8126,7 +8133,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 78.484, y: 4, z: 0}
 --- !u!114 &1116619911
 MonoBehaviour:
@@ -8495,7 +8502,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 1772800898}
   - {fileID: 690518592}
@@ -9720,7 +9727,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 1408200675}
   - {fileID: 2144479657}
@@ -9948,6 +9955,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -10176,7 +10187,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 4300002, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+  m_Mesh: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
   m_Bones:
   - {fileID: 37478707}
   - {fileID: 1158345103}
@@ -10310,6 +10321,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -10928,7 +10943,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489667511
 GameObject:
@@ -11542,6 +11557,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -12083,7 +12102,7 @@ GameObject:
   - component: {fileID: 1663984626}
   - component: {fileID: 1663984625}
   - component: {fileID: 1663984624}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12157,7 +12176,7 @@ Transform:
   m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1665635945
 GameObject:
@@ -13053,6 +13072,10 @@ Prefab:
       propertyPath: m_Name
       value: GoblinWizard (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: adc0631e34771904882ca8e09173aae9, type: 3}
     m_RemovedComponents:
     - {fileID: 11100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ddfca24f2e00e53499f8cab0d7e8e4a5, type: 3}
@@ -13627,7 +13650,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1843104938
 GameObject:
@@ -13753,10 +13776,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!114 &1867200222
@@ -13767,11 +13790,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867200220}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 1867200223}
-  rigid: {fileID: 0}
+  Animations: {fileID: 1867200223}
 --- !u!111 &1867200223
 Animation:
   m_ObjectHideFlags: 0
@@ -14172,10 +14194,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  separation: 0
-  cohesion: 0
-  alignment: 0
-  seekingWeight: 1
+  separation: 3
+  cohesion: 0.1
+  alignment: 0.01
+  seekingWeight: 0.8
   avoidanceWeight: 1.5
   drawGizmos: 1
 --- !u!114 &1914364842
@@ -14186,11 +14208,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1914364840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f490e9f50e9a0408e1b410d3825f5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anims: {fileID: 1914364843}
-  rigid: {fileID: 0}
+  Animations: {fileID: 1914364843}
 --- !u!111 &1914364843
 Animation:
   m_ObjectHideFlags: 0
@@ -14584,7 +14605,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952291374
 GameObject:
@@ -15476,7 +15497,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069487563
 GameObject:
@@ -15683,7 +15704,7 @@ Transform:
   m_Children:
   - {fileID: 1823571873}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2087183790
 GameObject:

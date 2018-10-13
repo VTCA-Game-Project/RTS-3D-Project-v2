@@ -26,6 +26,8 @@ namespace Common.Entity
 
         public float MinDetectionBoxLenght { get; protected set; }
 
+
+        protected AnimationStateCtrl anims;
 #if UNITY_EDITOR
         [Header("Debug")]
         public bool drawGizmos = true;
@@ -69,6 +71,7 @@ namespace Common.Entity
             IsSelected = true;
             IsReachedTarget = false;
 
+            anims = GetComponent<AnimationStateCtrl>();
         }
         private void Start()
         {
@@ -116,10 +119,12 @@ namespace Common.Entity
             if (AgentRigid.velocity.sqrMagnitude > (1.0f))
             {
                 transform.forward += AgentRigid.velocity / AgentRigid.mass;
+                anims.Play("Run");
             }
             else
             {
                 IsReachedTarget = true;
+                anims.Play("Idle");
             }
         }
         private Vector3 TruncateVel(Vector3 desireVel)
