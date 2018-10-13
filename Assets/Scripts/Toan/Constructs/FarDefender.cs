@@ -1,9 +1,7 @@
-﻿
-using EnumCollection;
-using Common;
+﻿using EnumCollection;
 using InterfaceCollection;
 
-namespace Building
+namespace Common.Building
 {
     public class FarDefender : Construct, IAttackable, IDetectEnemy
     {
@@ -19,15 +17,8 @@ namespace Building
         {
             base.Update();
         }
-        public override void Produce()
-        {
-            if (IsActive)
-            {
-                DetectEnemy();
-            }
-        }
 
-
+        // interface implementation
         public void Attack()
         {
 

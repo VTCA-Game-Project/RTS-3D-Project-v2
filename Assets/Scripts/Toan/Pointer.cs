@@ -14,23 +14,26 @@ public class Pointer : MonoBehaviour
 
     private List<CubeManager> ListBuildCube = new List<CubeManager>();
 
-    
+
     public bool OnselectTaget = false;
 
     private bool OnholdTaget = false;
 
-    
+
     public Vector2 BuildSize = new Vector2();
     #region Properties
     [SerializeField]
     private GameObject Map;
     private MapControl ControlMap = new MapControl();
 
-  
+
 
     public void Start()
     {
-        ControlMap = Map.GetComponent<MapControl>();
+        if (Map != null)
+        {
+            ControlMap = Map.GetComponent<MapControl>();
+        }
     }
     public Vector3 Position
     {
@@ -46,26 +49,25 @@ public class Pointer : MonoBehaviour
     #endregion
     private void Update()
     {
-      
+
 
 
 
         if (Input.GetMouseButtonUp(0))
         {
             ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray:            ray,
-                                hitInfo:        out hitInfo,
-                                maxDistance:    Mathf.Infinity,
-                                layerMask:      LayerMask.GetMask("Place")))
+            if (Physics.Raycast(ray: ray,
+                                hitInfo: out hitInfo,
+                                maxDistance: Mathf.Infinity,
+                                layerMask: LayerMask.GetMask("Place")))
             {
                 Position = hitInfo.point;
-                Debug.Log(hitInfo.collider.name);
             }
         }
 
 
         if (OnselectTaget == true)
-        { 
+        {
             ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray: ray,
                                 hitInfo: out hitInfo,
@@ -74,21 +76,21 @@ public class Pointer : MonoBehaviour
             {
 
                 CubeManager cube = hitInfo.collider.gameObject.GetComponent<CubeManager>();
-              
+
 
                 if (cube.GetState() == "None" && cube != null)
                 {
 
-                   
-                    setBuildSize(BuildSize, cube);
-                  
 
-                  
+                    setBuildSize(BuildSize, cube);
+
+
+
 
                 }
                 foreach (CubeManager _cube in ListCubeSelected)
                 {
-                    if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube)&&!CheckBuildedCude(_cube))
+                    if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube) && !CheckBuildedCude(_cube))
                     {
                         _cube.SetState("None");
                         _cube.OnraycastIn();
@@ -99,7 +101,7 @@ public class Pointer : MonoBehaviour
                 }
                 if (ListCubeSelected.Count >= 100)
                 {
-                    
+
                     for (int k = 0; k < ListInSelect.Count; k++)
                     {
                         ListInSelect[k].SetState("None");
@@ -118,7 +120,7 @@ public class Pointer : MonoBehaviour
 
             if (OnholdTaget == true)
             {
-                if (Input.GetMouseButtonDown(0)&& select())
+                if (Input.GetMouseButtonDown(0) && select())
                 {
                     for (int k = 0; k < ListInSelect.Count; k++)
                     {
@@ -132,16 +134,16 @@ public class Pointer : MonoBehaviour
                 }
             }
 
-            if(Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 OnholdTaget = true;
             }
 
-            
-           
+
+
         }
 
-        
+
 
     }
 
@@ -149,37 +151,37 @@ public class Pointer : MonoBehaviour
 
 
 
-    private void setBuildSize(Vector2 size,CubeManager currentpoint)
+    private void setBuildSize(Vector2 size, CubeManager currentpoint)
     {
 
         if (LatPoint != currentpoint.CodeLocal)
         {
-           
+
             ListInSelect = new List<CubeManager>();
-           
-            if(!CheckBuildedCude(currentpoint))
+
+            if (!CheckBuildedCude(currentpoint))
             {
                 LatPoint = currentpoint.CodeLocal;
                 currentpoint.SetState("Can");
                 currentpoint.OnraycastIn();
                 ListInSelect.Add(currentpoint);
             }
-          
+
             for (int i = 0; i < size.x; i++)
             {
                 for (int j = 0; j < size.y; j++)
                 {
-                   
+
                     CubeManager sub = ControlMap.GetCubeBylocal(currentpoint.CodeLocal + new Vector2(i, j));
                     if (!CheckBuildedCude(sub))
                     {
                         sub.SetState("Can");
-                        
+
                         ListCubeSelected.Add(sub);
                         sub.OnraycastIn();
                         ListInSelect.Add(sub);
                     }
-                   else
+                    else
                     {
                         if (CheckBuildedCude(sub))
                         {
@@ -187,7 +189,7 @@ public class Pointer : MonoBehaviour
 
                             sub.OnraycastIn();
                         }
-                       
+
                     }
 
                 }
@@ -196,7 +198,7 @@ public class Pointer : MonoBehaviour
     }
     private bool select()
     {
-        for(int i=0;i<ListInSelect.Count;i++)
+        for (int i = 0; i < ListInSelect.Count; i++)
         {
             if (!ListInSelect[i].CanBuild)
             { Debug.Log(ListInSelect[i].name); return false; }
@@ -206,16 +208,16 @@ public class Pointer : MonoBehaviour
     private bool checkCubetaget(CubeManager _cube)
     {
 
-        for(int i=0;i<ListInSelect.Count;i++)
+        for (int i = 0; i < ListInSelect.Count; i++)
         {
-            if(_cube.CodeLocal==ListInSelect[i].CodeLocal)
+            if (_cube.CodeLocal == ListInSelect[i].CodeLocal)
             {
                 return true;
             }
         }
-      
 
-            return false;
+
+        return false;
     }
     private bool CheckBuildedCude(CubeManager _cube)
     {
@@ -231,7 +233,7 @@ public class Pointer : MonoBehaviour
     }
     private void SetBack()
     {
-        for(int i=0;i<ListBuildCube.Count;i++)
+        for (int i = 0; i < ListBuildCube.Count; i++)
         {
             ListBuildCube[i].SetState("Was");
             ListBuildCube[i].OnraycastIn();

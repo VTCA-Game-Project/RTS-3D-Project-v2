@@ -7,21 +7,22 @@ namespace Utils
     {
         private static readonly AssetUtils instance = new AssetUtils();
         private Dictionary<int, Object> assets;
-
         private AssetUtils()
         {
             assets = new Dictionary<int, Object>();
             Load(@"Prefabs", false);
         }
 
-        public void Load(string path, bool clearPreload)
+        public static AssetUtils Instance { get { return instance; } }
+        public Object[] Load(string path, bool clearPreloaded)
         {
-            if (clearPreload) assets.Clear();
+            if (clearPreloaded) assets.Clear();
             Object[] allAssets = Resources.LoadAll(path);
             for (int i = 0; i < allAssets.Length; i++)
             {
                 assets.Add(allAssets[i].name.GetHashCode(), allAssets[i]);
             }
+            return allAssets;
         }
 
         public Object GetAsset(string name)
@@ -33,11 +34,6 @@ namespace Utils
 #endif
             return asset;
 
-        }
-
-        public static AssetUtils Instance
-        {
-            get { return instance; }
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using Manager;
 using UnityEngine;
 
-namespace Common
+namespace Common.Entity
 {
     public class Obstacle : GameEntity
     {
         private MeshRenderer meshRenderer;
+
+#if UNITY_EDITOR
+        public bool Debug;
+#endif
         public float BoundRadius { get; set; }
         public int Index;
         private void Awake()
@@ -29,8 +33,11 @@ namespace Common
         }
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, BoundRadius + 1);
+            if (Debug)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(transform.position, BoundRadius);
+            }
         }
 #endif
     }

@@ -1,13 +1,13 @@
-﻿using Common;
-using EnumCollection;
+﻿using EnumCollection;
+using InterfaceCollection;
+using Pattern;
 using UnityEngine;
 using Utils;
 
-namespace Building
+namespace Common.Building
 {
-    public class War : Construct
+    public class War : Construct, IProduce
     {
-        public override void Produce() { }
 
         protected override void Start()
         {
@@ -18,17 +18,13 @@ namespace Building
             base.Start();
         }
 
-        public GameObject ProduceVehicle(Vehicle vehicle)
+        public GameObject Produce(System.Enum type)
         {
-            string name = "";
-            switch (vehicle)
+            if(type.GetType() == typeof(Vehicle))
             {
-                case Vehicle.GrizzlyTank:
-                    name = "GrizzlyTank";
-                    break;
+                return Singleton.AssetUtils.GetAsset(type.ToString()) as GameObject;
             }
-            
-            return AssetUtils.Instance.GetAsset(name) as GameObject;
+            return null;
         }
     }
 }

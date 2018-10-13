@@ -8,7 +8,6 @@ namespace Utils
         private MathUtils() { }
 
         public static MathUtils Instance { get { return instance; } }
-
         public static Vector3 ToLocalPoint(Transform localTrans, Vector3 point)
         {
             return localTrans.InverseTransformPoint(point);
