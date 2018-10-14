@@ -24,37 +24,37 @@ public class UnitElement : MonoBehaviour
 
 
     }
+    public void InBuldUnitClick(int i, Vector2 Buildsize)
+    {
+        if (this.gameObject.name == "UnitBuild" + i )
+        {
+            string inputvalues = "";
+            if (Input.GetMouseButtonDown(0))
+                inputvalues = "LEFT";
+            if (Input.GetMouseButtonDown(1))
+                inputvalues = "RIGHT";
+            Build.OnUnitClick(inputvalues, Buildsize);
+            inputvalues = "";
 
-    public void DoSomeThing()
+        }
+    }
+    public void DoSomeThing(int i, Vector2 buildsize)
     {
 
-        if (this.gameObject.name == "Unit1" && UnitBarState.State == StateUnitButton.OBA)
+       
+        if (this.gameObject.name == "UnitSoilder" + i )
         {
           
-            Build.OnUnit1Click();
+           
+            Soild.OnUnitClick();
+           
         }
 
 
+
+
     }
-    public void ActiveComponent()
-    {
-
-
-        if (UnitBarState.State == StateUnitButton.OBA)
-        { Build.enabled = true; Def.enabled = false; Soild.enabled = false; Tank.enabled = false; Build.CurrentImage.sprite = Build.NewImage; }
-        if (UnitBarState.State == StateUnitButton.ODA)
-        { Build.enabled = false; Def.enabled = true; Soild.enabled = false; Tank.enabled = false; Def.CurrentImage.sprite = Def.NewImage; }
-        if (UnitBarState.State == StateUnitButton.OSA)
-        { Build.enabled = false; Def.enabled = false; Soild.enabled = true; Tank.enabled = false; Soild.CurrentImage.sprite = Soild.NewImage; }
-        if (UnitBarState.State == StateUnitButton.OTA)
-        { Build.enabled = false; Def.enabled = false; Soild.enabled = false; Tank.enabled = true; Tank.CurrentImage.sprite = Tank.NewImage; }
-        if (UnitBarState.State == StateUnitButton.NONE)
-        {
-            Build.enabled = false; Def.enabled = false; Soild.enabled = false; Tank.enabled = false;
-
-            CurrentImage.sprite = null;
-        }
-    }
+   
     private void Update()
     {
         //ActiveComponent();

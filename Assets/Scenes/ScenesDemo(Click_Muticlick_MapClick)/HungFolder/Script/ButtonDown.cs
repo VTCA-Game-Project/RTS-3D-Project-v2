@@ -8,17 +8,21 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
 {
     
     public GameObject[] ButtonList;
-    public GameObject[] UnitList;
+    public GameObject[] UnitBuildList;
+    public GameObject[] UnitDefList;
+    public GameObject[] UnitSoilderList;
+    public GameObject[] UnitTankList;
+    public GameObject[] UnitManagerList;
     private ButtonElement element;
     private UnitElement UnitElement;
     delegate void tranfrom();
-    tranfrom Buttonhandler;
-    public GameObject UnitBar;
-    private ButtonDownUnitBar UnitBarControl;
+  
+    
+  
     private void Awake()
     {
-        UnitBar.SetActive ( true);
-        UnitBarControl= UnitBar.GetComponent<ButtonDownUnitBar>();
+        
+       
     }
     
    
@@ -29,69 +33,70 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
         {
             case "BuildButton":
                 element = ButtonList[0].GetComponent<ButtonElement>();
-                Buttonhandler = element.Showon;
+                element.Showon("BuildButton");
                 break;
             case "DefButton":
                 element = ButtonList[1].GetComponent<ButtonElement>();
-                Buttonhandler = element.Showon;
+                element.Showon("DefButton");
                 break;
             case "SoilderButton":
                 element = ButtonList[2].GetComponent<ButtonElement>();
-                Buttonhandler = element.Showon;
+                element.Showon("SoilderButton");
                 break;
             case "TankButton":
                 element = ButtonList[3].GetComponent<ButtonElement>();
-                Buttonhandler = element.Showon;
+                element.Showon("TankButton");
                 break;
-            case "Unit1":
-                UnitElement = UnitList[0].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild1":
+                UnitElement = UnitBuildList[0].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(1, new Vector2(3, 3));
                 break;
-            case "Unit2":
-                UnitElement = UnitList[1].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild2":
+                UnitElement = UnitBuildList[1].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(2, new Vector2(3, 3));
                 break;
-            case "Unit3":
-                UnitElement = UnitList[2].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild3":
+                UnitElement = UnitBuildList[2].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(3,new Vector2 (3,3));
                 break;
-            case "Unit4":
-                UnitElement = UnitList[3].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild4":
+                UnitElement = UnitBuildList[3].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(4, new Vector2(3, 3));
                 break;
-            case "Unit5":
-                UnitElement = UnitList[4].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild5":
+                UnitElement = UnitBuildList[4].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(5, new Vector2(3, 3));
                 break;
-            case "Unit6":
-                UnitElement = UnitList[5].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild6":
+                UnitElement = UnitBuildList[5].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(6, new Vector2(3, 3));
                 break;
-            case "Unit7":
-                UnitElement = UnitList[6].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild7":
+                UnitElement = UnitBuildList[6].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(7, new Vector2(3, 3));
                 break;
-            case "Unit8":
-                UnitElement = UnitList[7].GetComponent<UnitElement>();
-                Buttonhandler = UnitElement.DoSomeThing;
+            case "UnitBuild8":
+                UnitElement = UnitBuildList[7].GetComponent<UnitElement>();
+                UnitElement.InBuldUnitClick(8, new Vector2(3, 3));
                 break;
 
+
         }
-        Buttonhandler();
+       
     }
     
 
     // Use this for initialization
     void Start()
     {
-        UnitBar.SetActive(false);
+        DisableUnitBar();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        CheckButtonlistSate();
+        ClearUnactiveButton();
     }
     public void ChangeStatusButton(ButtonElement butel)
     {
@@ -106,9 +111,28 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
 
             if(_butel.Selected==true)
             {
-                EnableUnitBar();
-                _butel.ChangeButtonColor(_butel);
-                UnitBarControl.ChangeState(_butel.name);
+                switch(butel.name)
+                {
+                    case "BuildButton":
+                        EnableUnitBar("UnitBuyBuild");
+                        _butel.ChangeButtonColor(_butel);
+                        break;
+                    case "DefButton":
+                        EnableUnitBar("UnitBuyDef");
+                        _butel.ChangeButtonColor(_butel);
+                        break;
+                    case "SoilderButton":
+                        EnableUnitBar("UnitBuySoilder");
+                        _butel.ChangeButtonColor(_butel);
+                        break;
+                    case "TankButton":
+                        EnableUnitBar("UnitBuyTank");
+                        _butel.ChangeButtonColor(_butel);
+                        break;
+                }
+               
+               
+              
 
               
 
@@ -125,15 +149,22 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
         }
 
     }
-    public void EnableUnitBar()
+    public void EnableUnitBar(string _name)
     {
-        UnitBar.SetActive (true);
+        foreach (GameObject manager in UnitManagerList)
+        {
+            if (manager.name == _name)
+                manager.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
     }
     public void DisableUnitBar()
     {
-        UnitBar.SetActive(false);
+        foreach (GameObject manager in UnitManagerList)
+        {
+            manager.transform.eulerAngles = new Vector3(0, 90, 0);
+        }
     }
-    private void CheckButtonlistSate()
+    private void ClearUnactiveButton()
     {
 
 
@@ -155,17 +186,48 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
             }
         }
     }
-    public void UnitElementactive()
+    public void UnitElementactive(string _name)
     {
-       
-        for(int i =0;i<UnitList.Length;i++)
+
+          foreach(GameObject manager in UnitManagerList)
         {
-
-            UnitElement = UnitList[i].GetComponentInChildren<UnitElement>();
-            UnitElement.ActiveComponent();
+            if (manager.name == _name)
+                 manager.transform.eulerAngles= new Vector3(0,90,0);
+            else
+                manager.transform.eulerAngles = new Vector3(0, 0, 0);
         }
-          
 
+    }
+
+
+
+    public bool returnactivebuton()
+    {
+        foreach (GameObject GO in ButtonList)
+        {
+            ButtonElement _element = GO.GetComponent<ButtonElement>();
+            if (_element.Selected == true)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public bool CheckActiveButton(string name)
+    {
+
+
+        foreach (GameObject GO in ButtonList)
+        {
+            ButtonElement _element = GO.GetComponent<ButtonElement>();
+            if (_element.Selected == true&&_element.name==name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
   

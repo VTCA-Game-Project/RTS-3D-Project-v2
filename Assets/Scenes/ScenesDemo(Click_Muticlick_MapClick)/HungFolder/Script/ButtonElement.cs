@@ -31,13 +31,18 @@ public class ButtonElement : MonoBehaviour {
 
 
     }
-    public void Showon()
+    public void Showon(string name)
     {
 
-        if(gameObject.tag=="ControlButton")
+        if(!downfunction.returnactivebuton()|| downfunction.CheckActiveButton(name))
         {
             Selected = !Selected;
-            ControlButtonUpdate();
+            ButtonElement butel = this.GetComponent<ButtonElement>();
+            downfunction.ChangeStatusButton(butel);
+
+        }
+        else
+        {
 
         }
         if (gameObject.tag == "Active")
@@ -53,28 +58,20 @@ public class ButtonElement : MonoBehaviour {
 
 
 
-    private void ControlButtonUpdate()
-    {
-        
-        ButtonElement butel = this.GetComponent<ButtonElement>();
-        downfunction.ChangeStatusButton(butel);
-       
-      
-       
-    }
+   
     public void ChangeButtonColor(ButtonElement butel)
     {
         _color = _image.color;
         if (butel.Selected == true)
         {
-            _color.a += 1;
+            _color.a =90;
         }
         else
         {
             _color.a = 0;
         }
 
-
+        Debug.Log(_color.a);
         _image.color = _color;
     }
 }

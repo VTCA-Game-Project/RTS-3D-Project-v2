@@ -19,7 +19,7 @@ public class Pointer : MonoBehaviour
 
     private bool OnholdTaget = false;
 
-    
+    [HideInInspector]
     public Vector2 BuildSize = new Vector2();
     #region Properties
     [SerializeField]
@@ -46,8 +46,32 @@ public class Pointer : MonoBehaviour
     #endregion
     private void Update()
     {
-      
 
+        foreach (CubeManager cube in ListInSelect)
+        {
+            if (CheckBuildedCude(cube))
+            {
+              
+                foreach (CubeManager _cube in ListInSelect)
+                {
+                    _cube.SetState("Not");
+                    _cube.OnraycastIn();
+                }
+            }
+            else
+            {
+                cube.SetState("Can");
+                cube.OnraycastIn();
+
+
+                foreach (CubeManager _cube in ListBuildCube)
+                {
+                    _cube.SetState("Was");
+                    _cube.OnraycastIn();
+                }
+            }
+           
+        }
 
 
         if (Input.GetMouseButtonUp(0))
@@ -59,7 +83,7 @@ public class Pointer : MonoBehaviour
                                 layerMask:      LayerMask.GetMask("Place")))
             {
                 Position = hitInfo.point;
-                Debug.Log(hitInfo.collider.name);
+               
             }
         }
 
@@ -76,19 +100,16 @@ public class Pointer : MonoBehaviour
                 CubeManager cube = hitInfo.collider.gameObject.GetComponent<CubeManager>();
               
 
-                if (cube.GetState() == "None" && cube != null)
+                if ( cube != null)
                 {
-
-                   
+             
                     setBuildSize(BuildSize, cube);
-                  
 
-                  
 
                 }
                 foreach (CubeManager _cube in ListCubeSelected)
                 {
-                    if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube)&&!CheckBuildedCude(_cube))
+                    if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube)&&_cube.CanBuild==true)
                     {
                         _cube.SetState("None");
                         _cube.OnraycastIn();
@@ -116,16 +137,37 @@ public class Pointer : MonoBehaviour
             }
 
 
-            if (OnholdTaget == true)
+            if (OnholdTaget)
             {
-                if (Input.GetMouseButtonDown(0)&& select())
+                if (Input.GetMouseButtonDown(0))
                 {
+                  
+                    int number = 0;
                     for (int k = 0; k < ListInSelect.Count; k++)
                     {
-                        ListInSelect[k].SetState("Was");
-                        ListInSelect[k].CanBuild = false;
-                        ListBuildCube.Add(ListInSelect[k]);
+                        if (ListInSelect[k].CanBuild == true)
+
+                        {
+                            number++;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                      
+                      
+                    }                  
+                    if(number==ListInSelect.Count)
+                    {
+                       for( int k = 0; k < ListInSelect.Count; k++)
+                        {
+                            ListInSelect[k].SetState("Was");
+                            ListInSelect[k].CanBuild = false;
+                            ListInSelect[k].OnraycastIn();
+                          ListBuildCube.Add(ListInSelect[k]);
+                        }
                     }
+                    
                     ListCubeSelected = new List<CubeManager>();
                     ListInSelect = new List<CubeManager>();
                     ResetTaget();
@@ -159,9 +201,7 @@ public class Pointer : MonoBehaviour
            
             if(!CheckBuildedCude(currentpoint))
             {
-                LatPoint = currentpoint.CodeLocal;
-                currentpoint.SetState("Can");
-                currentpoint.OnraycastIn();
+                LatPoint = currentpoint.CodeLocal;               
                 ListInSelect.Add(currentpoint);
             }
           
@@ -171,38 +211,20 @@ public class Pointer : MonoBehaviour
                 {
                    
                     CubeManager sub = ControlMap.GetCubeBylocal(currentpoint.CodeLocal + new Vector2(i, j));
-                    if (!CheckBuildedCude(sub))
-                    {
-                        sub.SetState("Can");
+                   
+                        
                         
                         ListCubeSelected.Add(sub);
-                        sub.OnraycastIn();
+                      
                         ListInSelect.Add(sub);
-                    }
-                   else
-                    {
-                        if (CheckBuildedCude(sub))
-                        {
-                            sub.SetState("Not");
-
-                            sub.OnraycastIn();
-                        }
-                       
-                    }
+                    
+                  
 
                 }
             }
         }
     }
-    private bool select()
-    {
-        for(int i=0;i<ListInSelect.Count;i++)
-        {
-            if (!ListInSelect[i].CanBuild)
-            { Debug.Log(ListInSelect[i].name); return false; }
-        }
-        return true;
-    }
+   
     private bool checkCubetaget(CubeManager _cube)
     {
 
@@ -219,6 +241,7 @@ public class Pointer : MonoBehaviour
     }
     private bool CheckBuildedCude(CubeManager _cube)
     {
+       
         for (int i = 0; i < ListBuildCube.Count; i++)
         {
             if (_cube.CodeLocal == ListBuildCube[i].CodeLocal)
@@ -229,14 +252,7 @@ public class Pointer : MonoBehaviour
 
         return false;
     }
-    private void SetBack()
-    {
-        for(int i=0;i<ListBuildCube.Count;i++)
-        {
-            ListBuildCube[i].SetState("Was");
-            ListBuildCube[i].OnraycastIn();
-        }
-    }
+   
 
     public void ResetTaget()
     {

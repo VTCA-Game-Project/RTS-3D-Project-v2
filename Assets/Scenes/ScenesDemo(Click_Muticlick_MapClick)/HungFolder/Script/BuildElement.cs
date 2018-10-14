@@ -11,10 +11,16 @@ public class BuildElement : MonoBehaviour {
     public Image CurrentImage;
     public Sprite NewImage;
     public GameObject Mouse;
+    public Image CountDownIMG;
     private Pointer ClickEvent;
     private float totaltime=0f;
     private float delaytime =5f;
+    private float TimeperUpdate = 1f;
+    private float totaltimeImage = 0f;
+    private float delaytimeImag = 0.5f;
+    Color newcolo;
     private bool stateCowdown;
+    private bool CowDownComplete;
     void Start()
     {
         ClickEvent = Mouse.GetComponent<Pointer>();
@@ -22,6 +28,9 @@ public class BuildElement : MonoBehaviour {
         CurrentImage = GetComponent<Image>();
 
         CurrentImage.sprite = NewImage;
+        newcolo = CountDownIMG.color;
+        newcolo.a = 0;
+        CountDownIMG.color = newcolo;
     }
 
     // Update is called once per frame
@@ -29,29 +38,83 @@ public class BuildElement : MonoBehaviour {
     {
         if(stateCowdown)
         {
-            totaltime += 1 * Time.deltaTime;
+            totaltime += TimeperUpdate * Time.deltaTime;
+
+            CountDownIMG.fillAmount -=(TimeperUpdate/delaytime) * Time.deltaTime;
+
         }
 
         if(totaltime>delaytime)
         {
-            Vector2 buidSize = new Vector2(3, 3);
-            ClickEvent.ResetTaget();
-            ClickEvent.BuildSize = buidSize;
-            ClickEvent.OnselectTaget = true;
-            totaltime = 0f;
+            CountDownIMG.fillAmount = 1;
+             totaltime = 0f;
             stateCowdown = false;
+            CowDownComplete = true;
+          
+           
         }
+
+        if(CowDownComplete)
+        {
+            if(totaltimeImage> delaytimeImag)
+
+            {
+              
+                newcolo.a *= -1;
+                CountDownIMG.color = newcolo;
+
+                totaltimeImage = 0;
+            }
+            else
+            {
+               
+                totaltimeImage += 0.5f * Time.deltaTime;
+            }
+
+        }
+
+        
 		
 	}
 
-    public void OnUnit1Click()
+    public void OnUnitClick(string inputvalues, Vector2 buidSize)
     {
-        if (!stateCowdown)
+        if (!stateCowdown&&!CowDownComplete)
         {
-            Debug.Log("i'm here");
+            
             stateCowdown = true;
-            CurrentImage.color= Color.yellow;
+
+           
+
+            newcolo.a =180;
+            CountDownIMG.color= newcolo;
         }
-       
+        if (CowDownComplete)
+        {
+            if (inputvalues == "LEFT")
+            {
+              
+                ClickEvent.ResetTaget();
+                ClickEvent.BuildSize = buidSize;
+                ClickEvent.OnselectTaget = true;
+                CowDownComplete = false;
+
+                newcolo.a = 0;
+                CountDownIMG.color = newcolo;
+            }
+            if (inputvalues == "RIGHT")
+            {
+                CowDownComplete = false;
+
+                newcolo.a = 0;
+                CountDownIMG.color = newcolo;
+            }
+
+        }
+
     }
+
+
+
+
 }
