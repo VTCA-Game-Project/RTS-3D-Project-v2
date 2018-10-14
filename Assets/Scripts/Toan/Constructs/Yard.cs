@@ -1,11 +1,9 @@
-﻿using Common;
-using EnumCollection;
+﻿using EnumCollection;
 
-namespace Building
+namespace Common.Building
 {
     public class Yard : Construct
     {
-        public override void Produce() { }
 
         protected override void Start()
         {

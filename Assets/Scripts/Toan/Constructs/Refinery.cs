@@ -1,9 +1,8 @@
-﻿using Common;
-using EnumCollection;
+﻿using EnumCollection;
 using Manager;
-using UnityEngine;
 
-namespace Building
+
+namespace Common.Building
 {
     public class Refinery : Construct
     {
@@ -25,9 +24,5 @@ namespace Building
             GlobalGameStatus.ReceiveGold(gold);
         }
 
-        public override void Produce()
-        {
-            return;
-        }
     }
 }
