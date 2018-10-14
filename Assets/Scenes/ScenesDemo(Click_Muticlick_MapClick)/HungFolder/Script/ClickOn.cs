@@ -1,43 +1,32 @@
 ﻿using Common.Entity;
+using InterfaceCollection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickOn : MonoBehaviour
 {
-
-
-    [SerializeField]
-    private Material red;
-    [SerializeField]
-    private Material Green;
-    [HideInInspector]
-    public bool currentselect = false;
-
-    private AIAgent agent;
-
+    private ISelectable selectableObject;
     private void Awake()
     {
-        agent = GetComponent<AIAgent>();
+        selectableObject = GetComponent<AIAgent>();
     }
     void Start()
     {
-        Camera.main.gameObject.GetComponent<Click>().SelectableObjects.Add(this.gameObject);
-        ClickMe();
+        Click.Instance.Add(this);
+        UnSelect();
     }
 
-    // Update is called once per frame
-
-    public void ClickMe()
+    public void Select()
     {
-        if (currentselect == true)
-        {
-            agent.Select();
-        }
-        else
-        {
-            agent.UnSelect();
-        }
-           
+        selectableObject.Select();           
+    }
+    public void UnSelect()
+    {
+        selectableObject.UnSelect();
+    }
+    public void Action()
+    {
+        selectableObject.Action();
     }
 }

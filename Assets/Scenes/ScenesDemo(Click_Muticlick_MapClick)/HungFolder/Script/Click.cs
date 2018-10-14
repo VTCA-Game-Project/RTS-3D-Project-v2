@@ -1,103 +1,138 @@
-﻿using Manager;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Click : MonoBehaviour {
+public class Click : MonoBehaviour
+{
+    public static Click Instance;
+    public LayerMask Clicklayer;
+    public Camera cameraRaycaster;
 
-    [SerializeField]
-    private LayerMask Clicklayer;
-    [SerializeField]
-    private Camera _camraycast;
-    [SerializeField]
-    private GameObject ClickPoint;
-    private List<GameObject> SelectObject;
-    [HideInInspector]
-    public List<GameObject> SelectableObjects;
+    private Vector3 startLeftMouse;
+    private Vector3 endLeftMouse;
+    private RaycastHit hitInfo;
 
-    private Vector3 mousepos1;
-    private Vector3 mousepos2;
-    // Update is called once per frame
+    private List<ClickOn> selectedObjects;
+    private List<ClickOn> selectableObjects;
+
+
     void Awake()
     {
-        SelectObject = new List<GameObject>();
-        SelectableObjects = new List<GameObject>();
-      
+        if (Instance == null) Instance = this;
+        else if (Instance != null) Destroy(Instance.gameObject);
+
+        selectedObjects         = new List<ClickOn>();
+        selectableObjects       = new List<ClickOn>();
+
     }
-    void Update ()
+    void Update()
     {
         if (Input.GetMouseButtonDown(1))
-        { ClearSelection(); }
-            if (Input.GetMouseButtonDown(0))
         {
-           // ClearSelection();
-            mousepos1 = _camraycast.ScreenToViewportPoint(Input.mousePosition);
-            RaycastHit rayHit;
-            
-           
-            var ray = _camraycast.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray ,out rayHit,Mathf.Infinity, Clicklayer))
-            {
-               ClickOn _clickon= rayHit.collider.GetComponent<ClickOn>();
-                Debug.Log(rayHit.collider.name);
+            RighMouseDown();
+        }
 
-                ClearSelection();
-                SelectObject.Add(rayHit.collider.gameObject);
-                _clickon.currentselect = true;
-                _clickon.ClickMe();
-            }
-          
-        }
-            if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            mousepos2 = _camraycast.ScreenToViewportPoint(Input.mousePosition);
-            if (mousepos1 != mousepos2)
-                SelectObs();
+            LeftMouseDown();
         }
-	}
+        else if (Input.GetMouseButtonUp(0))
+        {
+            LeftMouseUp();
+        }
+    }
     void SelectObs()
     {
-        List<GameObject> remObject = new List<GameObject>();
-        Rect selectrect = new Rect(mousepos1.x, mousepos1.y, mousepos2.x - mousepos1.x, mousepos2.y - mousepos1.y);
-        foreach (GameObject selectobj in SelectableObjects)
-
+        Rect selectrect = new Rect((Vector2)startLeftMouse,(Vector2)(endLeftMouse - startLeftMouse));
+        foreach (ClickOn selectobj in selectableObjects)
         {
             if (selectobj != null)
             {
-                if (selectrect.Contains(_camraycast.WorldToViewportPoint(selectobj.transform.position), true))
+                if (selectrect.Contains(cameraRaycaster.WorldToViewportPoint(selectobj.transform.position), true))
                 {
-                    SelectObject.Add(selectobj);
-                    selectobj.GetComponent<ClickOn>().currentselect = true;
-                    selectobj.GetComponent<ClickOn>().ClickMe();
+                    selectedObjects.Add(selectobj);
+                    selectobj.Select();
                 }
-
             }
-            else
-            {
-                remObject.Add(selectobj);
-            }
-        }
-        if(remObject.Count>0)
-        {
-            foreach(GameObject rem in remObject)
-            {
-                SelectableObjects.Remove(rem);
-            }
-            remObject.Clear();
         }
     }
     void ClearSelection()
     {
-
-        if (SelectObject.Count > 0)
+        int count = selectableObjects.Count;
+        if (count > 0)
         {
-            foreach (GameObject obj in SelectObject)
+            for (int i = 0; i < count; i++)
             {
-                obj.GetComponent<ClickOn>().currentselect = false;
-                obj.GetComponent<ClickOn>().ClickMe();
+                selectableObjects[i].UnSelect();
             }
-            SelectObject.Clear();
+            selectedObjects.Clear();
         }
+    }
+
+    public void Add(ClickOn obj)
+    {
+        if (selectableObjects.Contains(obj)) return;
+        selectableObjects.Add(obj);
+    }
+
+    // mouse events
+    private void LeftMouseDown()
+    {
+        startLeftMouse = cameraRaycaster.ScreenToViewportPoint(Input.mousePosition);
+    }
+    private void LeftMouseUp()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        endLeftMouse = cameraRaycaster.ScreenToViewportPoint(mousePosition);
+
+        if ((startLeftMouse - endLeftMouse).sqrMagnitude > 0.005f)
+        {
+            ClearSelection();
+            SelectObs();
+        }
+        else
+        {
+            if(Physics.Raycast
+                   (ray: cameraRaycaster.ScreenPointToRay(mousePosition),
+                    hitInfo: out hitInfo,
+                    maxDistance: Mathf.Infinity,
+                    layerMask: Clicklayer))
+            {
+                ClickOn obj = hitInfo.collider.GetComponent<ClickOn>();
+                if(obj != null)
+                {
+                    ClearSelection();
+                    obj.Select();
+                    selectedObjects.Add(obj);
+                }
+            }
+            else
+            {
+                Pointer.Instance.PutPointer();
+                SelectedActionCallback();
+            }
+        }
+
+        ResetMousePosition();
+    }
+
+    private void RighMouseDown()
+    {
+        ClearSelection();
+    }
+
+    private void SelectedActionCallback()
+    {
+        int count = selectedObjects.Count;
+        for (int i = 0; i < count; i++)
+        {
+            selectedObjects[i].Action();
+        }
+    }
+
+    private void ResetMousePosition()
+    {
+        startLeftMouse = Vector3.zero;
+        endLeftMouse = Vector3.zero;
     }
 }
 

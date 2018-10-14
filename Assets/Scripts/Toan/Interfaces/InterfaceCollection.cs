@@ -10,6 +10,12 @@ namespace InterfaceCollection
         Vector3 Velocity { get; }
     }
 
+    interface ISelectable
+    {
+        void Select();
+        void UnSelect();
+        void Action();
+    }
     // interface for behavior
     interface IAttackable
     {
