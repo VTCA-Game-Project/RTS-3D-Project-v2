@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
+    public static Pointer Instance;
     [SerializeField]
     private Camera rtsCamera;
     private Vector2 LatPoint;
@@ -26,7 +27,11 @@ public class Pointer : MonoBehaviour
     private GameObject Map;
     private MapControl ControlMap = new MapControl();
 
-
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else if( Instance != null) Destroy(Instance.gameObject);
+    }
 
     public void Start()
     {
@@ -49,21 +54,6 @@ public class Pointer : MonoBehaviour
     #endregion
     private void Update()
     {
-
-
-
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray: ray,
-                                hitInfo: out hitInfo,
-                                maxDistance: Mathf.Infinity,
-                                layerMask: LayerMask.GetMask("Place")))
-            {
-                Position = hitInfo.point;
-            }
-        }
 
 
         if (OnselectTaget == true)
@@ -146,7 +136,6 @@ public class Pointer : MonoBehaviour
 
 
     }
-
 
 
 
@@ -246,5 +235,21 @@ public class Pointer : MonoBehaviour
         OnholdTaget = false;
         BuildSize = new Vector2();
 
+    }
+
+    public void PutPointer()
+    {
+        ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray: ray,
+                            hitInfo: out hitInfo,
+                            maxDistance: Mathf.Infinity,
+                            layerMask: LayerMask.GetMask("Place")))
+        {
+            Position = hitInfo.point;
+        }
+        else
+        {
+            Debug.Log("Hit false");
+        }
     }
 }
