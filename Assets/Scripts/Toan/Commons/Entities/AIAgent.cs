@@ -3,11 +3,14 @@ using AI;
 using Manager;
 using Pattern;
 using InterfaceCollection;
+using EnumCollection;
 
 namespace Common.Entity
 {
     public class AIAgent : GameEntity, ISelectable
-    {        
+    {
+        protected AnimState nextState = AnimState.Idle;
+
         protected Vector3 target;
         protected Vector3 steering;
         protected Vector3 aceleration;
@@ -27,18 +30,13 @@ namespace Common.Entity
         public float seekingWeight;
         public float avoidanceWeight;
 
-        
-
-
-        protected AnimationStateCtrl anims;
 #if UNITY_EDITOR
         [Header("Debug")]
         public bool drawGizmos = true;
 #endif
 
-
-
         #region Properties
+        public Group Group { get; set; }
         public int HP { get; protected set; }        
         public float MaxSpeed { get; protected set; }
         public float Radius { get; protected set; }
@@ -46,6 +44,7 @@ namespace Common.Entity
         public float DetectBoxLenght { get; protected set; }
         public float MinDetectionBoxLenght { get; protected set; }
 
+        public bool IsDead { get; protected set; }
         public bool IsSelected { get; protected set; }
         public bool IsReachedTarget { get; protected set; }
 
@@ -75,8 +74,8 @@ namespace Common.Entity
             NeighbourRadius = 5.0f;
             IsSelected = false;
             IsReachedTarget = true;
+            IsDead = false;
 
-            anims = GetComponent<AnimationStateCtrl>();
         }
         private void Start()
         {
@@ -88,6 +87,8 @@ namespace Common.Entity
         }
         private void FixedUpdate()
         {
+            if (IsDead) return;
+
             steering = Vector3.zero;
             aceleration = Vector3.zero;
             if (!IsReachedTarget)
@@ -111,6 +112,7 @@ namespace Common.Entity
             AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
             RotateAgent();
 
+
 #if UNITY_EDITOR
             // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
@@ -121,13 +123,11 @@ namespace Common.Entity
             if (AgentRigid.velocity.sqrMagnitude > MinVelocity)
             {
                 transform.forward += AgentRigid.velocity / AgentRigid.mass;
-                anims.Play("Run");
             }
             else
             {
                 IsReachedTarget = true;
                 AgentRigid.velocity = Vector3.zero;
-                anims.Play("Idle");
             }
         }
         private Vector3 TruncateVel(Vector3 desireVel)
@@ -146,7 +146,20 @@ namespace Common.Entity
                 target = pointer.Position;
             }
         }
-
+        public override void Dead()
+        {
+            IsDead = true;
+            Destroy(gameObject,2);
+        }
+        public override void ReceiveDamage(int damage)
+        {
+            HP -= damage;
+            if(HP <= 0)
+            {
+                HP = 0;
+                Dead();
+            }
+        }
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {

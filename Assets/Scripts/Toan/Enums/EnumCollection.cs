@@ -37,5 +37,20 @@ namespace EnumCollection
         Builder,
         Infantry
     }
+
+    public enum AnimState
+    {
+        Run,
+        Dead,
+        Idle,
+        Damage,
+        Attack,
+    }
+
+    public enum Group
+    {
+        Player,
+        Enemy
+    }
 }
 

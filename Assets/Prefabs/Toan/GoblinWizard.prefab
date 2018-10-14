@@ -365,10 +365,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4062381179875028}
   - component: {fileID: 54878569020374688}
-  - component: {fileID: 111726147379160046}
   - component: {fileID: 136692070633177850}
-  - component: {fileID: 114365449516182892}
   - component: {fileID: 114068612859685208}
+  - component: {fileID: 95011987060426640}
+  - component: {fileID: 114903601133347030}
   m_Layer: 10
   m_Name: GoblinWizard
   m_TagString: Untagged
@@ -752,6 +752,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1668430987617276
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4166654012334170}
+  - component: {fileID: 33124362625922280}
+  - component: {fileID: 23514760633677040}
+  - component: {fileID: 111911999494872652}
+  m_Layer: 0
+  m_Name: wp_staff03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1686401811703134
 GameObject:
   m_ObjectHideFlags: 1
@@ -1010,7 +1028,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276187489059534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.01512, y: 4.6047854e-17, z: -41.47622}
+  m_LocalPosition: {x: 7.5, y: 4.6047854e-17, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4862985240165822}
@@ -1087,6 +1105,19 @@ Transform:
   m_Father: {fileID: 4183257695621540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4166654012334170
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668430987617276}
+  m_LocalRotation: {x: 0.054982767, y: -0.45846343, z: 0.8807, w: 0.10562078}
+  m_LocalPosition: {x: -0.123, y: 0.017, z: 0.024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4772642607156912}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 55.000004, y: 0, z: 166.32301}
 --- !u!4 &4173540279456082
 Transform:
   m_ObjectHideFlags: 1
@@ -1578,6 +1609,7 @@ Transform:
   m_LocalScale: {x: -1, y: -1.0000001, z: -1.0000001}
   m_Children:
   - {fileID: 4537428582009318}
+  - {fileID: 4166654012334170}
   m_Father: {fileID: 4183257695621540}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1818,6 +1850,48 @@ Transform:
   m_Father: {fileID: 4862985240165822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23514760633677040
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668430987617276}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 970cb4e12be986a469f5607f44356fdf, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33124362625922280
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668430987617276}
+  m_Mesh: {fileID: 4300000, guid: 112ca32b6c3602c4c9c02c819e5016ac, type: 3}
 --- !u!54 &54878569020374688
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1833,25 +1907,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!111 &111726147379160046
-Animation:
+--- !u!95 &95011987060426640
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276187489059534}
   m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6690e0d249965464eafaa19f5e04878c, type: 3}
+  m_Controller: {fileID: 9100000, guid: 9c6aac96d520a964c8ebff76f914467b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!111 &111911999494872652
+Animation:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668430987617276}
+  m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 6690e0d249965464eafaa19f5e04878c, type: 3}
-  m_Animations:
-  - {fileID: 7400000, guid: 6690e0d249965464eafaa19f5e04878c, type: 3}
-  - {fileID: 7400000, guid: 7d08ac2da51430d468975fca86171fc9, type: 3}
-  - {fileID: 7400000, guid: 00ab9147e3a7e78418e7a941c570b1b4, type: 3}
-  - {fileID: 7400000, guid: adc0631e34771904882ca8e09173aae9, type: 3}
-  - {fileID: 7400000, guid: f31db35057f173b41ad4e8325bec87a6, type: 3}
+  m_Animation: {fileID: 0}
+  m_Animations: []
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_CullingType: 0
 --- !u!114 &114068612859685208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1863,14 +1950,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0444b0551d52d48ac3b5b8ade63128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinVelocity: 0.1
-  separation: 3
+  MinVelocity: 0.2
+  separation: 1.2
   cohesion: 0.1
   alignment: 0.01
-  seekingWeight: 0.8
+  seekingWeight: 0.5
   avoidanceWeight: 1.5
   drawGizmos: 1
---- !u!114 &114365449516182892
+--- !u!114 &114903601133347030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1881,7 +1968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animations: {fileID: 111726147379160046}
 --- !u!136 &136692070633177850
 CapsuleCollider:
   m_ObjectHideFlags: 1
