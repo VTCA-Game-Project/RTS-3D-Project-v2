@@ -15,8 +15,10 @@ public class SoilderElement : MonoBehaviour {
     private Pointer ClickEvent;
     private float totaltime = 0f;
     private float delaytime = 5f;
-    private float TimeperUpdate = 1f;
+    private float TimeperUpdate = 0.5f;
     private int Count;
+
+    public Text _cout;
    
     Color newcolo;
     private bool stateCowdown;
@@ -37,15 +39,15 @@ public class SoilderElement : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-
-        if(Count>0)
+        _cout.text = Count.ToString();
+        if (Count > 0)
         {
+
             newcolo.a = 180;
             CountDownIMG.color = newcolo;
-        }
 
-       while(Count>0)
-        {
+
+
             totaltime += TimeperUpdate * Time.deltaTime;
 
             CountDownIMG.fillAmount -= (TimeperUpdate / delaytime) * Time.deltaTime;
@@ -58,7 +60,7 @@ public class SoilderElement : MonoBehaviour {
 
 
             }
-
+        }
             if (CowDownComplete)
             {
 
@@ -67,11 +69,12 @@ public class SoilderElement : MonoBehaviour {
                 CowDownComplete = false;
 
                 Count--;
+                Debug.Log(this.gameObject.name +"_"+ Count);
 
 
             }
 
-        }
+        
 
            
 

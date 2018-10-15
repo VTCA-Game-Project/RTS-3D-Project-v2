@@ -81,6 +81,41 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
                 break;
 
 
+
+            case "UnitSoilder1":
+                UnitElement = UnitSoilderList[0].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(1);
+                break;
+            case "UnitSoilder2":
+                UnitElement = UnitSoilderList[1].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(2);
+                break;
+            case "UnitSoilder3":
+                UnitElement = UnitSoilderList[2].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(3);
+                break;
+            case "UnitSoilder4":
+                UnitElement = UnitSoilderList[3].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(4);
+                break;
+            case "UnitSoilder5":
+                UnitElement = UnitSoilderList[4].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(5);
+                break;
+            case "UnitSoilder6":
+                UnitElement = UnitSoilderList[5].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(6);
+                break;
+            case "UnitSoilder7":
+                UnitElement = UnitSoilderList[6].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(7);
+                break;
+            case "UnitSoilder8":
+                UnitElement = UnitSoilderList[7].GetComponent<UnitElement>();
+                UnitElement.InSoilderUnitClick(8);
+                break;
+
+
         }
        
     }
@@ -98,55 +133,40 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
 
         ClearUnactiveButton();
     }
-    public void ChangeStatusButton(ButtonElement butel)
+    public void ChangeStatusButton(ButtonElement _but)
     {
 
-        for (int j = 0; j < ButtonList.Length; j++)
-        {
-
-            ButtonElement _butel = ButtonList[j].GetComponent<ButtonElement>();
-            if (_butel.name != butel.name)
-                _butel.Selected = false;
-
-
-            if(_butel.Selected==true)
-            {
-                switch(butel.name)
+                switch(_but.name)
                 {
                     case "BuildButton":
                         EnableUnitBar("UnitBuyBuild");
-                        _butel.ChangeButtonColor(_butel);
+                      
                         break;
                     case "DefButton":
                         EnableUnitBar("UnitBuyDef");
-                        _butel.ChangeButtonColor(_butel);
+                     
                         break;
                     case "SoilderButton":
                         EnableUnitBar("UnitBuySoilder");
-                        _butel.ChangeButtonColor(_butel);
+                      
                         break;
                     case "TankButton":
                         EnableUnitBar("UnitBuyTank");
-                        _butel.ChangeButtonColor(_butel);
+                      
                         break;
                 }
-               
-               
-              
 
-              
 
-              
-                
-            }
-            else
-            {
-                _butel.ChangeButtonColor(_butel);
-               
+        _but.ChangeButtonColor(_but);
 
-            }
 
-        }
+
+
+
+            
+           
+
+        
 
     }
     public void EnableUnitBar(string _name)

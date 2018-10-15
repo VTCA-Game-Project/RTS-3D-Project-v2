@@ -8,6 +8,9 @@ public class MapControl : MonoBehaviour {
 
     private List<CubeManager> ListGO = new List<CubeManager>();
     public GameObject modelGO;
+
+
+    public Vector2 MapCellSize;
 	// Use this for initialization
 	void Start () {
         battlefield = new Map();
@@ -16,19 +19,7 @@ public class MapControl : MonoBehaviour {
         {
             for(int j=0;j<battlefield.height;j++)
             {
-
-                //GameObject CellGO = new GameObject("Cell_" + i + "_" + j);
-
-
-                //Vector3 Scale = modelGO.transform.localScale;
-                //CellGO.transform.localScale = Scale;
-                //CellGO.transform.position= new Vector3(i * Scale.x, 0, j * Scale.z);
-                //BoxCollider CellBox = CellGO.AddComponent<BoxCollider>();
-
-
-                //Renderer CellRen = CellGO.AddComponent<Renderer>();
-                //CellGO.layer = 9;
-                var newGO = Instantiate(modelGO, new Vector3(i * 10, 0, j * 10), Quaternion.identity);
+                var newGO = Instantiate(modelGO, new Vector3(i * MapCellSize.x, 0, j * MapCellSize.y), Quaternion.identity);
                 CubeManager CM = newGO.GetComponent<CubeManager>();
                 CM.CodeLocal = new Vector2(i, j);
                 ListGO.Add(CM);

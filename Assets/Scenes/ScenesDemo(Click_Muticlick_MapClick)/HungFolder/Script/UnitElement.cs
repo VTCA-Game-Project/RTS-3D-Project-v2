@@ -38,14 +38,14 @@ public class UnitElement : MonoBehaviour
 
         }
     }
-    public void DoSomeThing(int i, Vector2 buildsize)
+    public void InSoilderUnitClick(int i)
     {
 
        
         if (this.gameObject.name == "UnitSoilder" + i )
         {
+
           
-           
             Soild.OnUnitClick();
            
         }

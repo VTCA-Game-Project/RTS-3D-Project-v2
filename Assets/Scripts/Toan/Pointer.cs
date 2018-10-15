@@ -5,11 +5,12 @@ using UnityEngine;
 public class Pointer : MonoBehaviour
 {
     public static Pointer Instance;
-    [SerializeField]
-    private Camera rtsCamera;
+  
+    public Camera rtsCamera;
     private Vector2 LatPoint;
     private RaycastHit hitInfo;
     private Ray ray;
+   
     private List<CubeManager> ListCubeSelected = new List<CubeManager>();
     private List<CubeManager> ListInSelect = new List<CubeManager>();
 
@@ -20,15 +21,13 @@ public class Pointer : MonoBehaviour
 
     private bool OnholdTaget = false;
 
-<<<<<<< HEAD
-    [HideInInspector]
-=======
 
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
+    [HideInInspector]
+
     public Vector2 BuildSize = new Vector2();
     #region Properties
-    [SerializeField]
-    private GameObject Map;
+ 
+    public GameObject Map;
     private MapControl ControlMap = new MapControl();
 
     private void Awake()
@@ -58,33 +57,9 @@ public class Pointer : MonoBehaviour
     #endregion
     private void Update()
     {
-<<<<<<< HEAD
-
-        foreach (CubeManager cube in ListInSelect)
-        {
-            if (CheckBuildedCude(cube))
-            {
-              
-                foreach (CubeManager _cube in ListInSelect)
-                {
-                    _cube.SetState("Not");
-                    _cube.OnraycastIn();
-                }
-            }
-            else
-            {
-                cube.SetState("Can");
-                cube.OnraycastIn();
 
 
-                foreach (CubeManager _cube in ListBuildCube)
-                {
-                    _cube.SetState("Was");
-                    _cube.OnraycastIn();
-                }
-            }
-           
-        }
+       
 
 
         if (Input.GetMouseButtonUp(0))
@@ -99,12 +74,41 @@ public class Pointer : MonoBehaviour
                
             }
         }
-=======
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
+
 
 
         if (OnselectTaget == true)
         {
+            foreach (CubeManager cube in ListInSelect)
+            {
+
+                Debug.Log(CheckBuildedCude(cube));
+                if (CheckBuildedCude(cube))
+                {
+
+                    foreach (CubeManager _cube in ListInSelect)
+                    {
+                        _cube.SetState("Not");
+                        _cube.OnraycastIn();
+                    }
+                    break;
+                }
+                else
+                {
+                    cube.SetState("Can");
+                    cube.OnraycastIn();
+
+
+                    foreach (CubeManager _cube in ListBuildCube)
+                    {
+                        _cube.SetState("Was");
+                        _cube.OnraycastIn();
+                    }
+                    
+                }
+
+            }
+
             ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray: ray,
                                 hitInfo: out hitInfo,
@@ -117,27 +121,15 @@ public class Pointer : MonoBehaviour
 
                 if ( cube != null)
                 {
-<<<<<<< HEAD
-             
-                    setBuildSize(BuildSize, cube);
-
-=======
-
 
                     setBuildSize(BuildSize, cube);
-
-
-
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
 
                 }
                 foreach (CubeManager _cube in ListCubeSelected)
                 {
-<<<<<<< HEAD
-                    if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube)&&_cube.CanBuild==true)
-=======
+
                     if (_cube.CodeLocal != cube.CodeLocal && !checkCubetaget(_cube) && !CheckBuildedCude(_cube))
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
+
                     {
                         _cube.SetState("None");
                         _cube.OnraycastIn();
@@ -167,43 +159,30 @@ public class Pointer : MonoBehaviour
 
             if (OnholdTaget)
             {
-<<<<<<< HEAD
-                if (Input.GetMouseButtonDown(0))
-=======
-                if (Input.GetMouseButtonDown(0) && select())
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
-                {
-                  
-                    int number = 0;
-                    for (int k = 0; k < ListInSelect.Count; k++)
-                    {
-                        if (ListInSelect[k].CanBuild == true)
 
-                        {
-                            number++;
-                        }
-                        else
-                        {
-                            return;
-                        }
-                      
-                      
-                    }                  
-                    if(number==ListInSelect.Count)
-                    {
-                       for( int k = 0; k < ListInSelect.Count; k++)
-                        {
-                            ListInSelect[k].SetState("Was");
-                            ListInSelect[k].CanBuild = false;
-                            ListInSelect[k].OnraycastIn();
-                          ListBuildCube.Add(ListInSelect[k]);
-                        }
-                    }
-                    
-                    ListCubeSelected = new List<CubeManager>();
-                    ListInSelect = new List<CubeManager>();
-                    ResetTaget();
+                if (Input.GetMouseButtonDown(0) && select() == false)
+                {
+                    return;
                 }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        for (int k = 0; k < ListInSelect.Count; k++)
+                        {
+                          
+                            ListInSelect[k].CanBuild = false;
+                          
+                            ListBuildCube.Add(ListInSelect[k]);
+                        }
+                        ListCubeSelected = new List<CubeManager>();
+                        ListInSelect = new List<CubeManager>();
+                        ResetTaget();
+                    }
+                }
+
+                      
+                    
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -242,53 +221,33 @@ public class Pointer : MonoBehaviour
                 {
 
                     CubeManager sub = ControlMap.GetCubeBylocal(currentpoint.CodeLocal + new Vector2(i, j));
-<<<<<<< HEAD
-                   
-                        
-                        
-=======
-                    if (!CheckBuildedCude(sub))
-                    {
+
                         sub.SetState("Can");
-
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
                         ListCubeSelected.Add(sub);
-                      
                         ListInSelect.Add(sub);
-<<<<<<< HEAD
-                    
-                  
-=======
-                    }
-                    else
-                    {
-                        if (CheckBuildedCude(sub))
-                        {
-                            sub.SetState("Not");
+                 
 
-                            sub.OnraycastIn();
-                        }
-
-                    }
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
 
                 }
             }
         }
     }
-<<<<<<< HEAD
+
    
-=======
+
     private bool select()
     {
         for (int i = 0; i < ListInSelect.Count; i++)
         {
-            if (!ListInSelect[i].CanBuild)
-            { Debug.Log(ListInSelect[i].name); return false; }
+            if (ListInSelect[i].CanBuild==false)
+            {
+                Debug.Log(ListInSelect[i].name);
+                return false;
+            }
         }
         return true;
     }
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
+
     private bool checkCubetaget(CubeManager _cube)
     {
 
@@ -306,9 +265,9 @@ public class Pointer : MonoBehaviour
     private bool CheckBuildedCude(CubeManager _cube)
     {
        
-        for (int i = 0; i < ListBuildCube.Count; i++)
+      foreach(CubeManager cube in ListBuildCube)
         {
-            if (_cube.CodeLocal == ListBuildCube[i].CodeLocal)
+            if (_cube.CodeLocal==cube.CodeLocal)
             {
                 return true;
             }
@@ -316,9 +275,7 @@ public class Pointer : MonoBehaviour
 
         return false;
     }
-<<<<<<< HEAD
-   
-=======
+
     private void SetBack()
     {
         for (int i = 0; i < ListBuildCube.Count; i++)
@@ -327,7 +284,7 @@ public class Pointer : MonoBehaviour
             ListBuildCube[i].OnraycastIn();
         }
     }
->>>>>>> b163c71c2f2cbd3c19117ef6ac9882603adabec3
+
 
     public void ResetTaget()
     {

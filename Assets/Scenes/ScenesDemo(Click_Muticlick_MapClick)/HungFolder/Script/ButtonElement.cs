@@ -20,7 +20,11 @@ public class ButtonElement : MonoBehaviour {
     {
         name = this.gameObject.name;
         cell = GameObject.FindObjectOfType<CellManager>();
-        _image = GetComponent<Image>();
+        _image = this.GetComponent<Image>();
+
+        _color = _image.color;
+        _color.a *= -1;
+        _image.color = _color;
         downfunction = GetComponentInParent<ButtonDown>();
 	}
 	
@@ -36,42 +40,29 @@ public class ButtonElement : MonoBehaviour {
 
         if(!downfunction.returnactivebuton()|| downfunction.CheckActiveButton(name))
         {
-            Selected = !Selected;
-            ButtonElement butel = this.GetComponent<ButtonElement>();
-            downfunction.ChangeStatusButton(butel);
+            this.Selected = !Selected;
+            ButtonElement _but = this.GetComponent<ButtonElement>();
+            downfunction.ChangeStatusButton(_but);
 
-        }
-        else
-        {
-
-        }
-        if (gameObject.tag == "Active")
-        {
-
-            if (OnCownDown == false)
-                Selected = !Selected;
-
-            if (Selected == true)
-                OnCownDown = true;
-        }
+        }      
     }
 
 
 
    
-    public void ChangeButtonColor(ButtonElement butel)
+    public void ChangeButtonColor(ButtonElement _bu)
     {
-        _color = _image.color;
-        if (butel.Selected == true)
+       
+        _color = _bu._image.color;
+        if (_bu.Selected == true)
         {
-            _color.a =90;
+            _color.a *=-1;
         }
         else
         {
-            _color.a = 0;
+            _color.a *= -1;
         }
 
-        Debug.Log(_color.a);
-        _image.color = _color;
+        _bu._image.color = _color;
     }
 }
