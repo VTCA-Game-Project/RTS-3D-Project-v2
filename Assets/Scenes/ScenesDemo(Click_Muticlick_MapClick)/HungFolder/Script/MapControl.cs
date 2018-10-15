@@ -6,7 +6,7 @@ public class MapControl : MonoBehaviour {
     [HideInInspector]
     public Map battlefield;
 
-    private List<CubeManager> ListGO = new List<CubeManager>();
+    private List<CubeManager> ListGO= new List<CubeManager>() ;
     public GameObject modelGO;
 
 

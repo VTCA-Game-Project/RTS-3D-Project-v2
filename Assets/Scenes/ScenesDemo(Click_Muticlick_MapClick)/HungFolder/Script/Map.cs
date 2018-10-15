@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map : MonoBehaviour {
+public class Map  {
     [SerializeField]
     public Cell[,] mapCell;
   public  int width { get; private set; }
   public  int height { get; private set; }
 
 
-    public Map(int width=50,int height=50)
+    public Map(int width=100,int height=100)
     {
         this.width = width;
         this.height = height;
@@ -31,12 +31,5 @@ public class Map : MonoBehaviour {
         return mapCell[x, y];
     }
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+ 
 }

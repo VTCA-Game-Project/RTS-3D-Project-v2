@@ -5,20 +5,21 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonElement : MonoBehaviour {
-
+    
     private CellManager cell;
     private bool OnCownDown=false ;
    [HideInInspector]
     public bool Selected = false;
     [HideInInspector]
-    public string name;
+    public string Buttonname;
     private Color _color;
     private ButtonDown downfunction;
     
     private Image _image;
 	void Start ()
     {
-        name = this.gameObject.name;
+        
+        Buttonname = this.gameObject.name;
         cell = GameObject.FindObjectOfType<CellManager>();
         _image = this.GetComponent<Image>();
 

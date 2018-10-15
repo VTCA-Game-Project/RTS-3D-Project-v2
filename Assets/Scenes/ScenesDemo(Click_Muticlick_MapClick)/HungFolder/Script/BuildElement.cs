@@ -12,7 +12,7 @@ public class BuildElement : MonoBehaviour {
     public Sprite NewImage;
     public GameObject Mouse;
     public Image CountDownIMG;
-    private Pointer ClickEvent;
+    private BuildControl ClickEvent;
     private float totaltime=0f;
     private float delaytime =5f;
     private float TimeperUpdate = 1f;
@@ -23,7 +23,7 @@ public class BuildElement : MonoBehaviour {
     private bool CowDownComplete;
     void Start()
     {
-        ClickEvent = Mouse.GetComponent<Pointer>();
+        ClickEvent = Mouse.GetComponent<BuildControl>();
 
         CurrentImage = GetComponent<Image>();
 

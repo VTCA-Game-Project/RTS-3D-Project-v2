@@ -136,7 +136,7 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
     public void ChangeStatusButton(ButtonElement _but)
     {
 
-                switch(_but.name)
+                switch(_but.Buttonname)
                 {
                     case "BuildButton":
                         EnableUnitBar("UnitBuyBuild");
@@ -242,7 +242,7 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
         foreach (GameObject GO in ButtonList)
         {
             ButtonElement _element = GO.GetComponent<ButtonElement>();
-            if (_element.Selected == true&&_element.name==name)
+            if (_element.Selected == true&&_element.Buttonname==name)
             {
                 return true;
             }

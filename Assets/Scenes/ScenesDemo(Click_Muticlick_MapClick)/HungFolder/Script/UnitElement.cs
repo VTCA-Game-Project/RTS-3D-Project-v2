@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class UnitElement : MonoBehaviour
 {
 
-    private ButtonDownUnitBar UnitBarState = new ButtonDownUnitBar();
+   
     BuildElement Build;
     DefElement Def;
     SoilderElement Soild;
@@ -17,7 +17,7 @@ public class UnitElement : MonoBehaviour
 
         CurrentImage = GetComponent<Image>();
         Build = GetComponent<BuildElement>();
-        UnitBarState = GetComponentInParent<ButtonDownUnitBar>();
+      
         Def = GetComponent<DefElement>();
         Soild = GetComponent<SoilderElement>();
         Tank = GetComponent<TankElement>();
@@ -46,7 +46,7 @@ public class UnitElement : MonoBehaviour
         {
 
           
-            Soild.OnUnitClick();
+            Soild.OnUnitClick("UnitSoilder"+i);
            
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : MonoBehaviour {
+public class Cell  {
 
     enum CellState { None,Active}
     int X, Y;
@@ -16,12 +16,5 @@ public class Cell : MonoBehaviour {
         Y = y;
         State = CellState.None;
     }
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using DelegateCollection;
+using EnumCollection;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,12 +14,12 @@ public class SoilderElement : MonoBehaviour {
     public Sprite NewImage;
     public GameObject Mouse;
     public Image CountDownIMG;
-    private Pointer ClickEvent;
+   
     private float totaltime = 0f;
     private float delaytime = 5f;
     private float TimeperUpdate = 0.5f;
     private int Count;
-
+    Soldier UnitType;
     public Text _cout;
    
     Color newcolo;
@@ -26,7 +28,7 @@ public class SoilderElement : MonoBehaviour {
     void Start()
     {
         Count = 0;
-        ClickEvent = Mouse.GetComponent<Pointer>();
+     
 
         CurrentImage = GetComponent<Image>();
 
@@ -69,7 +71,8 @@ public class SoilderElement : MonoBehaviour {
                 CowDownComplete = false;
 
                 Count--;
-                Debug.Log(this.gameObject.name +"_"+ Count);
+
+            if (createSoldier!= null) createSoldier(Soldier.Builder);
 
 
             }
@@ -87,9 +90,27 @@ public class SoilderElement : MonoBehaviour {
 
     }
 
-    public void OnUnitClick()
+    public void OnUnitClick(string name)
     {
         Count++;
+
+        switch(name)
+        {
+            case "":
+                UnitType = Soldier.Builder;
+                break;
+
+            case "1":
+                UnitType = Soldier.Builder;
+                break;
+
+        }
       
+    }
+
+    protected CreateSoldier createSoldier;
+    public void setsomething(CreateSoldier method)
+    {
+        createSoldier = method;
     }
 }
