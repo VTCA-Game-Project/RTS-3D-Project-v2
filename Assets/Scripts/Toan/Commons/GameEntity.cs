@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Common
 {
-    public class GameEntity : MonoBehaviour, IGameEntiy
+    public abstract class GameEntity : MonoBehaviour, IGameEntiy
     {
         public virtual Vector3 Heading
         {
@@ -17,5 +17,8 @@ namespace Common
         {
             get { return Vector3.zero; }
         }
+
+        public virtual void Dead() { }
+        public virtual void TakeDamage(int damage) { }
     }
 }

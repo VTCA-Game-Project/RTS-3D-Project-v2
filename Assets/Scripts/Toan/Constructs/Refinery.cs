@@ -21,7 +21,7 @@ namespace Common.Building
 
         public void ReceiveGold(float gold)
         {
-            GlobalGameStatus.ReceiveGold(gold);
+            GlobalGameStatus.Instance.TakeGold(gold);
         }
 
     }

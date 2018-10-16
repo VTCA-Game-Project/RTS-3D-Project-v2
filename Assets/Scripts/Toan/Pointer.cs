@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EnumCollection;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class Pointer : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) Instance = this;
-        else if( Instance != null) Destroy(Instance.gameObject);
+        else if (Instance != null) Destroy(Instance.gameObject);
     }
 
    
@@ -38,26 +39,7 @@ public class Pointer : MonoBehaviour
         }
     }
     #endregion
-    private void Update()
-    {
-
-
-       
-
-
-
-
-
-       
-
-
-
-    }
-
-
-
-
-   
+  
 
     public void PutPointer()
     {
@@ -65,13 +47,23 @@ public class Pointer : MonoBehaviour
         if (Physics.Raycast(ray: ray,
                             hitInfo: out hitInfo,
                             maxDistance: Mathf.Infinity,
-                            layerMask: LayerMask.GetMask("Place")))
+                            layerMask: LayerMask.GetMask("Place", "NPC", "Construct")))
         {
             Position = hitInfo.point;
-        }
-        else
-        {
-            Debug.Log("Hit false");
+            int hitLayer = hitInfo.collider.gameObject.layer;
+            TargetType = TargetType.None;
+            if (hitLayer == LayerMask.NameToLayer("Place"))
+            {
+                TargetType = TargetType.Place;
+            }
+            else if (hitLayer == LayerMask.NameToLayer("NPC"))
+            {
+                TargetType = TargetType.NPC;
+            }
+            else if (hitLayer == LayerMask.NameToLayer("Construct"))
+            {
+                TargetType = TargetType.Construct;
+            }
         }
     }
 }
