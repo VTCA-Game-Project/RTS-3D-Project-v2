@@ -19,13 +19,13 @@ namespace Common.Building
 
         public override void Build()
         {
-            GlobalGameStatus.PowerBuilded(this);
+            GlobalGameStatus.Instance.PowerBuilded(this);
             base.Build();
         }
 
         public override void DestroyConstruct()
         {
-            GlobalGameStatus.PowerBuildDestroyed(this);
+            GlobalGameStatus.Instance.PowerBuildDestroyed(this);
             base.DestroyConstruct();
         }
 

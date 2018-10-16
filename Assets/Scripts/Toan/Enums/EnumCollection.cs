@@ -37,5 +37,34 @@ namespace EnumCollection
         Builder,
         Infantry
     }
+
+    public enum AnimState
+    {
+        Run,
+        Dead,
+        Idle,
+        Damage,
+        Attack,
+    }
+
+    public enum Group
+    {
+        Player,
+        NPC
+    }
+
+    public enum TargetType
+    {
+        Place,
+        NPC,
+        Construct,
+        None
+    }
+    public enum GameStatus
+    {
+        Win,
+        Lose,
+        Playing
+    }
 }
 
