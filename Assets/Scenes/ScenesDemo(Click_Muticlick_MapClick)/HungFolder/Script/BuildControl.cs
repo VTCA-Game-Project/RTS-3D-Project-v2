@@ -12,11 +12,12 @@ public class BuildControl : MonoBehaviour {
 
     private List<CubeManager> ListBuildCube = new List<CubeManager>();
 
+   
 
     public bool OnselectTaget = false;
 
     private bool OnholdTaget = false;
-
+    [HideInInspector]
     public GameObject BuildModel;
 
 
@@ -30,6 +31,7 @@ public class BuildControl : MonoBehaviour {
 
 
     void Start () {
+        
         if (Map != null)
         {
             ControlMap = Map.GetComponent<MapControl>();
@@ -110,8 +112,8 @@ public class BuildControl : MonoBehaviour {
                             ListBuildCube.Add(ListInSelect[k]);
                         }
 
-                        Debug.Log(BuildSize);
-                        var newhouse = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
+                      GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
+                       
                         ListInSelect.Clear();
                         ResetTaget();
                     }
@@ -201,6 +203,7 @@ public class BuildControl : MonoBehaviour {
         OnselectTaget = false;
         OnholdTaget = false;
         BuildSize = new Vector2();
+        BuildModel = new GameObject();
 
     }
 }
