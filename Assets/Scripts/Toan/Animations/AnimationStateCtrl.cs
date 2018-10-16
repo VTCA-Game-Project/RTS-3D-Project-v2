@@ -1,4 +1,5 @@
-﻿using EnumCollection;
+﻿using Common.Entity;
+using EnumCollection;
 using UnityEngine;
 
 namespace Manager
@@ -6,13 +7,18 @@ namespace Manager
     public class AnimationStateCtrl : MonoBehaviour
     {
         private Animator anims;
+        private Rigidbody agentRigid;
+        private AIAgent agent;
 
         public AnimState DefaultState { get; set; }
         public AnimState CurrentState { get; set; }
+        protected AnimState nextState;
         private void Awake()
         {
             
             anims = GetComponent<Animator>();
+            agentRigid = GetComponent<Rigidbody>();
+            agent = GetComponent<AIAgent>();
 
             DefaultState = AnimState.Idle;
             CurrentState = AnimState.Idle;
@@ -30,12 +36,13 @@ namespace Manager
                     break;
                 case AnimState.Run:
                     anims.SetBool("IsRunning", true);
+                    ResetAnimationParams();
                     break;
                 case AnimState.Damage:
                     anims.SetTrigger("Damage");
                     break;
                 case AnimState.Attack:
-                    anims.SetTrigger("Attack");
+                    anims.SetBool("IsAttack",true);
                     break;
                 case AnimState.Dead:
                     anims.SetTrigger("Dead");
@@ -44,27 +51,47 @@ namespace Manager
         }
 
         private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.A))
+        {            
+            if (CurrentState == AnimState.Idle)
             {
-                Play(AnimState.Attack);
-            } else if (Input.GetKeyDown(KeyCode.R))
-            {
-                Play(AnimState.Run);
+                if(agentRigid.velocity.sqrMagnitude > 0.1f)
+                {
+                    nextState = AnimState.Run;
+                }
+                else if(agent.TargetType == TargetType.NPC)
+                {
+                    nextState = AnimState.Attack;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.D))
+            else if(CurrentState == AnimState.Run)
             {
-                Play(AnimState.Damage);
+                if (agentRigid.velocity.sqrMagnitude <= 0.1f)
+                {
+                    nextState = AnimState.Idle;
+                    agentRigid.velocity = Vector3.zero;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.X))
+            if (CurrentState == AnimState.Attack)
             {
-                Play(AnimState.Dead);
+                if (agentRigid.velocity.sqrMagnitude > 0.1f)
+                {
+                    nextState = AnimState.Run;
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.I))
-            {
-                Play(AnimState.Idle);
-            }
+            SetAnimationState();
         }
 
+        private void SetAnimationState()
+        {
+            if(nextState != CurrentState)
+            {
+                CurrentState = nextState;
+                Play(CurrentState);
+            }
+        }
+        private void ResetAnimationParams()
+        {
+            anims.SetBool("IsAttack", false );
+        }
     }
 }

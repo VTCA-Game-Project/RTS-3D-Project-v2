@@ -366,9 +366,9 @@ GameObject:
   - component: {fileID: 4062381179875028}
   - component: {fileID: 54878569020374688}
   - component: {fileID: 136692070633177850}
-  - component: {fileID: 114068612859685208}
   - component: {fileID: 95011987060426640}
   - component: {fileID: 114903601133347030}
+  - component: {fileID: 114957577103688972}
   m_Layer: 10
   m_Name: GoblinWizard
   m_TagString: Untagged
@@ -1939,24 +1939,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114068612859685208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1276187489059534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e0444b0551d52d48ac3b5b8ade63128, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MinVelocity: 0.2
-  separation: 1.2
-  cohesion: 0.1
-  alignment: 0.01
-  seekingWeight: 0.5
-  avoidanceWeight: 1.5
-  drawGizmos: 1
 --- !u!114 &114903601133347030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1968,6 +1950,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114957577103688972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276187489059534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73a3b198059f1c4ca21658634d7af8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {fileID: 11400000, guid: 7e5269b6c2cd48d48afa61ce8996b669, type: 2}
+  drawGizmos: 1
 --- !u!136 &136692070633177850
 CapsuleCollider:
   m_ObjectHideFlags: 1

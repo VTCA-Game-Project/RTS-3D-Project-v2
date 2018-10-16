@@ -60,7 +60,7 @@ namespace Manager
         public static void AddConstruct(Construct construct)
         {
             constructs.Add(construct);
-            GlobalGameStatus.NewConstructBuilded(construct);
+            GlobalGameStatus.Instance.NewConstructBuilded(construct);
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " added");
 #endif
@@ -68,7 +68,7 @@ namespace Manager
         public static void RemoveConstruct(Construct construct)
         {
             constructs.RemoveAt(constructs.IndexOf(construct));
-            GlobalGameStatus.ConstructDestroyed(construct);
+            GlobalGameStatus.Instance.ConstructDestroyed(construct);
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " destroyed");
 #endif

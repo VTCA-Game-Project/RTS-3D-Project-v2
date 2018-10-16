@@ -83,7 +83,7 @@ namespace Common
         public virtual void Build()
         {
             UnlockConstruct();
-            GlobalGameStatus.IncreaseRequirePower(ConsumePower);
+            GlobalGameStatus.Instance.IncreaseRequirePower(ConsumePower);
         }
 
         public void RecieveDamage(int damage)
@@ -95,7 +95,7 @@ namespace Common
         public virtual void DestroyConstruct()
         {
             StoredManager.RemoveConstruct(this);
-            GlobalGameStatus.DecreaseRequirePower(ConsumePower);
+            GlobalGameStatus.Instance.DecreaseRequirePower(ConsumePower);
             Destroy(this.gameObject);
         }
 

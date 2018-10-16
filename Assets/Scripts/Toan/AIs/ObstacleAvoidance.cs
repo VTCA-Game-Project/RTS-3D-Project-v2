@@ -68,11 +68,6 @@ namespace AI
                 float multiplier = 1 + (dist / detectBoxLenght);
                 float xF = (closestObs.BoundRadius - closestLocalPosition.x) * multiplier;
                 float zF = (closestObs.BoundRadius - closestLocalPosition.z) * BrakingForce;
-#if UNITY_EDITOR
-                //Debug.Log("Index : " + closestObs.Index + " local pos: " +
-                //    MathUtils.ToLocalPoint(agent.transform, closestObs.Position));
-                //Debug.Log("xF: " + xF + "zF: " + zF);
-#endif
                 return MathUtils.ToWorldVector(agent.transform, new Vector3(xF, 0, zF));
             }
             return Vector3.zero;

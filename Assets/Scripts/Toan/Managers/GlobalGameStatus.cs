@@ -8,13 +8,21 @@ namespace Manager
 {
     public class GlobalGameStatus
     {
-        public static float Gold { get; protected set; }
-        public static List<ConstructId> ConstructsCantBuild = new List<ConstructId>();
 
-        protected static int remainPower = 0;
-        protected static int requirePower = 0;
+        private int remainPower = 0;
+        private int requirePower = 0;
+        public static GlobalGameStatus Instance = new GlobalGameStatus();
 
-        public static int RequirePower
+        public float Gold { get; private set; }
+        public GameStatus Status { get; private set; }
+        public static List<ConstructId> ConstructsCantBuild { get; private set; }
+        
+        private GlobalGameStatus()
+        {
+            ConstructsCantBuild = new List<ConstructId>();
+        }
+                 
+        public int RequirePower
         {
             get { return requirePower; }
             protected set
@@ -26,8 +34,7 @@ namespace Manager
                     StoredManager.PowerHight();
             }
         }
-
-        public static int RemainPower
+        public int RemainPower
         {
             get { return remainPower; }
             protected set
@@ -40,7 +47,7 @@ namespace Manager
             }
         }
 
-        public static void NewConstructBuilded(Construct construct)
+        public void NewConstructBuilded(Construct construct)
         {
             ConstructId[] unlock = construct.Owned;
             for (int i = 0; i < unlock.Length; i++)
@@ -52,7 +59,7 @@ namespace Manager
             }
         }
 
-        public static void ConstructDestroyed(Construct construct)
+        public void ConstructDestroyed(Construct construct)
         {
             ConstructId[] unlock = construct.Owned;
             for (int i = 0; i < unlock.Length; i++)
@@ -64,12 +71,12 @@ namespace Manager
             }
         }
 
-        public static void ReceiveGold(float gold)
+        public void TakeGold(float gold)
         {
             Gold += gold;
         }
 
-        public static PayGoldStatus PayGold(float requireGold, out float debt)
+        public PayGoldStatus PayGold(float requireGold, out float debt)
         {
             debt = requireGold;
             if (Gold <= 0) return PayGoldStatus.Terminal;
@@ -82,22 +89,22 @@ namespace Manager
             return PayGoldStatus.Success;
         }
 
-        public static void PowerBuilded(Power building)
+        public void PowerBuilded(Power building)
         {
             RemainPower += building.PowerVolume;
         }
 
-        public static void PowerBuildDestroyed(Power building)
+        public void PowerBuildDestroyed(Power building)
         {
             RemainPower -= building.PowerVolume;
         }
 
-        public static void IncreaseRequirePower(int plus)
+        public void IncreaseRequirePower(int plus)
         {
             RequirePower += plus;
         }
 
-        public static void DecreaseRequirePower(int subtract)
+        public void DecreaseRequirePower(int subtract)
         {
             RequirePower -= subtract;
         }

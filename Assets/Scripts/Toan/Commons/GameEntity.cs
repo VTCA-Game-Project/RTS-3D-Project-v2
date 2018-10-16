@@ -19,6 +19,6 @@ namespace Common
         }
 
         public virtual void Dead() { }
-        public virtual void ReceiveDamage(int damage) { }
+        public virtual void TakeDamage(int damage) { }
     }
 }

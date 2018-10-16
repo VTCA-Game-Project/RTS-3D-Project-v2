@@ -4,13 +4,14 @@ using Manager;
 using Pattern;
 using InterfaceCollection;
 using EnumCollection;
+using RTS_ScriptableObject;
 
 namespace Common.Entity
 {
     public class AIAgent : GameEntity, ISelectable
     {
-        protected AnimState nextState = AnimState.Idle;
-
+        protected bool isReachedTarget;
+        public TargetType TargetType { get; protected set; }
         protected Vector3 target;
         protected Vector3 steering;
         protected Vector3 aceleration;
@@ -20,16 +21,19 @@ namespace Common.Entity
         protected SteerBehavior steerBh;
         protected FlockBehavior flockBh;
         protected ObstacleAvoidance avoidanceBh;
-
+        protected AnimationStateCtrl anims;
         protected Pointer pointer;
 
-        public float MinVelocity;
-        public float separation;
-        public float cohesion;
-        public float alignment;
-        public float seekingWeight;
-        public float avoidanceWeight;
+        public bool OnObsAvoidance { get; set; }
+        public float AttackRange { get; protected set; }
+        public float MinVelocity { get; protected set; }
+        public float Separation { get; protected set; }
+        public float Cohesion { get; protected set; }
+        public float Alignment { get; protected set; }
+        public float SeekingWeight { get; protected set; }
+        public float AvoidanceWeight { get; protected set; }
 
+        public AgentOffset offset;
 #if UNITY_EDITOR
         [Header("Debug")]
         public bool drawGizmos = true;
@@ -37,7 +41,7 @@ namespace Common.Entity
 
         #region Properties
         public Group Group { get; set; }
-        public int HP { get; protected set; }        
+        public int HP { get; protected set; }
         public float MaxSpeed { get; protected set; }
         public float Radius { get; protected set; }
         public float NeighbourRadius { get; protected set; }
@@ -47,7 +51,7 @@ namespace Common.Entity
         public bool IsDead { get; protected set; }
         public bool IsSelected { get; protected set; }
         public bool IsReachedTarget { get; protected set; }
-
+        public AIAgent AgentTarget { get; set; }
         // component properties
         public Rigidbody AgentRigid { get; protected set; }
         public SkinnedMeshRenderer SkinMeshRenderer { get; protected set; }
@@ -60,32 +64,23 @@ namespace Common.Entity
         }
         #endregion
 
-        private void Awake()
+        protected virtual void Awake()
         {
+            StoredManager.AddAgent(this);
             gameObject.AddComponent<ClickOn>();
             pointer = FindObjectOfType<Pointer>();
-
-            StoredManager.AddAgent(this);
+            anims = GetComponent<AnimationStateCtrl>();
             AgentRigid = GetComponent<Rigidbody>();
             SkinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-
-            Radius = SkinMeshRenderer.bounds.extents.x;
-            MinDetectionBoxLenght = Radius;
-            NeighbourRadius = 5.0f;
-            IsSelected = false;
-            IsReachedTarget = true;
-            IsDead = false;
-
         }
-        private void Start()
+        protected virtual void Start()
         {
             steerBh = Singleton.SteerBehavior;
             flockBh = Singleton.FlockBehavior;
             avoidanceBh = Singleton.ObstacleAvoidance;
-
-            MaxSpeed = 5;
+            InitOffset();
         }
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (IsDead) return;
 
@@ -93,73 +88,123 @@ namespace Common.Entity
             aceleration = Vector3.zero;
             if (!IsReachedTarget)
             {
-                steering += steerBh.Seek(this, target) * seekingWeight;
-
-                neighbours = StoredManager.GetNeighbours(this);
-                steering += flockBh.Separation(this, neighbours) * separation;
-                steering += flockBh.Alignment(this, neighbours) * alignment;
-                steering += flockBh.Cohesion(this, neighbours) * cohesion;
-
+                steering += steerBh.Seek(this, target) * SeekingWeight;
+                if (OnObsAvoidance)
+                {
+                    neighbours = StoredManager.GetNeighbours(this);
+                    steering += flockBh.Separation(this, neighbours) * Separation;
+                    steering += flockBh.Alignment(this, neighbours) * Alignment;
+                    steering += flockBh.Cohesion(this, neighbours) * Cohesion;
+                }
             }
             // obstacle avoidance test
             if (AgentRigid.velocity.sqrMagnitude > MinVelocity)
             {
                 DetectBoxLenght = avoidanceBh.CalculateDetectBoxLenght(this);
                 obstacles = StoredManager.GetObstacle(this);
-                steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles) * avoidanceWeight;
+                steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles) * AvoidanceWeight;
             }
             aceleration = steering / AgentRigid.mass;
             AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
+
             RotateAgent();
+            
+            if (!IsReachedTarget)
+            {
+                IsReachedTarget = CheckReachedTarget();
+                if (IsReachedTarget)
+                {
+                    AgentRigid.velocity = Vector3.zero;
+                }
+            }
 
 
 #if UNITY_EDITOR
             // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
         }
-
-        private void RotateAgent()
-        {
-            if (AgentRigid.velocity.sqrMagnitude > MinVelocity)
-            {
-                transform.forward += AgentRigid.velocity / AgentRigid.mass;
-            }
-            else
-            {
-                IsReachedTarget = true;
-                AgentRigid.velocity = Vector3.zero;
-            }
-        }
-        private Vector3 TruncateVel(Vector3 desireVel)
-        {
-            return desireVel.sqrMagnitude > (MaxSpeed * MaxSpeed) ?
-                            desireVel.normalized * MaxSpeed : desireVel;
-        }
-        public void Select() { IsSelected = true; }
-        public void UnSelect() { IsSelected = false; }
-        public void Action() { MoveToTarget(); }
-        public void MoveToTarget()
+        protected void MoveToTarget()
         {
             if (IsSelected)
             {
                 IsReachedTarget = false;
                 target = pointer.Position;
+                TargetType = pointer.TargetType;
             }
         }
+        protected Vector3 TruncateVel(Vector3 desireVel)
+        {
+            return desireVel.sqrMagnitude > (MaxSpeed * MaxSpeed) ?
+                            desireVel.normalized * MaxSpeed : desireVel;
+        }
+        protected void RotateAgent()
+        {
+            if (AgentRigid.velocity.sqrMagnitude > MinVelocity)
+            {
+                transform.forward += (AgentRigid.velocity / AgentRigid.mass);
+            }
+            else if (TargetType == TargetType.NPC)
+            {
+                transform.forward = Vector3.RotateTowards(transform.forward, target, 3 * Time.deltaTime, 3 * Time.deltaTime);
+            }
+        }
+        protected bool CheckReachedTarget()
+        {
+            //targetType = pointer.TargetType;
+            switch (TargetType)
+            {
+                case TargetType.Place:
+                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity)
+                        return true;
+                    break;
+                case TargetType.Construct:
+                    return true;
+                case TargetType.NPC:
+                    return (Vector3.Distance(Position, target) <= AttackRange);
+                default:
+                    return true;
+            }
+            return false;
+        }
+
+        public void OffObsAvoidance() { OnObsAvoidance = false; }
         public override void Dead()
         {
             IsDead = true;
-            Destroy(gameObject,2);
+            Destroy(gameObject, 2);
         }
-        public override void ReceiveDamage(int damage)
+        public override void TakeDamage(int damage)
         {
             HP -= damage;
-            if(HP <= 0)
+            if (HP <= 0)
             {
                 HP = 0;
                 Dead();
             }
         }
+        protected virtual void InitOffset()
+        {
+            NeighbourRadius = offset.NeighboursRadius;
+            Separation = offset.Separation;
+            Cohesion = offset.Cohesion;
+            Alignment = offset.Alignment;
+            SeekingWeight = offset.Seeking;
+            AvoidanceWeight = offset.ObstacleAvoidance;
+            MaxSpeed = offset.MaxSpeed;
+            AttackRange = offset.AttackRadius;
+
+            IsDead = false;
+            IsSelected = false;
+            IsReachedTarget = true;
+            OnObsAvoidance = true;
+            MinDetectionBoxLenght = Radius;
+            Radius = SkinMeshRenderer.bounds.extents.x;
+        }
+        // INTERFACE
+        public void Select() { IsSelected = true; }
+        public void UnSelect() { IsSelected = false; }
+        public virtual void Action() { MoveToTarget(); }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {

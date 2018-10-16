@@ -50,7 +50,21 @@ namespace EnumCollection
     public enum Group
     {
         Player,
-        Enemy
+        NPC
+    }
+
+    public enum TargetType
+    {
+        Place,
+        NPC,
+        Construct,
+        None
+    }
+    public enum GameStatus
+    {
+        Win,
+        Lose,
+        Playing
     }
 }
 
