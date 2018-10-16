@@ -145,7 +145,7 @@ namespace Common.Entity
             }
             else if (TargetType == TargetType.NPC)
             {
-                transform.forward = Vector3.RotateTowards(transform.forward, target, 3 * Time.deltaTime, 3 * Time.deltaTime);
+                transform.LookAt(target,Vector3.up);
             }
         }
         protected bool CheckReachedTarget()

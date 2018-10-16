@@ -11,14 +11,12 @@ public class Pointer : MonoBehaviour
  
     private RaycastHit hitInfo;
     private Ray ray;
-   
-   
-   
+    public TargetType TargetType { get; protected set; }
 
 
     #region Properties
- 
-   
+
+
 
     private void Awake()
     {
