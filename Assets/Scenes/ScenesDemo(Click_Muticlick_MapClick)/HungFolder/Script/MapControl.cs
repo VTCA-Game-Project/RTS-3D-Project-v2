@@ -8,7 +8,7 @@ public class MapControl : MonoBehaviour {
 
     private List<CubeManager> ListGO= new List<CubeManager>() ;
     public GameObject modelGO;
-
+    private Tree_Control TreeMangager;
 
     public Vector2 MapCellSize;
 	// Use this for initialization
@@ -19,16 +19,30 @@ public class MapControl : MonoBehaviour {
         {
             for(int j=0;j<battlefield.height;j++)
             {
-                var newGO = Instantiate(modelGO, new Vector3(i * MapCellSize.x, 0, j * MapCellSize.y), Quaternion.identity);
+                var newGO = Instantiate(modelGO, new Vector3(i * MapCellSize.x, 0f, j * MapCellSize.y), Quaternion.identity);
                 CubeManager CM = newGO.GetComponent<CubeManager>();
+              
                 CM.CodeLocal = new Vector2(i, j);
                 ListGO.Add(CM);
                 
                
             }
         }
-        Debug.Log(ListGO.Count);
-	}
+
+        TreeMangager = GetComponent<Tree_Control>();
+        List<Vector2> TempList = TreeMangager.GetTreeList();
+
+
+        for(int i=0;i<TempList.Count;i++)
+        {
+            if(GetCubeBylocal(TempList[i])!=null)
+            {
+                CubeManager tempcube = GetCubeBylocal(TempList[i]);
+                tempcube.CanBuild = false;
+            }
+        }
+
+    }
 	
     public CubeManager GetCubeBylocal(Vector2 local)
     {

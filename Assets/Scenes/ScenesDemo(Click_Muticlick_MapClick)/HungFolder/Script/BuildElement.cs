@@ -12,6 +12,7 @@ public class BuildElement : MonoBehaviour {
     public Sprite NewImage;
     public GameObject Mouse;
     public Image CountDownIMG;
+    public GameObject BuildModel;
     private BuildControl ClickEvent;
     private float totaltime=0f;
     private float delaytime =5f;
@@ -97,6 +98,7 @@ public class BuildElement : MonoBehaviour {
                 ClickEvent.ResetTaget();
                 ClickEvent.BuildSize = buidSize;
                 ClickEvent.OnselectTaget = true;
+                ClickEvent.BuildModel = BuildModel;
                 CowDownComplete = false;
 
                 newcolo.a = 0;
