@@ -11,14 +11,12 @@ public class Pointer : MonoBehaviour
  
     private RaycastHit hitInfo;
     private Ray ray;
-   
-   
-   
+    public TargetType TargetType { get; protected set; }
 
 
     #region Properties
- 
-   
+
+
 
     private void Awake()
     {
@@ -38,11 +36,24 @@ public class Pointer : MonoBehaviour
             transform.position = value;
         }
     }
+<<<<<<< HEAD
 
     public TargetType TargetType { get; private set; }
     #endregion
 
 
+=======
+    #endregion
+    private void Update()
+    {
+
+
+
+    }
+
+
+
+>>>>>>> ae3d13036c5730b2de540374b17ee016a589f782
     public void PutPointer()
     {
         ray = rtsCamera.ScreenPointToRay(Input.mousePosition);
