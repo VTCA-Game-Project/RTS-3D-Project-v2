@@ -28,6 +28,7 @@ namespace Common
         protected virtual void Start()
         {
             Init();
+            Hp = 10;
         }
 
         protected void Init()

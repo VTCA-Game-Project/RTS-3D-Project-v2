@@ -1,4 +1,5 @@
-﻿using EnumCollection;
+﻿using Common.Entity;
+using EnumCollection;
 using Pattern;
 using UnityEngine;
 using Utils;
@@ -36,7 +37,12 @@ namespace Common.Building
 
         public void CreateSoldier(Soldier type)
         {
-            Debug.Log("Create " + type);
+            GameObject soldier = Produce(type);
+            if(soldier != null)
+            {
+                AIAgent agent = Instantiate(soldier, transform.position, Quaternion.identity).GetComponent<AIAgent>();
+                agent.SetTarget(TargetType.Place, transform.position + new Vector3(0, 0, 10));
+            }
         }
     }
 }

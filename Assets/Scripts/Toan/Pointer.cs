@@ -37,7 +37,6 @@ public class Pointer : MonoBehaviour
         }
     }
     #endregion
-<<<<<<< HEAD
     private void Update()
     {
 
@@ -46,12 +45,6 @@ public class Pointer : MonoBehaviour
     }
 
 
-
-
-   
-=======
-  
->>>>>>> fb20b3fbc4d6c9cfe5669e682ee6d879bcb87bbd
 
     public void PutPointer()
     {

@@ -34,8 +34,11 @@ namespace EnumCollection
 
     public enum Soldier
     {
-        Builder,
-        Infantry
+        Warrior,
+        Archer,
+        WarMachine,
+        Magic,
+        WolfKnight,
     }
 
     public enum AnimState

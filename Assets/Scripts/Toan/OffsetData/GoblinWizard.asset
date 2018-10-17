@@ -18,4 +18,4 @@ MonoBehaviour:
   Alignment: 0.01
   AttackRadius: 8
   NeighboursRadius: 5
-  ObstacleAvoidance: 1.5
+  ObstacleAvoidance: 1.2
