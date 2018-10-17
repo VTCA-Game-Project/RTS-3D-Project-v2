@@ -8,7 +8,8 @@ public class MapControl : MonoBehaviour {
 
     private List<CubeManager> ListGO= new List<CubeManager>() ;
     public GameObject modelGO;
-    private Tree_Control TreeMangager;
+
+    public GameObject CubeParent;
 
     public Vector2 MapCellSize;
 	// Use this for initialization
@@ -19,28 +20,31 @@ public class MapControl : MonoBehaviour {
         {
             for(int j=0;j<battlefield.height;j++)
             {
-                var newGO = Instantiate(modelGO, new Vector3(i * MapCellSize.x, 0f, j * MapCellSize.y), Quaternion.identity);
-                CubeManager CM = newGO.GetComponent<CubeManager>();
+               
+                if (   (i >= 0 && i < 31 && j >= 0 && j < 31) 
+                    || (i >= 0 && i < 31 && j > 69 && j <= 99)  
+                    || (i > 69 && i <= 99 && j > 69 && j <= 99) 
+                    || (i > 69 && i <= 99 && j >= 0 && j < 31))
+                {
+                    var newGO = Instantiate(modelGO, new Vector3(i * MapCellSize.x, 0f, j * MapCellSize.y), Quaternion.identity,CubeParent.transform);
+                    CubeManager CM = newGO.GetComponent<CubeManager>();
+
+                    CM.CodeLocal = new Vector2(i, j);
+                    ListGO.Add(CM);
+                    CM.CanBuild = true;
+                   
+                }
               
-                CM.CodeLocal = new Vector2(i, j);
-                ListGO.Add(CM);
+               
                 
                
             }
         }
 
-        TreeMangager = GetComponent<Tree_Control>();
-        List<Vector2> TempList = TreeMangager.GetTreeList();
+      
 
 
-        for(int i=0;i<TempList.Count;i++)
-        {
-            if(GetCubeBylocal(TempList[i])!=null)
-            {
-                CubeManager tempcube = GetCubeBylocal(TempList[i]);
-                tempcube.CanBuild = false;
-            }
-        }
+       
 
     }
 	

@@ -21,7 +21,7 @@ public class CubeManager : MonoBehaviour {
 
     private void Awake()
     {
-        CanBuild = true;
+        CanBuild = false ;
     }
     void Start ()
     {

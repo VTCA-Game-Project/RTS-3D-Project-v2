@@ -38,22 +38,10 @@ public class Pointer : MonoBehaviour
             transform.position = value;
         }
     }
+
+    public TargetType TargetType { get; private set; }
     #endregion
-<<<<<<< HEAD
-    private void Update()
-    {
 
-
-
-    }
-
-
-
-
-   
-=======
-  
->>>>>>> fb20b3fbc4d6c9cfe5669e682ee6d879bcb87bbd
 
     public void PutPointer()
     {
@@ -61,12 +49,12 @@ public class Pointer : MonoBehaviour
         if (Physics.Raycast(ray: ray,
                             hitInfo: out hitInfo,
                             maxDistance: Mathf.Infinity,
-                            layerMask: LayerMask.GetMask("Place", "NPC", "Construct")))
+                            layerMask: LayerMask.GetMask("Place", "NPC", "Construct","Floor","UI")))
         {
             Position = hitInfo.point;
             int hitLayer = hitInfo.collider.gameObject.layer;
             TargetType = TargetType.None;
-            if (hitLayer == LayerMask.NameToLayer("Place"))
+            if ((hitLayer == LayerMask.NameToLayer("Place")) || (hitLayer == LayerMask.NameToLayer("Floor")))
             {
                 TargetType = TargetType.Place;
             }
@@ -77,6 +65,10 @@ public class Pointer : MonoBehaviour
             else if (hitLayer == LayerMask.NameToLayer("Construct"))
             {
                 TargetType = TargetType.Construct;
+            }
+            else if (hitLayer == LayerMask.NameToLayer("UI"))
+            {
+                TargetType = TargetType.None;
             }
         }
     }

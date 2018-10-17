@@ -58,6 +58,7 @@ namespace EnumCollection
         Place,
         NPC,
         Construct,
+        UI,
         None
     }
     public enum GameStatus
