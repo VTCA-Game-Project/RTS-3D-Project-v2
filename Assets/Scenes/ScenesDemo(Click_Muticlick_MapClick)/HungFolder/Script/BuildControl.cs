@@ -46,27 +46,30 @@ public class BuildControl : MonoBehaviour {
             foreach (CubeManager cube in ListInSelect)
             {
 
-
-                if (cube.CanBuild == false)
+                if (cube != null)
                 {
-
-
-                    cube.SetState("Not");
-                    cube.OnraycastIn();
-
-                }
-                else
-                {
-                    cube.SetState("Can");
-                    cube.OnraycastIn();
-
-
-                    foreach (CubeManager _cube in ListBuildCube)
+                    if (cube.CanBuild == false)
                     {
-                        _cube.SetState("None");
-                        _cube.OnraycastIn();
+
+
+                        cube.SetState("Not");
+                        cube.OnraycastIn();
+
                     }
 
+                    else
+                    {
+                        cube.SetState("Can");
+                        cube.OnraycastIn();
+
+
+                        foreach (CubeManager _cube in ListBuildCube)
+                        {
+                            _cube.SetState("None");
+                            _cube.OnraycastIn();
+                        }
+
+                    }
                 }
 
             }
@@ -75,7 +78,7 @@ public class BuildControl : MonoBehaviour {
             if (Physics.Raycast(ray: ray,
                                 hitInfo: out hitInfo,
                                 maxDistance: Mathf.Infinity,
-                                layerMask: LayerMask.GetMask("Place")))
+                                layerMask: LayerMask.GetMask("Floor")))
             {
 
                 CubeManager cube = hitInfo.collider.gameObject.GetComponent<CubeManager>();
@@ -85,6 +88,8 @@ public class BuildControl : MonoBehaviour {
                 {
 
                     setBuildSize(BuildSize, cube);
+
+                    
                   
                 }
 
@@ -102,7 +107,8 @@ public class BuildControl : MonoBehaviour {
                 else
                 {
                     if (Input.GetMouseButtonDown(0))
-                    {
+                    {if (ListInSelect.Count < BuildSize.x * BuildSize.y)
+                        { return; }
                         for (int k = 0; k < ListInSelect.Count; k++)
                         {
 
@@ -134,7 +140,7 @@ public class BuildControl : MonoBehaviour {
     }
     private void setBuildSize(Vector2 size, CubeManager currentpoint)
     {
-
+      
         if (LatPoint != currentpoint.CodeLocal)
         {
             foreach (CubeManager minicube in ListInSelect)
@@ -147,7 +153,7 @@ public class BuildControl : MonoBehaviour {
             if (!CheckBuildedCude(currentpoint))
             {
                 LatPoint = currentpoint.CodeLocal;
-                ListInSelect.Add(currentpoint);
+              
             }
 
             for (int i = 0; i < size.x; i++)
@@ -156,14 +162,17 @@ public class BuildControl : MonoBehaviour {
                 {
 
                     CubeManager sub = ControlMap.GetCubeBylocal(currentpoint.CodeLocal + new Vector2(i, j));
+                    if (sub != null)
 
+                    { ListInSelect.Add(sub);
 
-                    ListInSelect.Add(sub);
+                    }
 
 
 
                 }
             }
+           
         }
 
 

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33905564412567120}
   - component: {fileID: 23814195498624282}
   - component: {fileID: 114122808250603804}
+  - component: {fileID: 114744324172742796}
   m_Layer: 0
   m_Name: barracks
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Transform:
   m_GameObject: {fileID: 1080567823935072}
   m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4976176179099226}
   m_RootOrder: 0
@@ -126,3 +127,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Debug: 0
   Index: 0
+--- !u!114 &114744324172742796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1080567823935072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a8201dcd9fdf124ba18580933d1a86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

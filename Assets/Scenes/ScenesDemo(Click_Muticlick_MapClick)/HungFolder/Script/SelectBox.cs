@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +10,8 @@ public class SelectBox : MonoBehaviour
 
     private Vector3 startPos;
     private Vector3 endPos;
+
+    private bool inswit;
 
     void Start()
     {
@@ -25,11 +27,16 @@ public class SelectBox : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(cameraRaycaster.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
             {
-                startPos = hit.point;
+                if (inswit == false)
+                {
+                    startPos = hit.point;
+                    inswit = true;
+                }
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
+            inswit = false;
             selectSquareImages.gameObject.SetActive(false);
         }
         if (Input.GetMouseButton(0))

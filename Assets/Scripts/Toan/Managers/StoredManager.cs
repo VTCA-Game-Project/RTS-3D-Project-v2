@@ -67,8 +67,12 @@ namespace Manager
         }
         public static void RemoveConstruct(Construct construct)
         {
-            constructs.RemoveAt(constructs.IndexOf(construct));
-            GlobalGameStatus.Instance.ConstructDestroyed(construct);
+            int index = constructs.IndexOf(construct);
+            if (index >= 0)
+            {
+                constructs.RemoveAt(index);
+                GlobalGameStatus.Instance.ConstructDestroyed(construct);
+            }
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " destroyed");
 #endif
@@ -95,7 +99,11 @@ namespace Manager
         }
         public static void RemoveObstacle(Obstacle obs)
         {
-            obstacles.RemoveAt(obstacles.IndexOf(obs));
+            int index = obstacles.IndexOf(obs);
+            if (index >= 0)
+            {
+                obstacles.RemoveAt(index);
+            }
         }
         public static Obstacle[] GetObstacle(AIAgent agent)
         {

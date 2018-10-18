@@ -13,6 +13,7 @@ public class BuildElement : MonoBehaviour {
     public GameObject Mouse;
     public Image CountDownIMG;
     public GameObject BuildModel;
+    public Vector2 info;
     private BuildControl ClickEvent;
     private float totaltime=0f;
     private float delaytime =5f;
@@ -27,6 +28,7 @@ public class BuildElement : MonoBehaviour {
         ClickEvent = Mouse.GetComponent<BuildControl>();
 
         CurrentImage = GetComponent<Image>();
+       
 
         CurrentImage.sprite = NewImage;
         newcolo = CountDownIMG.color;
@@ -78,7 +80,7 @@ public class BuildElement : MonoBehaviour {
 		
 	}
 
-    public void OnUnitClick(string inputvalues, Vector2 buidSize)
+    public void OnUnitClick(string inputvalues)
     {
         if (!stateCowdown&&!CowDownComplete)
         {
@@ -96,9 +98,14 @@ public class BuildElement : MonoBehaviour {
             {
               
                 ClickEvent.ResetTaget();
-                ClickEvent.BuildSize = buidSize;
+                //ClickEvent.BuildSize = buidSize;
                 ClickEvent.OnselectTaget = true;
                 ClickEvent.BuildModel = BuildModel;
+
+
+                ClickEvent.BuildSize = info;
+
+             
                 CowDownComplete = false;
 
                 newcolo.a = 0;

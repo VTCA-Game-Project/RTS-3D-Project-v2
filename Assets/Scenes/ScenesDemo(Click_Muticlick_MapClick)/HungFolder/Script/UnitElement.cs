@@ -24,7 +24,7 @@ public class UnitElement : MonoBehaviour
 
 
     }
-    public void InBuldUnitClick(int i, Vector2 Buildsize)
+    public void InBuldUnitClick(int i)
     {
         if (this.gameObject.name == "UnitBuild" + i )
         {
@@ -33,7 +33,7 @@ public class UnitElement : MonoBehaviour
                 inputvalues = "LEFT";
             if (Input.GetMouseButtonDown(1))
                 inputvalues = "RIGHT";
-            Build.OnUnitClick(inputvalues, Buildsize);
+            Build.OnUnitClick(inputvalues);
             inputvalues = "";
 
         }

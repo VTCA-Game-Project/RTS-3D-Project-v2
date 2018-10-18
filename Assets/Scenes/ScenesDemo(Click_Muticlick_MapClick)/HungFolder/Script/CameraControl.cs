@@ -23,8 +23,8 @@ public class CameraControl : MonoBehaviour {
             pos.x -= panSpeed * Time.deltaTime;
 
       
-        pos.x = Mathf.Clamp(pos.x, -panlimit.x, panlimit.x);
-        pos.z = Mathf.Clamp(pos.z, -panlimit.y, panlimit.y);
+        pos.x = Mathf.Clamp(pos.x, 10, 84);
+        pos.z = Mathf.Clamp(pos.z, 3, 84);
         transform.position = pos;
 	}
 }

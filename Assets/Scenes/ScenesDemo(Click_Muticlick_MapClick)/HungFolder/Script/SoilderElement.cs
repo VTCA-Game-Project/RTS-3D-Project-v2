@@ -72,7 +72,7 @@ public class SoilderElement : MonoBehaviour {
 
                 Count--;
 
-            if (createSoldier!= null) createSoldier(Soldier.Builder);
+            if (createSoldier!= null) createSoldier(Soldier.Magic);
 
 
             }
@@ -97,11 +97,11 @@ public class SoilderElement : MonoBehaviour {
         switch(name)
         {
             case "":
-                UnitType = Soldier.Builder;
+                UnitType = Soldier.Magic;
                 break;
 
             case "1":
-                UnitType = Soldier.Builder;
+                UnitType = Soldier.Magic;
                 break;
 
         }
