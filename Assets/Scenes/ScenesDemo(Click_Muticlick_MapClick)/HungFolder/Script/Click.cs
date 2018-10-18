@@ -47,10 +47,13 @@ public class Click : MonoBehaviour
         {
             if (selectobj != null)
             {
-                if (selectrect.Contains(cameraRaycaster.WorldToViewportPoint(selectobj.transform.position), true))
+                if (selectobj.PlayerGroup == EnumCollection.Group.Player)
                 {
-                    selectedObjects.Add(selectobj);
-                    selectobj.Select();
+                    if (selectrect.Contains(cameraRaycaster.WorldToViewportPoint(selectobj.transform.position), true))
+                    {
+                        selectedObjects.Add(selectobj);
+                        selectobj.Select();
+                    }
                 }
             }
         }

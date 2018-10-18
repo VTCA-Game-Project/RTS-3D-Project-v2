@@ -9,7 +9,6 @@ namespace InterfaceCollection
         Vector3 Heading { get; }
         Vector3 Velocity { get; }
     }
-
     interface ISelectable
     {
         void Select();
@@ -29,6 +28,5 @@ namespace InterfaceCollection
     {
         void Produce(System.Enum type);
     }
-    // 
 }
 

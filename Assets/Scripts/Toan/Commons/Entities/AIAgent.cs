@@ -23,7 +23,7 @@ namespace Common.Entity
         protected AnimationStateCtrl anims;
         protected Pointer pointer;
 
-        public Player Owner             { get; set; }
+        public Player Owner;/*{ get; set; }*/
         public bool OnObsAvoidance      { get; set; }
         public float AttackRange        { get; protected set; }
         public float MinVelocity        { get; protected set; }
@@ -82,8 +82,6 @@ namespace Common.Entity
             flockBh = Singleton.FlockBehavior;
             avoidanceBh = Singleton.ObstacleAvoidance;
             InitOffset();
-
-            
         }
         protected virtual void FixedUpdate()
         {

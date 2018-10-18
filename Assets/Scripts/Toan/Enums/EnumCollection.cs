@@ -39,6 +39,7 @@ namespace EnumCollection
         Idle,
         Damage,
         Attack,
+        None
     }
 
     public enum Group
