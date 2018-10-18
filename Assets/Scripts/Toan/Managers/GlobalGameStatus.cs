@@ -8,9 +8,6 @@ namespace Manager
 {
     public class GlobalGameStatus
     {
-
-        private int remainPower = 0;
-        private int requirePower = 0;
         public static GlobalGameStatus Instance = new GlobalGameStatus();
 
         public float Gold { get; private set; }
@@ -20,32 +17,7 @@ namespace Manager
         private GlobalGameStatus()
         {
             ConstructsCantBuild = new List<ConstructId>();
-        }
-                 
-        public int RequirePower
-        {
-            get { return requirePower; }
-            protected set
-            {
-                requirePower = value;
-                if (RemainPower < RequirePower)
-                    StoredManager.PowerLow();
-                else
-                    StoredManager.PowerHight();
-            }
-        }
-        public int RemainPower
-        {
-            get { return remainPower; }
-            protected set
-            {
-                remainPower = value;
-                if (RemainPower < RequirePower)
-                    StoredManager.PowerLow();
-                else
-                    StoredManager.PowerHight();
-            }
-        }
+        }                 
 
         public void NewConstructBuilded(Construct construct)
         {
@@ -87,26 +59,6 @@ namespace Manager
             }
             debt = 0;
             return PayGoldStatus.Success;
-        }
-
-        public void PowerBuilded(Power building)
-        {
-            RemainPower += building.PowerVolume;
-        }
-
-        public void PowerBuildDestroyed(Power building)
-        {
-            RemainPower -= building.PowerVolume;
-        }
-
-        public void IncreaseRequirePower(int plus)
-        {
-            RequirePower += plus;
-        }
-
-        public void DecreaseRequirePower(int subtract)
-        {
-            RequirePower -= subtract;
         }
     }
 }

@@ -2,7 +2,6 @@
 using EnumCollection;
 using Pattern;
 using UnityEngine;
-using Utils;
 
 namespace Common.Building
 {
@@ -20,9 +19,7 @@ namespace Common.Building
         protected override void Start()
         {
             Id = ConstructId.Barrack;
-            IsActive = true;
             IsUsePower = false;
-            ConsumePower = 0;
             base.Start();
         }
 

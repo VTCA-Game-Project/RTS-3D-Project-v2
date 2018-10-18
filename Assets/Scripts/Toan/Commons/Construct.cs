@@ -8,27 +8,16 @@ namespace Common
     {
 
         protected ConstructId[] onwed;
-        protected int ConsumePower { get; set; }
-        protected int hp;        
 
-        public bool IsActive { get; set; }
-        public bool IsUsePower { get; protected set; }
-        public ConstructId Id { get; protected set; }
-        public ConstructId[] Owned
-        {
-            get { return onwed; }
-            protected set { onwed = value; }
-        }
-        public int Hp
-        {
-            get { return hp; }
-            protected set { hp = value; }
-        }
+        public int  Hp              { get; protected set; }
+        public bool IsUsePower      { get; protected set; }
+        public ConstructId Id       { get; protected set; }
+        public ConstructId[] Owned  { get; protected set; }
 
         protected virtual void Start()
         {
+            Hp = 1;
             Init();
-            Hp = 10;
         }
 
         protected void Init()
@@ -38,33 +27,20 @@ namespace Common
                 case ConstructId.Yard:
                     onwed = new ConstructId[]
                     {
-                    ConstructId.Power,
-                    };
-                    break;
-                case ConstructId.Power:
-                    onwed = new ConstructId[]
-                    {
                     ConstructId.Refinery,
                     };
                     break;
                 case ConstructId.Refinery:
                     onwed = new ConstructId[]
                     {
-                    ConstructId.War,
                     ConstructId.Barrack,
-                    };
-                    break;
-                case ConstructId.War:
-                    onwed = new ConstructId[]
-                    {
-                    ConstructId.Radar,
-                    ConstructId.FarDefender,
                     };
                     break;
                 case ConstructId.Barrack:
                     onwed = new ConstructId[]
                     {
-                    ConstructId.NearDefender,
+                    ConstructId.Defender,
+                    ConstructId.Radar,
                     };
                     break;
                 default:
@@ -84,19 +60,17 @@ namespace Common
         public virtual void Build()
         {
             UnlockConstruct();
-            GlobalGameStatus.Instance.IncreaseRequirePower(ConsumePower);
         }
 
         public void RecieveDamage(int damage)
         {
-            hp -= damage;
-            if (hp <= 0) hp = 0;
+            Hp -= damage;
+            if (Hp <= 0) Hp = 0;
         }
 
         public virtual void DestroyConstruct()
         {
             StoredManager.RemoveConstruct(this);
-            GlobalGameStatus.Instance.DecreaseRequirePower(ConsumePower);
             Destroy(this.gameObject);
         }
 
@@ -104,7 +78,7 @@ namespace Common
         {
             // do something
         }
-        
+
         protected virtual void Update()
         {
             if (Hp <= 0)

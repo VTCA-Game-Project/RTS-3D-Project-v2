@@ -5,12 +5,9 @@ namespace EnumCollection
     {
         Refinery,
         Barrack,
-        War,
         Radar,
         Yard,
-        Power,
-        FarDefender,
-        NearDefender,
+        Defender
     }
 
     public enum Deceleration
