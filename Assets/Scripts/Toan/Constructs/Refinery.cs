@@ -1,28 +1,23 @@
-﻿using EnumCollection;
+﻿using System;
+using EnumCollection;
+using InterfaceCollection;
 using Manager;
 
 
 namespace Common.Building
 {
-    public class Refinery : Construct
+    public class Refinery : Construct,IProduce
     {
+        public int RemainingGold { get; protected set; }
         protected override void Start()
         {
             Id = ConstructId.Refinery;
-            ConsumePower = 0;
-            IsUsePower = false;
-            IsActive = true;
             base.Start();
         }
-        protected override void Update()
-        {
-            base.Update();
-        }
 
-        public void ReceiveGold(float gold)
+        public void Produce(Enum type = null)
         {
-            GlobalGameStatus.Instance.TakeGold(gold);
+            player.TakeGold(RemainingGold);
         }
-
     }
 }

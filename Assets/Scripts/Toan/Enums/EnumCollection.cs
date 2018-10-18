@@ -24,15 +24,12 @@ namespace EnumCollection
         Pause     // remain gold less than require gold
     }
 
-    public enum Vehicle
-    {
-        GrizzlyTank,
-    }
-
     public enum Soldier
     {
-        Builder,
-        Infantry
+        Magic,
+        WoflKnigh,
+        Warrior,
+        Archer
     }
 
     public enum AnimState

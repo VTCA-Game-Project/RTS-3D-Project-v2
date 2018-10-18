@@ -12,10 +12,6 @@ public class Pointer : MonoBehaviour
     private RaycastHit hitInfo;
     private Ray ray;
    
-   
-   
-
-
     #region Properties
  
    

@@ -1,4 +1,5 @@
-﻿using EnumCollection;
+﻿using DelegateCollection;
+using EnumCollection;
 using Manager;
 using UnityEngine;
 
@@ -8,18 +9,22 @@ namespace Common
     {
 
         protected ConstructId[] onwed;
+        protected Player player;
 
-        public int  Hp              { get; protected set; }
-        public bool IsUsePower      { get; protected set; }
-        public ConstructId Id       { get; protected set; }
-        public ConstructId[] Owned  { get; protected set; }
+        public int  Hp                      { get; protected set; }
+        public ConstructId Id               { get; protected set; }
+        public ConstructId[] Owned          { get; protected set; }
+        public GameAction AddConstruct      { protected get; set; }
+        public GameAction RemoveConstruct   { protected get; set; }
 
         protected virtual void Start()
         {
+            player          = GetComponent<Player>();
+            AddConstruct    =  player.AddConstruct;
+            RemoveConstruct = player.RemoveConstruct;
             Hp = 1;
             Init();
         }
-
         protected void Init()
         {
             switch (Id)
@@ -53,38 +58,28 @@ namespace Common
         }
         protected void UnlockConstruct()
         {
-            StoredManager.AddConstruct(this);
+           AddConstruct(this);
         }
 
         // public method
-        public virtual void Build()
-        {
-            UnlockConstruct();
-        }
-
-        public void RecieveDamage(int damage)
+        public void TakeDamage(int damage)
         {
             Hp -= damage;
-            if (Hp <= 0) Hp = 0;
-        }
-
-        public virtual void DestroyConstruct()
-        {
-            StoredManager.RemoveConstruct(this);
-            Destroy(this.gameObject);
-        }
-
-        public void Reqair()
-        {
-            // do something
-        }
-
-        protected virtual void Update()
-        {
             if (Hp <= 0)
             {
+                Hp = 0;
                 DestroyConstruct();
             }
         }
+        public virtual void Build()
+        {
+            UnlockConstruct();
+        }       
+        public virtual void DestroyConstruct()
+        {
+            RemoveConstruct(this);
+            Destroy(this.gameObject);
+        }
+        
     }
 }

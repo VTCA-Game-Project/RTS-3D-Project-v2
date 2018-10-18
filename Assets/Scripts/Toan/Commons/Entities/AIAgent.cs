@@ -10,12 +10,11 @@ namespace Common.Entity
 {
     public class AIAgent : GameEntity, ISelectable
     {
-        protected bool isReachedTarget;
-        public TargetType TargetType { get; protected set; }
+        protected bool isReachedTarget;        
         protected Vector3 target;
         protected Vector3 steering;
         protected Vector3 aceleration;
-
+        
         protected AIAgent[] neighbours;
         protected Obstacle[] obstacles;
         protected SteerBehavior steerBh;
@@ -24,14 +23,17 @@ namespace Common.Entity
         protected AnimationStateCtrl anims;
         protected Pointer pointer;
 
-        public bool OnObsAvoidance { get; set; }
-        public float AttackRange { get; protected set; }
-        public float MinVelocity { get; protected set; }
-        public float Separation { get; protected set; }
-        public float Cohesion { get; protected set; }
-        public float Alignment { get; protected set; }
-        public float SeekingWeight { get; protected set; }
-        public float AvoidanceWeight { get; protected set; }
+        public Player Owner             { get; set; }
+        public bool OnObsAvoidance      { get; set; }
+        public float AttackRange        { get; protected set; }
+        public float MinVelocity        { get; protected set; }
+        public float Separation         { get; protected set; }
+        public float Cohesion           { get; protected set; }
+        public float Alignment          { get; protected set; }
+        public float SeekingWeight      { get; protected set; }
+        public float AvoidanceWeight    { get; protected set; }
+        public TargetType TargetType    { get; protected set; }
+        public Group PlayerGroup        { get; protected set; }
 
         public AgentOffset offset;
 #if UNITY_EDITOR
@@ -40,7 +42,6 @@ namespace Common.Entity
 #endif
 
         #region Properties
-        public Group Group { get; set; }
         public int HP { get; protected set; }
         public float MaxSpeed { get; protected set; }
         public float Radius { get; protected set; }
@@ -66,7 +67,6 @@ namespace Common.Entity
 
         protected virtual void Awake()
         {
-            StoredManager.AddAgent(this);
             gameObject.AddComponent<ClickOn>();
             pointer = FindObjectOfType<Pointer>();
             anims = GetComponent<AnimationStateCtrl>();
@@ -75,10 +75,15 @@ namespace Common.Entity
         }
         protected virtual void Start()
         {
+            Owner.AddAgent(this);
+            PlayerGroup = Owner.Group;
+
             steerBh = Singleton.SteerBehavior;
             flockBh = Singleton.FlockBehavior;
             avoidanceBh = Singleton.ObstacleAvoidance;
             InitOffset();
+
+            
         }
         protected virtual void FixedUpdate()
         {
@@ -91,7 +96,7 @@ namespace Common.Entity
                 steering += steerBh.Seek(this, target) * SeekingWeight;
                 if (OnObsAvoidance)
                 {
-                    neighbours = StoredManager.GetNeighbours(this);
+                    neighbours = Owner.GetNeighbours(this);
                     steering += flockBh.Separation(this, neighbours) * Separation;
                     steering += flockBh.Alignment(this, neighbours) * Alignment;
                     steering += flockBh.Cohesion(this, neighbours) * Cohesion;

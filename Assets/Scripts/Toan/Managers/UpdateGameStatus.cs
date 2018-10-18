@@ -8,6 +8,6 @@ public class UpdateGameStatus : MonoBehaviour
 {
     private void FixedUpdate()
     {
-        if (GlobalGameStatus.Instance.Status != GameStatus.Playing) return;
+        
     }
 }
