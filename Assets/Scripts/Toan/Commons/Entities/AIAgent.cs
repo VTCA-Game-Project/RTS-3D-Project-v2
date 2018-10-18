@@ -117,11 +117,10 @@ namespace Common.Entity
                     AgentRigid.velocity = Vector3.zero;
                 }
             }
-            
 
 
 #if UNITY_EDITOR
-           // Debug.Log(aceleration);
+            // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
         }
         protected void MoveToTarget()
@@ -146,7 +145,7 @@ namespace Common.Entity
             }
             else if (TargetType == TargetType.NPC)
             {
-                transform.LookAt(target,Vector3.up);
+                transform.forward = Vector3.RotateTowards(transform.forward, target, 3 * Time.deltaTime, 3 * Time.deltaTime);
             }
         }
         protected bool CheckReachedTarget()
@@ -196,7 +195,7 @@ namespace Common.Entity
 
             IsDead = false;
             IsSelected = false;
-            IsReachedTarget = false;
+            IsReachedTarget = true;
             OnObsAvoidance = true;
             MinDetectionBoxLenght = Radius;
             Radius = SkinMeshRenderer.bounds.extents.x;
@@ -205,14 +204,6 @@ namespace Common.Entity
         public void Select() { IsSelected = true; }
         public void UnSelect() { IsSelected = false; }
         public virtual void Action() { MoveToTarget(); }
-        public virtual void SetTarget(TargetType targetType, Vector3 position)
-        {
-            position = Vector3.ProjectOnPlane(position, Vector3.up);
-            target = position;
-            TargetType = targetType;
-            IsReachedTarget = false;
-            IsSelected = true;
-        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()

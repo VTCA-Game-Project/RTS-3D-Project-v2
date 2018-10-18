@@ -45,18 +45,15 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1101 &1101026672548889650
+--- !u!1101 &1101011721213527974
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Dead
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102362601063579918}
+  m_DstState: {fileID: 1102270898958657546}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -69,15 +66,18 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &1101031469255913430
+--- !u!1101 &1101026672548889650
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Dead
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102120133593861834}
+  m_DstState: {fileID: 1102362601063579918}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -368,7 +368,7 @@ AnimatorState:
   m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 1101031469255913430}
+  - {fileID: 1101011721213527974}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -423,7 +423,7 @@ AnimatorStateMachine:
     m_Position: {x: 456, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102270898958657546}
-    m_Position: {x: 456, y: -204, z: 0}
+    m_Position: {x: 456, y: -72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102619367819532010}
     m_Position: {x: 264, y: 24, z: 0}
@@ -432,10 +432,10 @@ AnimatorStateMachine:
     m_Position: {x: 24, y: -84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102268399057955562}
-    m_Position: {x: 732, y: 0, z: 0}
+    m_Position: {x: 612, y: 24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102406748967618978}
-    m_Position: {x: 720, y: -204, z: 0}
+    m_Position: {x: 456, y: -192, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101026672548889650}

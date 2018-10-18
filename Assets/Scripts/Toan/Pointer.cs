@@ -8,15 +8,17 @@ public class Pointer : MonoBehaviour
     public static Pointer Instance;
   
     public Camera rtsCamera;
- 
+	public TargetType TargetType { get; private set; }
     private RaycastHit hitInfo;
     private Ray ray;
-    public TargetType TargetType { get; protected set; }
+   
+   
+   
 
 
     #region Properties
-
-
+ 
+   
 
     private void Awake()
     {
@@ -36,6 +38,10 @@ public class Pointer : MonoBehaviour
             transform.position = value;
         }
     }
+
+   
+    #endregion
+
     public void PutPointer()
     {
         ray = rtsCamera.ScreenPointToRay(Input.mousePosition);

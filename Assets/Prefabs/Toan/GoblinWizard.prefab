@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 114903601133347030}
   - component: {fileID: 114957577103688972}
   m_Layer: 10
-  m_Name: Magic
+  m_Name: GoblinWizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2022,7 +2022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {fileID: 11400000, guid: 7e5269b6c2cd48d48afa61ce8996b669, type: 2}
-  drawGizmos: 0
+  drawGizmos: 1
 --- !u!136 &136692070633177850
 CapsuleCollider:
   m_ObjectHideFlags: 1
