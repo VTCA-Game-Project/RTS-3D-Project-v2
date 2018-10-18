@@ -1,4 +1,5 @@
-﻿using EnumCollection;
+﻿using DelegateCollection;
+using EnumCollection;
 using Manager;
 using UnityEngine;
 
@@ -8,40 +9,27 @@ namespace Common
     {
 
         protected ConstructId[] onwed;
-        protected int ConsumePower { get; set; }
-        protected int hp;        
+        protected Player player;
 
-        public bool IsActive { get; set; }
-        public bool IsUsePower { get; protected set; }
-        public ConstructId Id { get; protected set; }
-        public ConstructId[] Owned
-        {
-            get { return onwed; }
-            protected set { onwed = value; }
-        }
-        public int Hp
-        {
-            get { return hp; }
-            protected set { hp = value; }
-        }
+        public int  Hp                      { get; protected set; }
+        public ConstructId Id               { get; protected set; }
+        public ConstructId[] Owned          { get; protected set; }
+        public GameAction AddConstruct      { protected get; set; }
+        public GameAction RemoveConstruct   { protected get; set; }
 
         protected virtual void Start()
         {
+            player          = GetComponent<Player>();
+            AddConstruct    =  player.AddConstruct;
+            RemoveConstruct = player.RemoveConstruct;
+            Hp = 1;
             Init();
-            Hp = 10;
         }
-
         protected void Init()
         {
             switch (Id)
             {
                 case ConstructId.Yard:
-                    onwed = new ConstructId[]
-                    {
-                    ConstructId.Power,
-                    };
-                    break;
-                case ConstructId.Power:
                     onwed = new ConstructId[]
                     {
                     ConstructId.Refinery,
@@ -50,21 +38,14 @@ namespace Common
                 case ConstructId.Refinery:
                     onwed = new ConstructId[]
                     {
-                    ConstructId.War,
                     ConstructId.Barrack,
-                    };
-                    break;
-                case ConstructId.War:
-                    onwed = new ConstructId[]
-                    {
-                    ConstructId.Radar,
-                    ConstructId.FarDefender,
                     };
                     break;
                 case ConstructId.Barrack:
                     onwed = new ConstructId[]
                     {
-                    ConstructId.NearDefender,
+                    ConstructId.Defender,
+                    ConstructId.Radar,
                     };
                     break;
                 default:
@@ -77,40 +58,28 @@ namespace Common
         }
         protected void UnlockConstruct()
         {
-            StoredManager.AddConstruct(this);
+           AddConstruct(this);
         }
 
         // public method
-        public virtual void Build()
+        public void TakeDamage(int damage)
         {
-            UnlockConstruct();
-            GlobalGameStatus.Instance.IncreaseRequirePower(ConsumePower);
-        }
-
-        public void RecieveDamage(int damage)
-        {
-            hp -= damage;
-            if (hp <= 0) hp = 0;
-        }
-
-        public virtual void DestroyConstruct()
-        {
-            StoredManager.RemoveConstruct(this);
-            GlobalGameStatus.Instance.DecreaseRequirePower(ConsumePower);
-            Destroy(this.gameObject);
-        }
-
-        public void Reqair()
-        {
-            // do something
-        }
-        
-        protected virtual void Update()
-        {
+            Hp -= damage;
             if (Hp <= 0)
             {
+                Hp = 0;
                 DestroyConstruct();
             }
         }
+        public virtual void Build()
+        {
+            UnlockConstruct();
+        }       
+        public virtual void DestroyConstruct()
+        {
+            RemoveConstruct(this);
+            Destroy(this.gameObject);
+        }
+        
     }
 }

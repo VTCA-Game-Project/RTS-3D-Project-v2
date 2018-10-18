@@ -27,7 +27,7 @@ namespace InterfaceCollection
     }
     interface IProduce
     {
-        GameObject Produce(System.Enum type);
+        void Produce(System.Enum type);
     }
     // 
 }

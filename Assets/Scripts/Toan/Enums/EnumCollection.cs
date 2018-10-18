@@ -5,12 +5,9 @@ namespace EnumCollection
     {
         Refinery,
         Barrack,
-        War,
         Radar,
         Yard,
-        Power,
-        FarDefender,
-        NearDefender,
+        Defender
     }
 
     public enum Deceleration
@@ -27,18 +24,12 @@ namespace EnumCollection
         Pause     // remain gold less than require gold
     }
 
-    public enum Vehicle
-    {
-        GrizzlyTank,
-    }
-
     public enum Soldier
     {
-        Warrior,
-        Archer,
-        WarMachine,
         Magic,
-        WolfKnight,
+        WoflKnigh,
+        Warrior,
+        Archer
     }
 
     public enum AnimState

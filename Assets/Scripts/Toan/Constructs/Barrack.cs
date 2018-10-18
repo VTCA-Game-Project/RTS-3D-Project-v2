@@ -1,32 +1,27 @@
-﻿using Common.Entity;
-using EnumCollection;
+﻿using EnumCollection;
+using InterfaceCollection;
 using Pattern;
 using UnityEngine;
-using Utils;
 
 namespace Common.Building
 {
-    public class Barrack : Construct
+    public class Barrack : Construct,IProduce
     {
-        protected void Awake()
-        {
-            SoilderElement[] soilderElements = FindObjectsOfType<SoilderElement>();
-            if (soilderElements != null)
-                for (int i = 0; i < soilderElements.Length; i++)
-                {
-                    soilderElements[i].setsomething(CreateSoldier);
-                }
-        }
         protected override void Start()
         {
+            SoilderElement[] buySoliderButtons = FindObjectsOfType<SoilderElement>();
+            if(buySoliderButtons != null)
+            {
+                for (int i = 0; i < buySoliderButtons.Length; i++)
+                {
+                    buySoliderButtons[i].setsomething(Produce);
+                }
+            }
             Id = ConstructId.Barrack;
-            IsActive = true;
-            IsUsePower = false;
-            ConsumePower = 0;
             base.Start();
         }
 
-        public GameObject Produce(System.Enum type)
+        public GameObject GetSoldier(System.Enum type)
         {
             if (type.GetType() == typeof(Soldier))
             {
@@ -35,14 +30,9 @@ namespace Common.Building
             return null;
         }
 
-        public void CreateSoldier(Soldier type)
+        public void Produce(System.Enum type)
         {
-            GameObject soldier = Produce(type);
-            if(soldier != null)
-            {
-                AIAgent agent = Instantiate(soldier, transform.position, Quaternion.identity).GetComponent<AIAgent>();
-                agent.SetTarget(TargetType.Place, transform.position + new Vector3(0, 0, 10));
-            }
+            GetSoldier(type);
         }
     }
 }
