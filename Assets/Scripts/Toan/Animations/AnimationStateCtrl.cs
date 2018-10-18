@@ -36,7 +36,8 @@ namespace Manager
                     break;
                 case AnimState.Run:
                     anims.SetBool("IsRunning", true);
-                    ResetAnimationParams();
+					if(state == AnimState.Attack)
+						ResetAnimationParams();
                     break;
                 case AnimState.Damage:
                     anims.SetTrigger("Damage");
@@ -85,8 +86,7 @@ namespace Manager
         {
             if(nextState != CurrentState)
             {
-                CurrentState = nextState;
-                Play(CurrentState);
+                Play(nextState);
             }
         }
         private void ResetAnimationParams()
