@@ -8,7 +8,7 @@ using RTS_ScriptableObject;
 
 namespace Common.Entity
 {
-    public class AIAgent : GameEntity, ISelectable
+    public abstract class AIAgent : GameEntity, ISelectable
     {
         protected bool isReachedTarget;        
         protected Vector3 target;

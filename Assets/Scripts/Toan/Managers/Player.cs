@@ -49,5 +49,13 @@ namespace Manager
         {
             return status.GetNeighbours(agent);
         }
+
+        public bool IsAlive() { return status.IsAlive; }
+
+        public void Lose()
+        {
+            // if this is enemy,broadcast to player
+            // if this is play, show notify
+        }
     }
 }

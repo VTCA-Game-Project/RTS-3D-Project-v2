@@ -2,18 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Common;
-using Common.Building;
 using Common.Entity;
 
 namespace Manager
 {
     public class GlobalGameStatus
     {
+        private bool isAlive;
+
+        #region Properties
         public float Gold                               { get; private set; }
         public List<AIAgent> Agents                     { get; private set; }
         public List<Construct> Constructs               { get; private set; }
         public List<ConstructId> ConstructsCantBuild    { get; private set; }
         
+        public bool IsAlive
+        {
+            get { return Agents.Count + Constructs.Count > 0; }
+            private set { isAlive = value; }                
+        }
+        #endregion
+
         public GlobalGameStatus()
         {
             Gold = 0;            
@@ -22,7 +31,7 @@ namespace Manager
             ConstructsCantBuild = new List<ConstructId>();
         }                 
 
-        public void NewConstructBuilt(Construct construct)
+        private void NewConstructBuilt(Construct construct)
         {
             ConstructId[] unlock = construct.Owned;
             for (int i = 0; i < unlock.Length; i++)
@@ -34,7 +43,7 @@ namespace Manager
             }
         }
 
-        public void ConstructDestroyed(Construct construct)
+        private void ConstructDestroyed(Construct construct)
         {
             ConstructId[] unlock = construct.Owned;
             for (int i = 0; i < unlock.Length; i++)
@@ -98,8 +107,12 @@ namespace Manager
         }
         public void RemoveConstruct(Construct construct)
         {
-            Constructs.RemoveAt(Constructs.IndexOf(construct));
-            ConstructDestroyed(construct);
+            int index = Constructs.IndexOf(construct);
+            if (index >= 0)
+            {
+                Constructs.RemoveAt(index);
+                ConstructDestroyed(construct);
+            }
 #if UNITY_EDITOR
             Debug.Log(construct.Id + " destroyed");
 #endif
