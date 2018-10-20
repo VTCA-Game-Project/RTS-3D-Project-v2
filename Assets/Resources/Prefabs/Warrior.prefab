@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: 9d560003a4687c14688331550bc2333e, type: 2}
-  drawGizmos: 1
+  drawGizmos: 0
 --- !u!136 &136703163212188342
 CapsuleCollider:
   m_ObjectHideFlags: 1

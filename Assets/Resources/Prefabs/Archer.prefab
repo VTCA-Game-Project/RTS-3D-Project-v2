@@ -322,7 +322,8 @@ GameObject:
   - component: {fileID: 4244576387372698}
   - component: {fileID: 54784682624921012}
   - component: {fileID: 95561901624990828}
-  - component: {fileID: 114395999186877656}
+  - component: {fileID: 114965635423329072}
+  - component: {fileID: 114874380013826148}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -1343,7 +1344,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114395999186877656
+--- !u!114 &114874380013826148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1351,7 +1352,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1588112383619740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
+  m_Script: {fileID: 11500000, guid: da819e99a4c9866459f6bd9546be6a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Owner: {fileID: 0}
+  offset: {fileID: 11400000, guid: f4431488a63a5c040841ab6cb8190422, type: 2}
+  drawGizmos: 0
+--- !u!114 &114965635423329072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1588112383619740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07b7f2a54a434142b79de88abdd7778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!137 &137538712514642522

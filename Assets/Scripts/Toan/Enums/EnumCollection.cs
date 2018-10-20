@@ -29,7 +29,9 @@ namespace EnumCollection
         Magic,
         WoflKnigh,
         Warrior,
-        Archer
+        Archer,
+        WoodHorse,
+        HumanWarrior
     }
 
     public enum AnimState

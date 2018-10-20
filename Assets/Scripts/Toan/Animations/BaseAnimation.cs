@@ -46,9 +46,20 @@ namespace Animation
         protected abstract void Damage();
         protected abstract void Attack();
         protected abstract void Dead();
-        protected abstract void ResetParams();
+        protected virtual void ResetParams()
+        {
+            switch (CurrentState)
+            {
+                case AnimState.Attack:
+                    anims.SetBool("IsAttack", false);
+                    break;
+                case AnimState.Idle:
+                    anims.SetBool("IsRunning", false);
+                    break;
+            }
+        }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             agent = GetComponent<AIAgent>();
             anims = GetComponent<Animator>();
@@ -57,6 +68,36 @@ namespace Animation
             DefaultState = AnimState.Idle;
             CurrentState = AnimState.None;
             NextState = DefaultState;
+        }
+        protected virtual void Update() {
+            if (CurrentState == AnimState.Idle)
+            {
+                if (agentRigid.velocity.sqrMagnitude > 0.1f)
+                {
+                    NextState = AnimState.Run;
+                }
+                else if (agent.TargetType == TargetType.NPC)
+                {
+                    NextState = AnimState.Attack;
+                }
+            }
+            else if (CurrentState == AnimState.Run)
+            {
+                if (agentRigid.velocity.sqrMagnitude <= 0.1f)
+                {
+                    NextState = AnimState.Idle;
+                    agentRigid.velocity = Vector3.zero;
+                }
+            }
+            if (CurrentState == AnimState.Attack)
+            {
+                if (agentRigid.velocity.sqrMagnitude > 0.1f)
+                {
+                    NextState = AnimState.Run;
+                }
+            }
+
+            Play(NextState);
         }
     }
 }
