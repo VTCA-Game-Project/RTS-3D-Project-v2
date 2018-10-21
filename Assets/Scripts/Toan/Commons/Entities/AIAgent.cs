@@ -5,6 +5,7 @@ using Pattern;
 using InterfaceCollection;
 using EnumCollection;
 using RTS_ScriptableObject;
+using Animation;
 
 namespace Common.Entity
 {
@@ -20,7 +21,7 @@ namespace Common.Entity
         protected SteerBehavior steerBh;
         protected FlockBehavior flockBh;
         protected ObstacleAvoidance avoidanceBh;
-        protected AnimationStateCtrl anims;
+        protected BaseAnimation anims;
         protected Pointer pointer;
 
         public Player Owner;/*{ get; set; }*/
@@ -69,7 +70,7 @@ namespace Common.Entity
         {
             gameObject.AddComponent<ClickOn>();
             pointer = FindObjectOfType<Pointer>();
-            anims = GetComponent<AnimationStateCtrl>();
+            anims = GetComponent<BaseAnimation>();
             AgentRigid = GetComponent<Rigidbody>();
             SkinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         }

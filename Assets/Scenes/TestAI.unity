@@ -1506,13 +1506,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1939690976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad33df0c7b26c944a406df084913f2c, type: 3}
+  m_Script: {fileID: 11500000, guid: ce83ba1d5395d4d44bd4e8d92dd52704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 2016811632}
   target: {fileID: 784460169}
-  Damage: 1
-  AttackRange: 10
+  Damage: 0
+  AttackRange: 6
 --- !u!1 &1947788020
 GameObject:
   m_ObjectHideFlags: 0
