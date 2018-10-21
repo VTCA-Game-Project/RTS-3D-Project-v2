@@ -23,6 +23,7 @@ public class Pointer : MonoBehaviour
             transform.position = value;
         }
     }
+
     #endregion
 
     private void Awake()
@@ -32,6 +33,7 @@ public class Pointer : MonoBehaviour
     }
    
    
+
     public void PutPointer()
     {
         ray = rtsCamera.ScreenPointToRay(Input.mousePosition);

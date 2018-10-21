@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4424144356837270}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,8 @@ GameObject:
   - component: {fileID: 33171280066231364}
   - component: {fileID: 23961090394626778}
   - component: {fileID: 114091180290130274}
-  m_Layer: 0
+  - component: {fileID: 65595316352112958}
+  m_Layer: 11
   m_Name: mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1537055953321986}
   m_Mesh: {fileID: 4300000, guid: 80d1ad85abff2c540aa8f0a24ad6f4d1, type: 3}
+--- !u!65 &65595316352112958
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1537055953321986}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.028082, y: 3.5064874, z: 5.1439266}
+  m_Center: {x: 0.22225237, y: 1.7532437, z: 0.89935446}
 --- !u!114 &114091180290130274
 MonoBehaviour:
   m_ObjectHideFlags: 1
