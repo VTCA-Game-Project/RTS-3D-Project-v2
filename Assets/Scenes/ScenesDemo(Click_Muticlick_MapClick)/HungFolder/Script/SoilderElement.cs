@@ -85,9 +85,12 @@ public class SoilderElement : MonoBehaviour {
                 CowDownComplete = false;
 
                 Count--;
-
-            if (createSoldier!= null) createSoldier(UnitType);
-
+         
+            if (createSoldier != null)
+            {
+                Debug.Log("start create");
+                createSoldier(UnitType);
+            }
 
             }
 
@@ -104,21 +107,11 @@ public class SoilderElement : MonoBehaviour {
 
     }
 
-    public void OnUnitClick(string name)
+    public void OnUnitClick()
     {
         Count++;
 
-        switch(name)
-        {
-            case "":
-                UnitType = Soldier.Magic;
-                break;
-
-            case "1":
-                UnitType = Soldier.Magic;
-                break;
-
-        }
+       
       
     }
 

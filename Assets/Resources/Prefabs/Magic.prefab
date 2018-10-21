@@ -367,15 +367,15 @@ GameObject:
   - component: {fileID: 54878569020374688}
   - component: {fileID: 136692070633177850}
   - component: {fileID: 95011987060426640}
-  - component: {fileID: 114903601133347030}
   - component: {fileID: 114957577103688972}
+  - component: {fileID: 114774915580738492}
   m_Layer: 10
   m_Name: Magic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1279972866288702
 GameObject:
   m_ObjectHideFlags: 1
@@ -1059,10 +1059,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276187489059534}
-
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.5, y: 4.6047854e-17, z: -8.2}
-
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4862985240165822}
@@ -2001,7 +1999,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114903601133347030
+--- !u!114 &114774915580738492
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2009,7 +2007,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1276187489059534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 580891985a7d16845b9c0315ab08d49a, type: 3}
+  m_Script: {fileID: 11500000, guid: 08784e2f58f2338409fddcc619d47dc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114957577103688972

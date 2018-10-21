@@ -1,6 +1,7 @@
 ﻿using Common.Entity;
 using EnumCollection;
 using InterfaceCollection;
+using Manager;
 using Pattern;
 using UnityEngine;
 
@@ -8,17 +9,25 @@ namespace Common.Building
 {
     public class Barrack : Construct,IProduce
     {
-        protected override void Start()
+        protected override void Awake()
         {
+            player = FindObjectOfType<Player>();
+            base.Awake();
+        }
+        protected override void Start()
+        {            
             SoilderElement[] buySoliderButtons = FindObjectsOfType<SoilderElement>();
+            Debug.Log(buySoliderButtons);
             if(buySoliderButtons != null)
             {
                 for (int i = 0; i < buySoliderButtons.Length; i++)
                 {
+                    Debug.Log(buySoliderButtons[i].name);
                     buySoliderButtons[i].setsomething(Produce);
+
                 }
             }
-            Id = ConstructId.Barrack;
+            Id = ConstructId.Barrack;            
             base.Start();
         }
 
@@ -33,10 +42,14 @@ namespace Common.Building
 
         public void Produce(System.Enum type)
         {
+          
             GameObject prefab = GetSoldier(type);
             if(prefab != null)
             {
+
                 AIAgent agent = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<AIAgent>();
+                agent.Owner = player;
+                agent.gameObject.SetActive(true);
             }
         }
     }

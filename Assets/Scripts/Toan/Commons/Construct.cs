@@ -10,7 +10,7 @@ namespace Common
     {
 
         protected ConstructId[] onwed;
-        protected Player player;
+        public Player player;
 
         public int Hp { get; protected set; }
         public ConstructId Id { get; protected set; }
@@ -35,7 +35,7 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-            player = GetComponent<Player>();
+            //player = GetComponent<Player>();
             AddConstruct = player.AddConstruct;
             RemoveConstruct = player.RemoveConstruct;
             Hp = 1;
@@ -76,6 +76,7 @@ namespace Common
         }
         protected void UnlockConstruct()
         {
+            if(AddConstruct == null) AddConstruct = player.AddConstruct;
             AddConstruct(this);
         }
 

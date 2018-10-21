@@ -11,14 +11,18 @@ namespace Manager
         public Group Group;
         public GameAction LoseAction { get; set; }
         private PlayerContainer status;
+
+        
         private void Awake()
         {
+            UpdateGameStatus.Instance.AddPlayer(this);
             status = new PlayerContainer();
+
         }
 
         public void AddConstruct(object construct)
         {
-            if (construct.GetType() == typeof(Construct))
+            if (construct is Construct)
             {
                 status.AddConstruct((Construct)construct);
             }
@@ -26,7 +30,7 @@ namespace Manager
 
         public void RemoveConstruct(object construct)
         {
-            if (construct.GetType() == typeof(Construct))
+            if (construct is Construct)
             {
                 status.RemoveConstruct((Construct)construct);
             }

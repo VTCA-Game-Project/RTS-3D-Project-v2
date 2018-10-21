@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class UpdateGameStatus : MonoBehaviour
 {
+    public static UpdateGameStatus Instance { get; private set; }
     private List<Player> players;
+
     private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(Instance.gameObject);
         players = new List<Player>();
-        InvokeRepeating("UpdatePlayerState", 2.0f, 2.0f);
+        InvokeRepeating("UpdatePlayerState", 10.0f, 2.0f);
     }
     public void AddPlayer(Player player)
     {
@@ -18,7 +22,6 @@ public class UpdateGameStatus : MonoBehaviour
             players.Add(player);
         }
     }
-
     private void UpdatePlayerState()
     {
         for (int i = 0; i < players.Count; i++)

@@ -25,7 +25,7 @@ public class CanvasManager : MonoBehaviour {
         {
             for (int i = 0; i < buySoliderButtons.Length; i++)
             {
-                //buySoliderButtons[i].LoseAction = Lose;
+                buySoliderButtons[i].LoseAction = Lose;
             }
         }
     }

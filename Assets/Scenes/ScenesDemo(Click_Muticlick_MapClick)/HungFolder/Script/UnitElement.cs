@@ -46,7 +46,7 @@ public class UnitElement : MonoBehaviour
         {
 
           
-            Soild.OnUnitClick("UnitSoilder"+i);
+            Soild.OnUnitClick();
            
         }
 
