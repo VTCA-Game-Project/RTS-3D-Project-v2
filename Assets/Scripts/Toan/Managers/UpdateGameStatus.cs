@@ -9,6 +9,7 @@ public class UpdateGameStatus : MonoBehaviour
     private void Awake()
     {
         players = new List<Player>();
+        InvokeRepeating("UpdatePlayerState", 2.0f, 2.0f);
     }
     public void AddPlayer(Player player)
     {

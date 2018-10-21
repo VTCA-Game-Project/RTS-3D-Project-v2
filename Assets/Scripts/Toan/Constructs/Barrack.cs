@@ -1,4 +1,5 @@
-﻿using EnumCollection;
+﻿using Common.Entity;
+using EnumCollection;
 using InterfaceCollection;
 using Pattern;
 using UnityEngine;
@@ -32,7 +33,11 @@ namespace Common.Building
 
         public void Produce(System.Enum type)
         {
-            GetSoldier(type);
+            GameObject prefab = GetSoldier(type);
+            if(prefab != null)
+            {
+                AIAgent agent = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<AIAgent>();
+            }
         }
     }
 }

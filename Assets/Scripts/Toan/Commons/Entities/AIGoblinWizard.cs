@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIGoblinWizard : AIAgent,IAttackable
 {
-    public void Attack()
+    public override void Attack()
     {
         Debug.Log("Fire event");
     }

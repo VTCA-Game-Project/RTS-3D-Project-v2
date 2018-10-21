@@ -1,25 +1,19 @@
-﻿using EnumCollection;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace Animation
 {
-    public class ArcherAnimation : BaseAnimation
+    public class WarriorAnimation : BaseAnimation
     {
         protected override void Attack()
         {
             anims.SetBool("IsAttack", true);
         }
 
-        protected override void Damage()
-        {
-        }
+        protected override void Damage() { }
 
         protected override void Dead()
         {
-            anims.SetTrigger("Dead");
+            anims.SetBool("IsDead", true);
         }
 
         protected override void Idle()
@@ -35,11 +29,6 @@ namespace Animation
         protected override void ResetParams()
         {
             base.ResetParams();
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
+        }       
     }
 }

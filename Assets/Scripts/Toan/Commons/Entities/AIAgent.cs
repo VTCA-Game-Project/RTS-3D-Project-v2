@@ -8,7 +8,7 @@ using RTS_ScriptableObject;
 
 namespace Common.Entity
 {
-    public abstract class AIAgent : GameEntity, ISelectable
+    public abstract class AIAgent : GameEntity, ISelectable,IAttackable
     {
         protected bool isReachedTarget;        
         protected Vector3 target;
@@ -208,7 +208,8 @@ namespace Common.Entity
         public void Select() { IsSelected = true; }
         public void UnSelect() { IsSelected = false; }
         public virtual void Action() { MoveToTarget(); }
-
+        public abstract void Attack();
+       
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -225,6 +226,8 @@ namespace Common.Entity
                 }
             }
         }
+
+       
 #endif
     }
 }

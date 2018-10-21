@@ -8,10 +8,10 @@ namespace Manager
     public class Player:MonoBehaviour
     {
         public Group Group;
-        private GlobalGameStatus status;
+        private PlayerContainer status;
         private void Awake()
         {
-            status = new GlobalGameStatus();
+            status = new PlayerContainer();
         }
 
         public void AddConstruct(object construct)

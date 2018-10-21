@@ -6,7 +6,7 @@ using Common.Entity;
 
 namespace Manager
 {
-    public class GlobalGameStatus
+    public class PlayerContainer
     {
         private bool isAlive;
 
@@ -23,7 +23,7 @@ namespace Manager
         }
         #endregion
 
-        public GlobalGameStatus()
+        public PlayerContainer()
         {
             Gold = 0;            
             Agents = new List<AIAgent>();
