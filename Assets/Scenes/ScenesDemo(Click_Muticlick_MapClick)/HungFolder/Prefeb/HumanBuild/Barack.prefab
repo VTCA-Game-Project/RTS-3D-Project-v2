@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 23814195498624282}
   - component: {fileID: 114122808250603804}
   - component: {fileID: 114744324172742796}
-  m_Layer: 0
+  - component: {fileID: 65295558002710902}
+  m_Layer: 11
   m_Name: barracks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4976176179099226}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Barack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,6 +115,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080567823935072}
   m_Mesh: {fileID: 4300000, guid: 14a74228911217841899a861b82842a5, type: 3}
+--- !u!65 &65295558002710902
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1080567823935072}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.6410985, y: 5.2959733, z: 7.220866}
+  m_Center: {x: -0.46491766, y: 2.6479867, z: -0.3913207}
 --- !u!114 &114122808250603804
 MonoBehaviour:
   m_ObjectHideFlags: 1

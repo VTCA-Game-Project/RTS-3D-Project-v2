@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4080173498525442}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,8 @@ GameObject:
   - component: {fileID: 33206956286168560}
   - component: {fileID: 23062787669544012}
   - component: {fileID: 114978135251334422}
-  m_Layer: 0
+  - component: {fileID: 65659371461948716}
+  m_Layer: 11
   m_Name: tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1407221368267352}
   m_Mesh: {fileID: 4300000, guid: e402f76bb8e0c984eb98602585d9e633, type: 3}
+--- !u!65 &65659371461948716
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1407221368267352}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4793572, y: 5.113095, z: 2.4658546}
+  m_Center: {x: 0.017998457, y: 2.5565474, z: -0.020476282}
 --- !u!114 &114978135251334422
 MonoBehaviour:
   m_ObjectHideFlags: 1

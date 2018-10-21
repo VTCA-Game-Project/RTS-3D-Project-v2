@@ -29,7 +29,21 @@ public class SoilderElement : MonoBehaviour {
     {
         Count = 0;
      
-
+        switch(this.gameObject.name)
+        {
+            case "UnitSoilder1":
+                UnitType = Soldier.Warrior;
+                break;
+            case "UnitSoilder2":
+                UnitType = Soldier.Archer;
+                break;
+            case "UnitSoilder3":
+                UnitType = Soldier.Magic;
+                break;
+            case "UnitSoilder4":
+                UnitType = Soldier.WarMachine;
+                break;
+        }
         CurrentImage = GetComponent<Image>();
 
         CurrentImage.sprite = NewImage;
@@ -72,7 +86,7 @@ public class SoilderElement : MonoBehaviour {
 
                 Count--;
 
-            if (createSoldier!= null) createSoldier(Soldier.Magic);
+            if (createSoldier!= null) createSoldier(UnitType);
 
 
             }
