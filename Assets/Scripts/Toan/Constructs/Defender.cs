@@ -1,13 +1,14 @@
 ﻿using Common.Entity;
 using EnumCollection;
 using InterfaceCollection;
+using UnityEngine;
 
 namespace Common.Building
 {
     public class Defender : Construct, IDetectEnemy, IAttackable
     {
-
-        private AIAgent target;
+        public GameObject Arrow;
+        public AIAgent target;
         private bool isDetectedEnemy;
 
         public int Damage;
@@ -15,10 +16,12 @@ namespace Common.Building
         protected override void Start()
         {
             Id = ConstructId.Defender;
-            base.Start();
+           // base.Start();
         }
         protected override void Update()
         {
+            if (Input.GetKeyDown(KeyCode.A))
+                Attack();
             if (isDetectedEnemy)
             {
                 Attack();
@@ -42,12 +45,25 @@ namespace Common.Building
             {
                 // fire
                 target.TakeDamage(Damage);
+                Fire();
             }
             else
             {
                 target = null;
                 isDetectedEnemy = false;
             }
+        }
+
+        private void Fire()
+        {
+            GameObject arrow = Instantiate(Arrow, transform.position + new Vector3(0, 3, 0), Quaternion.identity);
+            arrow.transform.LookAt(target.transform);
+
+            arrow.SetActive(true);
+            Rigidbody rigid = arrow.GetComponent<Rigidbody>();
+            Vector3 dir = target.transform.position - arrow.transform.position;
+            rigid.AddForce(dir * 20);
+            Destroy(arrow, 2);
         }
     }
 }

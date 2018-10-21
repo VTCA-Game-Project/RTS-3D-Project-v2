@@ -75,6 +75,7 @@ namespace Common.Entity
         }
         protected virtual void Start()
         {
+            HP = 10000;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
 
