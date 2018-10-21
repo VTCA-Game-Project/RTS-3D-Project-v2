@@ -5,9 +5,9 @@ namespace InterfaceCollection
     // interface for properties
     interface IGameEntiy
     {
-        Vector3 Position { get; }
-        Vector3 Heading { get; }
-        Vector3 Velocity { get; }
+        Vector3 Position    { get; }
+        Vector3 Heading     { get; }
+        Vector3 Velocity    { get; }
     }
     interface ISelectable
     {

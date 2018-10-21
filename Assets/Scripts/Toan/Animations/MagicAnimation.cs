@@ -1,19 +1,22 @@
-﻿using System;
-
+﻿
 namespace Animation
 {
-    public class WarriorAnimation : BaseAnimation
+    public class MagicAnimation : BaseAnimation
     {
+
         protected override void Attack()
         {
             anims.SetBool("IsAttack", true);
         }
 
-        protected override void Damage() { }
+        protected override void Damage()
+        {
+            anims.SetTrigger("Damage");
+        }
 
         protected override void Dead()
         {
-            anims.SetBool("IsDead", true);
+            anims.SetBool("IsRunning", true);
         }
 
         protected override void Idle()
@@ -21,14 +24,19 @@ namespace Animation
             anims.SetBool("IsRunning", false);
         }
 
+        protected override void ResetParams()
+        {
+            base.ResetParams();
+        }
+
         protected override void Run()
         {
             anims.SetBool("IsRunning", true);
         }
 
-        protected override void ResetParams()
+        protected override void Awake()
         {
-            base.ResetParams();
+            base.Awake();
         }
 
         protected override void Update()
@@ -36,9 +44,5 @@ namespace Animation
             base.Update();
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
     }
 }

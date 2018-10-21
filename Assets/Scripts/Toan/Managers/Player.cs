@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Entity;
+using DelegateCollection;
 using EnumCollection;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Manager
     public class Player:MonoBehaviour
     {
         public Group Group;
+        public GameAction LoseAction { get; set; }
         private PlayerContainer status;
         private void Awake()
         {
@@ -56,6 +58,8 @@ namespace Manager
         {
             // if this is enemy,broadcast to player
             // if this is play, show notify
+            LoseAction(Group);
         }
+
     }
 }

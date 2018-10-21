@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Common
 {
-    public abstract class Construct : MonoBehaviour, IGameEntiy
+    public abstract class Construct : GameEntity
     {
 
         protected ConstructId[] onwed;
@@ -18,17 +18,19 @@ namespace Common
         public GameAction AddConstruct { protected get; set; }
         public GameAction RemoveConstruct { protected get; set; }
 
-        public Vector3 Position
+        public override Vector3 Position
         {
             get
             { return Vector3.ProjectOnPlane(transform.position, Vector3.up); }
         }
-        public Vector3 Heading
+        public override Vector3 Heading
         {
             get
             { return Vector3.ProjectOnPlane(transform.forward, Vector3.up); }
         }
-        public Vector3 Velocity { get { return Vector3.zero; } }
+        public override Vector3 Velocity { get { return Vector3.zero; } }
+        public override bool IsDead { get; protected set; }
+       
 
         protected virtual void Awake() { }
         protected virtual void Start()
@@ -78,11 +80,12 @@ namespace Common
         }
 
         // public method
-        public void TakeDamage(int damage)
+        public override void TakeDamage(int damage)
         {
             Hp -= damage;
             if (Hp <= 0)
             {
+                IsDead = true;
                 Hp = 0;
                 DestroyConstruct();
             }

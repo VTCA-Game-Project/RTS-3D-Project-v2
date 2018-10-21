@@ -41,7 +41,7 @@ public class SoilderElement : MonoBehaviour {
                 UnitType = Soldier.Magic;
                 break;
             case "UnitSoilder4":
-                UnitType = Soldier.WarMachine;
+                UnitType = Soldier.WoodHorse;
                 break;
         }
         CurrentImage = GetComponent<Image>();

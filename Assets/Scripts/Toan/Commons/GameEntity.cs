@@ -18,6 +18,7 @@ namespace Common
             get { return Vector3.zero; }
         }
 
+        public abstract bool IsDead { get;protected set; }        
         public virtual void Dead() { }
         public virtual void TakeDamage(int damage) { }
     }

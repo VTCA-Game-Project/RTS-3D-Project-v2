@@ -1,12 +1,13 @@
-﻿using EnumCollection;
+﻿using Common;
+using EnumCollection;
 using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
     public static Pointer Instance;
-  
+
     public Camera rtsCamera;
-	
+
     private RaycastHit hitInfo;
     private Ray ray;
 
@@ -23,6 +24,7 @@ public class Pointer : MonoBehaviour
             transform.position = value;
         }
     }
+    public GameEntity TargetEntity { get; private set; }
 
     #endregion
 
@@ -31,8 +33,6 @@ public class Pointer : MonoBehaviour
         if (Instance == null) Instance = this;
         else if (Instance != null) Destroy(Instance.gameObject);
     }
-   
-   
 
     public void PutPointer()
     {
@@ -40,11 +40,12 @@ public class Pointer : MonoBehaviour
         if (Physics.Raycast(ray: ray,
                             hitInfo: out hitInfo,
                             maxDistance: Mathf.Infinity,
-                            layerMask: LayerMask.GetMask("Place", "NPC", "Construct","Floor","UI")))
+                            layerMask: LayerMask.GetMask("Place", "NPC", "Construct", "Floor", "UI")))
         {
             Position = hitInfo.point;
             int hitLayer = hitInfo.collider.gameObject.layer;
             TargetType = TargetType.None;
+            TargetEntity = null;
             if ((hitLayer == LayerMask.NameToLayer("Place")) || (hitLayer == LayerMask.NameToLayer("Floor")))
             {
                 TargetType = TargetType.Place;
@@ -52,10 +53,12 @@ public class Pointer : MonoBehaviour
             else if (hitLayer == LayerMask.NameToLayer("NPC"))
             {
                 TargetType = TargetType.NPC;
+                TargetEntity = hitInfo.collider.gameObject.GetComponent<GameEntity>();
             }
             else if (hitLayer == LayerMask.NameToLayer("Construct"))
             {
                 TargetType = TargetType.Construct;
+                TargetEntity = hitInfo.collider.gameObject.GetComponent<GameEntity>();
             }
             else if (hitLayer == LayerMask.NameToLayer("UI"))
             {

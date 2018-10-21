@@ -9,7 +9,7 @@ using Animation;
 
 namespace Common.Entity
 {
-    public abstract class AIAgent : GameEntity, ISelectable,IAttackable
+    public abstract class AIAgent : GameEntity, ISelectable,IAttackable,IDetectEnemy
     {
         protected bool isReachedTarget;        
         protected Vector3 target;
@@ -25,6 +25,7 @@ namespace Common.Entity
         protected Pointer pointer;
 
         public Player Owner;/*{ get; set; }*/
+        public GameEntity TargetEntity { get; protected set; }
         public bool OnObsAvoidance      { get; set; }
         public float AttackRange        { get; protected set; }
         public float MinVelocity        { get; protected set; }
@@ -50,8 +51,12 @@ namespace Common.Entity
         public float DetectBoxLenght { get; protected set; }
         public float MinDetectionBoxLenght { get; protected set; }
 
-        public bool IsDead { get; protected set; }
-        public bool IsSelected { get; protected set; }
+        public override bool IsDead
+        {
+            get;
+            protected set;
+        }
+        public bool IsSelected  { get; protected set; }
         public bool IsReachedTarget { get; protected set; }
         public AIAgent AgentTarget { get; set; }
         // component properties
@@ -76,7 +81,7 @@ namespace Common.Entity
         }
         protected virtual void Start()
         {
-            HP = 10000;
+            HP = 10;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
 
@@ -135,6 +140,7 @@ namespace Common.Entity
                 IsReachedTarget = false;
                 target = pointer.Position;
                 TargetType = pointer.TargetType;
+                TargetEntity = pointer.TargetEntity;
             }
         }
         protected Vector3 TruncateVel(Vector3 desireVel)
@@ -150,7 +156,7 @@ namespace Common.Entity
             }
             else if (TargetType == TargetType.NPC)
             {
-                transform.forward = Vector3.RotateTowards(transform.forward, target, 3 * Time.deltaTime, 3 * Time.deltaTime);
+                transform.LookAt(target);
             }
         }
         protected bool CheckReachedTarget()
@@ -209,8 +215,22 @@ namespace Common.Entity
         public void Select() { IsSelected = true; }
         public void UnSelect() { IsSelected = false; }
         public virtual void Action() { MoveToTarget(); }
-        public abstract void Attack();
-       
+        public virtual void Attack()
+        {
+            if (TargetEntity != null)
+            {
+                TargetEntity.TakeDamage(1);
+                if (TargetEntity.IsDead)
+                {
+                    TargetEntity = null;
+                }
+            }
+        }
+        public void DetectEnemy()
+        {
+            if (TargetEntity != null) return;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
@@ -229,6 +249,8 @@ namespace Common.Entity
         }
 
        
+
+
 #endif
     }
 }

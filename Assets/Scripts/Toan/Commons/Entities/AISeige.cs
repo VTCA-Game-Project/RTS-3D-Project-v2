@@ -24,6 +24,7 @@ namespace Common.Entity
         {
             Rigidbody copyBall = Instantiate(FireBall, LauncherPoint.position, Quaternion.identity);
             copyBall.gameObject.SetActive(true);
+            base.Attack();
         }
     }
 

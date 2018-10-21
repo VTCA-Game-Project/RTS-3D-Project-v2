@@ -94,6 +94,9 @@ namespace Animation
                 if (agentRigid.velocity.sqrMagnitude > 0.1f)
                 {
                     NextState = AnimState.Run;
+                } else if(agent.TargetEntity == null)
+                {
+                    NextState = AnimState.Idle;
                 }
             }
 

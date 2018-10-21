@@ -11,6 +11,13 @@ namespace Common.Entity
         public bool Debug;
 #endif
         public float BoundRadius { get; set; }
+
+        public override bool IsDead
+        {
+            get;
+            protected set;           
+        }
+
         public int Index;
         private void Awake()
         {

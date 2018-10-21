@@ -16,6 +16,6 @@ MonoBehaviour:
   Cohesion: 0.1
   Separation: 1
   Alignment: 0.01
-  AttackRadius: 10
+  AttackRadius: 50
   NeighboursRadius: 5
   ObstacleAvoidance: 1.3
