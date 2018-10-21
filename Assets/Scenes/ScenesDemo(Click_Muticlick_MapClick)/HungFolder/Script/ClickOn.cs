@@ -1,4 +1,5 @@
 ﻿using Common.Entity;
+using EnumCollection;
 using InterfaceCollection;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,12 @@ using UnityEngine;
 public class ClickOn : MonoBehaviour
 {
     private ISelectable selectableObject;
+    public Group PlayerGroup { get; private set; }
     private void Awake()
     {
-        selectableObject = GetComponent<AIAgent>();
+        AIAgent agent = GetComponent<AIAgent>();
+        selectableObject = agent;
+        PlayerGroup = agent.PlayerGroup;
     }
     void Start()
     {

@@ -15,22 +15,17 @@ namespace Common.Entity
         private void Awake()
         {
             meshRenderer = GetComponent<MeshRenderer>();
-            BoundRadius = meshRenderer.bounds.extents.x;
-#if UNITY_EDITOR
-            White();
-#endif
+            float sizeX = meshRenderer.bounds.size.x;
+            float sizeZ = meshRenderer.bounds.size.z;
+            BoundRadius = sizeX > sizeZ ? sizeX : sizeZ;
             StoredManager.AddObstacle(this);
         }
 
+        private void OnDestroy()
+        {
+            StoredManager.RemoveObstacle(this);
+        }
 #if UNITY_EDITOR
-        public void Red()
-        {
-            meshRenderer.material.color = Color.red;
-        }
-        public void White()
-        {
-            meshRenderer.material.color = Color.white;
-        }
         private void OnDrawGizmos()
         {
             if (Debug)

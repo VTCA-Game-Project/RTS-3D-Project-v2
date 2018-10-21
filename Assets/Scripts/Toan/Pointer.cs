@@ -1,6 +1,4 @@
 ﻿using EnumCollection;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pointer : MonoBehaviour
@@ -8,23 +6,12 @@ public class Pointer : MonoBehaviour
     public static Pointer Instance;
   
     public Camera rtsCamera;
- 
+	
     private RaycastHit hitInfo;
     private Ray ray;
-    public TargetType TargetType { get; protected set; }
-
 
     #region Properties
-
-
-
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else if (Instance != null) Destroy(Instance.gameObject);
-    }
-
-   
+    public TargetType TargetType { get; private set; }
     public Vector3 Position
     {
         get
@@ -37,13 +24,15 @@ public class Pointer : MonoBehaviour
         }
     }
 
-
-  
     #endregion
 
-
-
-
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else if (Instance != null) Destroy(Instance.gameObject);
+    }
+   
+   
 
     public void PutPointer()
     {
