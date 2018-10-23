@@ -4,13 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Pattern;
 
 public class SoilderElement : MonoBehaviour {
 
     // Use this for initialization
     [HideInInspector]
     public Image CurrentImage;
-   
+     string PlayerClass=Singleton.classname;
     public Sprite NewImage;
     public GameObject Mouse;
     public Image CountDownIMG;
@@ -23,7 +24,7 @@ public class SoilderElement : MonoBehaviour {
     public Text _cout;
    
     Color newcolo;
-    private bool stateCowdown;
+   
     private bool CowDownComplete;
     void Start()
     {
@@ -32,8 +33,15 @@ public class SoilderElement : MonoBehaviour {
         switch(this.gameObject.name)
         {
             case "UnitSoilder1":
-                UnitType = Soldier.Warrior;
-                break;
+                if (PlayerClass == "Orc")
+               
+                    UnitType = Soldier.Warrior;
+               
+                if (PlayerClass == "Human")
+               
+                    UnitType = Soldier.Warrior;
+                    break;
+                
             case "UnitSoilder2":
                 UnitType = Soldier.Archer;
                 break;
@@ -71,7 +79,7 @@ public class SoilderElement : MonoBehaviour {
             {
                 CountDownIMG.fillAmount = 1;
                 totaltime = 0f;
-                stateCowdown = false;
+             
                 CowDownComplete = true;
 
 
@@ -107,12 +115,28 @@ public class SoilderElement : MonoBehaviour {
 
     }
 
-    public void OnUnitClick()
+    public void OnUnitClick(string input)
     {
+        if(input== "LEFT")
         Count++;
+        if (input == "RIGHT"&&Count>=0)
+        {
+            if (Count <= 0)
+            {
+                CountDownIMG.fillAmount = 1;
+                totaltime = 0f;
 
-       
-      
+                CowDownComplete = true;
+                newcolo.a *= -1;
+                CountDownIMG.color = newcolo;
+                CowDownComplete = false;
+            }
+            if(Count >0)
+            Count--;
+        }
+
+
+
     }
 
     protected Create createSoldier;

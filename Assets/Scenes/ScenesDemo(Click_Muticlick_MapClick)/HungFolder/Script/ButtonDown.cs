@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Pattern;
 
 public class ButtonDown : MonoBehaviour, IPointerDownHandler
 {
-    
+     string GameClass=Singleton.classname;
     public GameObject[] ButtonList;
     public GameObject[] UnitBuildList;
 
@@ -16,13 +17,20 @@ public class ButtonDown : MonoBehaviour, IPointerDownHandler
     private ButtonElement element;
     private UnitElement UnitElement;
     delegate void tranfrom();
-  
-    
-  
+
+
+   
     private void Awake()
     {
-        
-       
+
+        if(GameClass=="Human")
+        {
+            UnitSoilderList[2].SetActive(false);
+        }
+        if(GameClass == "Orc")
+        {
+            UnitSoilderList[1].SetActive(false);
+        }
     }
     
    

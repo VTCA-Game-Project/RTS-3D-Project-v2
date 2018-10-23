@@ -35,10 +35,10 @@ public class CanvasManager : MonoBehaviour {
     public void Lose(object type)
     {
 
-        if ((Group)type == Group.Player)
-            QuitClick("Lost");
-        if ((Group)type == Group.NPC)
-            QuitClick("Win");
+        //if ((Group)type == Group.Player)
+        //    QuitClick("Lost");
+        //if ((Group)type == Group.NPC)
+        //    QuitClick("Win");
         
     }
     public void QuitClick(string values)

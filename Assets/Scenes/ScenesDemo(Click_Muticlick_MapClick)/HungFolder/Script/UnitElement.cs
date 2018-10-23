@@ -45,9 +45,14 @@ public class UnitElement : MonoBehaviour
         if (this.gameObject.name == "UnitSoilder" + i )
         {
 
-          
-            Soild.OnUnitClick();
-           
+            string inputvalues = "";
+            if (Input.GetMouseButtonDown(0))
+                inputvalues = "LEFT";
+            if (Input.GetMouseButtonDown(1))
+                inputvalues = "RIGHT";
+            Soild.OnUnitClick(inputvalues);
+            inputvalues = "";
+
         }
 
 
