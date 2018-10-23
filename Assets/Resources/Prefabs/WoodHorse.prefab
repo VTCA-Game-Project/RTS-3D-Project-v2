@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1172483762092348
 GameObject:
   m_ObjectHideFlags: 1
@@ -464,7 +464,7 @@ MonoBehaviour:
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: af35f0031008ac5428fb104fa01956ba, type: 2}
   drawGizmos: 0
-  FireBall: {fileID: 0}
+  FireBall: {fileID: 54794499945953608, guid: d64ba15fcdd0f914fb150593af5e11e8, type: 2}
   LauncherPoint: {fileID: 4478123265711446}
 --- !u!137 &137654080751233588
 SkinnedMeshRenderer:

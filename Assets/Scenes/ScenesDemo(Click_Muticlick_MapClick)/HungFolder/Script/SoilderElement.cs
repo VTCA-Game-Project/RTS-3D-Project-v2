@@ -39,7 +39,7 @@ public class SoilderElement : MonoBehaviour {
                
                 if (PlayerClass == "Human")
                
-                    UnitType = Soldier.Warrior;
+                    UnitType = Soldier.HumanWarrior;
                     break;
                 
             case "UnitSoilder2":

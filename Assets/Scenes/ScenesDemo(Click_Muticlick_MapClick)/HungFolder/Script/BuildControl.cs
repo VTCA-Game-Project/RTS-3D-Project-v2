@@ -120,7 +120,7 @@ public class BuildControl : MonoBehaviour {
                         }
 
                       GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
-                        //NewGO.GetComponentInChildren<Construct>().Build();    
+                        //NewGO.GetComponentInChildren<Construct>().Build();
                         ListInSelect.Clear();
                         ResetTaget();
                     }
@@ -213,7 +213,7 @@ public class BuildControl : MonoBehaviour {
         OnselectTaget = false;
         OnholdTaget = false;
         BuildSize = new Vector2();
-        BuildModel = new GameObject();
+        BuildModel = null;
 
     }
 }

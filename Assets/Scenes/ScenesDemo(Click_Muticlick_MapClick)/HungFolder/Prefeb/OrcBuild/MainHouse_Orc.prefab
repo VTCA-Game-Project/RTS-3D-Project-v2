@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 33972765990831702}
   - component: {fileID: 23913460516287822}
   - component: {fileID: 111003791768392376}
+  - component: {fileID: 114249185004586988}
+  - component: {fileID: 65267320697704010}
   m_Layer: 0
   m_Name: throne_atlas
   m_TagString: Untagged
@@ -113,6 +115,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1586335691278712}
   m_Mesh: {fileID: 4300000, guid: 9ba3df276a13c5d41a5e7050f7a3379c, type: 3}
+--- !u!65 &65267320697704010
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586335691278712}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.439328, y: 6.163617, z: 6.1138153}
+  m_Center: {x: 0.11185646, y: 3.0815268, z: -0.40399992}
 --- !u!111 &111003791768392376
 Animation:
   m_ObjectHideFlags: 1
@@ -127,3 +141,15 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114249185004586988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586335691278712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f01e30dcad715b846a01278e5549f2c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}

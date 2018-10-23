@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4026429772747996}
   - component: {fileID: 33644814837629124}
   - component: {fileID: 23537471285104686}
+  - component: {fileID: 114405499248046994}
+  - component: {fileID: 65200271385864408}
   m_Layer: 0
   m_Name: mine_atlas
   m_TagString: Untagged
@@ -112,3 +114,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1439331826566238}
   m_Mesh: {fileID: 4300000, guid: 23969088203ee1640bdccfa1cafa8922, type: 3}
+--- !u!65 &65200271385864408
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439331826566238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.028082, y: 3.5064874, z: 5.1502204}
+  m_Center: {x: 0.22225237, y: 1.7532437, z: 0.90250134}
+--- !u!114 &114405499248046994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1439331826566238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fed0e763ae52bb448a685e149b18bb2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  RefreshTime: 0

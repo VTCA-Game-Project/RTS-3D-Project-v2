@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 33432519105417696}
   - component: {fileID: 23617437767278608}
   - component: {fileID: 111466010483362670}
+  - component: {fileID: 65810478515480334}
   m_Layer: 0
   m_Name: factory_atlas
   m_TagString: Untagged
@@ -113,6 +114,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1901063298477520}
   m_Mesh: {fileID: 4300000, guid: c2a55e31b81dbd347af3f10bf8b74d3b, type: 3}
+--- !u!65 &65810478515480334
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901063298477520}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.802744, y: 4.537574, z: 8.587252}
+  m_Center: {x: -0.30001128, y: 2.263772, z: -0.451324}
 --- !u!111 &111466010483362670
 Animation:
   m_ObjectHideFlags: 1

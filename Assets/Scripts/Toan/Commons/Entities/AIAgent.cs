@@ -193,6 +193,7 @@ namespace Common.Entity
         public override void Dead()
         {
             IsDead = true;
+            Owner.RemoveAgent(this);
             Destroy(gameObject, 2);
         }
         public override void TakeDamage(int damage)
@@ -217,7 +218,7 @@ namespace Common.Entity
 
             IsDead = false;
             IsSelected = false;
-            IsReachedTarget = true;
+            IsReachedTarget = Owner.Group == Group.Player ? false : true;
             OnObsAvoidance = true;
             MinDetectionBoxLenght = Radius;
             Radius = SkinMeshRenderer.bounds.extents.x;
@@ -234,6 +235,13 @@ namespace Common.Entity
                 if (TargetEntity.IsDead)
                 {
                     TargetEntity = null;
+                    TargetType = TargetType.None;
+                }
+            }
+            else
+            {
+                if(TargetType == TargetType.NPC)
+                {
                     TargetType = TargetType.None;
                 }
             }

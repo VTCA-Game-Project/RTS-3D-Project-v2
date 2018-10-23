@@ -11,7 +11,6 @@ namespace Common.Building
     {
         protected override void Awake()
         {
-            player = FindObjectOfType<Player>();
             base.Awake();
         }
         protected override void Start()
@@ -49,7 +48,7 @@ namespace Common.Building
                 AIAgent agent = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = player;
                 agent.gameObject.SetActive(true);
-                agent.SetTarget(TargetType.Place, transform.forward * 5);
+                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(transform.position + transform.forward * 5,Vector3.up));
             }
         }
     }

@@ -79,7 +79,11 @@ namespace Manager
         }
         public void RemoveAgent(AIAgent agent)
         {
-            Agents.RemoveAt(Agents.IndexOf(agent));
+            int index = Agents.IndexOf(agent);
+            if (index >= 0)
+            {
+                Agents.RemoveAt(index);
+            }
         }
         // AI uitls
         public AIAgent[] GetNeighbours(AIAgent agent)

@@ -7,11 +7,19 @@ namespace Common
     {
         public virtual Vector3 Heading
         {
-            get { return Vector3.ProjectOnPlane(transform.forward, Vector3.up); }
+            get
+            {
+                if (IsDead) return Vector3.zero;
+                return Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+            }
         }
         public virtual Vector3 Position
         {
-            get { return Vector3.ProjectOnPlane(transform.position, Vector3.up); }
+            get
+            {
+                if (IsDead) return Vector3.zero;
+                return Vector3.ProjectOnPlane(transform.position, Vector3.up);
+            }
         }
         public virtual Vector3 Velocity
         {

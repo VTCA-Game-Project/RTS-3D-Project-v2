@@ -73,5 +73,10 @@ namespace Manager
             get { return status.Agents; }
         }
 
+        public List<Construct> Constructs
+        {
+            get { return status.Constructs; }
+        }
+
     }
 }

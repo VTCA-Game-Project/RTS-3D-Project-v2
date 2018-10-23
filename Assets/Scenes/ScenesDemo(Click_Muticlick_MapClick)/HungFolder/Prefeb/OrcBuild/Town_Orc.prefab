@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4563995459008270}
   - component: {fileID: 33665567485728892}
   - component: {fileID: 23387737140544698}
+  - component: {fileID: 65410965884228348}
   m_Layer: 0
   m_Name: guard_tower
   m_TagString: Untagged
@@ -112,3 +113,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1350259374736896}
   m_Mesh: {fileID: 4300000, guid: 92d91cb9a5aea06478e35a9ebed0d99e, type: 3}
+--- !u!65 &65410965884228348
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1350259374736896}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.3650932, y: 5.1448307, z: 3.1543126}
+  m_Center: {x: -0.07878083, y: 2.5721335, z: 0.062291026}
