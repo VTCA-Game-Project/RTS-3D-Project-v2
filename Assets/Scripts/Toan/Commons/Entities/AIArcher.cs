@@ -23,7 +23,6 @@ namespace Common.Entity
 
         public override void Attack()
         {           
-            
             Rigidbody copyArrow = Instantiate(Arrow, LauncherPoint.position,transform.rotation);
             copyArrow.gameObject.SetActive(true);
             copyArrow.AddForce(transform.forward * ShootForce);

@@ -46,10 +46,10 @@ namespace Common.Building
             GameObject prefab = GetSoldier(type);
             if(prefab != null)
             {
-
                 AIAgent agent = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = player;
                 agent.gameObject.SetActive(true);
+                agent.SetTarget(TargetType.Place, transform.forward * 5);
             }
         }
     }

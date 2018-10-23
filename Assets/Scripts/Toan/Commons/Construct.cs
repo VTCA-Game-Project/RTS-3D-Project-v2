@@ -1,7 +1,7 @@
 ﻿using DelegateCollection;
 using EnumCollection;
-using InterfaceCollection;
 using Manager;
+using Pattern;
 using UnityEngine;
 
 namespace Common
@@ -35,7 +35,14 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-            //player = GetComponent<Player>();
+            if (Singleton.classname == "Human")
+            {
+                player = FindObjectOfType<MainPlayer>();
+            }
+            else
+            {
+                player = FindObjectOfType<NPCPlayer>();
+            }
             AddConstruct = player.AddConstruct;
             RemoveConstruct = player.RemoveConstruct;
             Hp = 1;

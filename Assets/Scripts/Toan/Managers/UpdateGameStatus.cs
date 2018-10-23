@@ -6,29 +6,29 @@ using UnityEngine;
 public class UpdateGameStatus : MonoBehaviour
 {
     public static UpdateGameStatus Instance { get; private set; }
-    private List<Player> players;
+    public List<Player> Players { get; private set; }
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(Instance.gameObject);
-        players = new List<Player>();
-        InvokeRepeating("UpdatePlayerState", 10.0f, 2.0f);
+        Players = new List<Player>();
+        InvokeRepeating("UpdatePlayerState", 20.0f, 2.0f);
     }
     public void AddPlayer(Player player)
     {
-        if(!players.Contains(player))
+        if(!Players.Contains(player))
         {
-            players.Add(player);
+            Players.Add(player);
         }
     }
     private void UpdatePlayerState()
     {
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < Players.Count; i++)
         {
-            if(players[i] != null && !players[i].IsAlive())
+            if(Players[i] != null && !Players[i].IsAlive())
             {
-                players[i].Lose();
+                Players[i].Lose();
             }
         }
     }

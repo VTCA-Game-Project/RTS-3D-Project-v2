@@ -2,7 +2,7 @@
 using InterfaceCollection;
 using UnityEngine;
 
-public class AIGoblinWizard : AIAgent,IAttackable
+public class AIGoblinWizard : AIAgent
 {
     public override void Attack()
     {

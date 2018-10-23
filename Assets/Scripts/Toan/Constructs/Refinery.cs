@@ -15,6 +15,7 @@ namespace Common.Building
         private float counter;
         protected override void Start()
         {
+            MaxRetainGold = 10;
             counter = 0.0f;
 
             Id = ConstructId.Refinery;

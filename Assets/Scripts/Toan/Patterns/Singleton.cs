@@ -22,7 +22,7 @@ namespace Pattern
         // manager
         public static readonly StoredManager        StoredManager = StoredManager.Instance;
         public static string classname;
-           
+
     }
 
 
