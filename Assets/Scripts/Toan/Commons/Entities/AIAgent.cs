@@ -10,13 +10,13 @@ using System.Collections.Generic;
 
 namespace Common.Entity
 {
-    public abstract class AIAgent : GameEntity, ISelectable,IAttackable,IDetectEnemy
+    public abstract class AIAgent : GameEntity, ISelectable, IAttackable, IDetectEnemy
     {
-        protected bool isReachedTarget;        
+        protected bool isReachedTarget;
         protected Vector3 target;
         protected Vector3 steering;
         protected Vector3 aceleration;
-        
+
         protected AIAgent[] neighbours;
         protected Obstacle[] obstacles;
         protected SteerBehavior steerBh;
@@ -28,16 +28,16 @@ namespace Common.Entity
         public int Damage;
         public Player Owner;/*{ get; set; }*/
         public GameEntity TargetEntity { get; protected set; }
-        public bool OnObsAvoidance      { get; set; }
-        public float AttackRange        { get; protected set; }
-        public float MinVelocity        { get; protected set; }
-        public float Separation         { get; protected set; }
-        public float Cohesion           { get; protected set; }
-        public float Alignment          { get; protected set; }
-        public float SeekingWeight      { get; protected set; }
-        public float AvoidanceWeight    { get; protected set; }
-        public TargetType TargetType    { get; protected set; }
-        public Group PlayerGroup        { get; protected set; }
+        public bool OnObsAvoidance { get; set; }
+        public float AttackRange { get; protected set; }
+        public float MinVelocity { get; protected set; }
+        public float Separation { get; protected set; }
+        public float Cohesion { get; protected set; }
+        public float Alignment { get; protected set; }
+        public float SeekingWeight { get; protected set; }
+        public float AvoidanceWeight { get; protected set; }
+        public TargetType TargetType { get; protected set; }
+        public Group PlayerGroup { get; protected set; }
 
         public AgentOffset offset;
 #if UNITY_EDITOR
@@ -58,7 +58,7 @@ namespace Common.Entity
             get;
             protected set;
         }
-        public bool IsSelected  { get; protected set; }
+        public bool IsSelected { get; protected set; }
         public bool IsReachedTarget { get; protected set; }
         // component properties
         public Rigidbody AgentRigid { get; protected set; }
@@ -74,7 +74,11 @@ namespace Common.Entity
 
         protected virtual void Awake()
         {
-            gameObject.AddComponent<ClickOn>();
+            if (Owner.Group == Group.Player)
+            {
+                gameObject.AddComponent<ClickOn>();
+            }
+
             pointer = FindObjectOfType<Pointer>();
             anims = GetComponent<BaseAnimation>();
             AgentRigid = GetComponent<Rigidbody>();
@@ -119,7 +123,7 @@ namespace Common.Entity
             aceleration = steering / AgentRigid.mass;
             AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
 
-            RotateAgent();            
+            RotateAgent();
             if (!IsReachedTarget)
             {
                 IsReachedTarget = CheckReachedTarget();
@@ -179,7 +183,7 @@ namespace Common.Entity
             return false;
         }
 
-        public void SetTarget(TargetType type,Vector3 position)
+        public void SetTarget(TargetType type, Vector3 position)
         {
             isReachedTarget = false;
             TargetType = type;
@@ -241,12 +245,12 @@ namespace Common.Entity
             List<AIAgent> enemies;
             for (int i = 0; i < players.Count; i++)
             {
-                if(players[i].Group != PlayerGroup)
+                if (players[i].Group != PlayerGroup)
                 {
                     enemies = players[i].Agents;
                     for (int j = 0; j < enemies.Count; j++)
                     {
-                        if(enemies[j] != null && !enemies[j].IsDead && Vector3.Distance(enemies[j].Position,Position) <= AttackRange)
+                        if (enemies[j] != null && !enemies[j].IsDead && Vector3.Distance(enemies[j].Position, Position) <= AttackRange)
                         {
                             TargetEntity = enemies[j];
                             TargetType = TargetType.NPC;
