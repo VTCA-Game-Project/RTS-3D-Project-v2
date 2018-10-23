@@ -6,6 +6,7 @@ using InterfaceCollection;
 using EnumCollection;
 using RTS_ScriptableObject;
 using Animation;
+using System.Collections.Generic;
 
 namespace Common.Entity
 {
@@ -24,6 +25,7 @@ namespace Common.Entity
         protected BaseAnimation anims;
         protected Pointer pointer;
 
+        public int Damage;
         public Player Owner;/*{ get; set; }*/
         public GameEntity TargetEntity { get; protected set; }
         public bool OnObsAvoidance      { get; set; }
@@ -58,7 +60,6 @@ namespace Common.Entity
         }
         public bool IsSelected  { get; protected set; }
         public bool IsReachedTarget { get; protected set; }
-        public AIAgent AgentTarget { get; set; }
         // component properties
         public Rigidbody AgentRigid { get; protected set; }
         public SkinnedMeshRenderer SkinMeshRenderer { get; protected set; }
@@ -81,7 +82,8 @@ namespace Common.Entity
         }
         protected virtual void Start()
         {
-            HP = 10;
+            Damage = 2;
+            HP = 2;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
 
@@ -93,7 +95,7 @@ namespace Common.Entity
         protected virtual void FixedUpdate()
         {
             if (IsDead) return;
-
+            DetectEnemy();
             steering = Vector3.zero;
             aceleration = Vector3.zero;
             if (!IsReachedTarget)
@@ -117,8 +119,7 @@ namespace Common.Entity
             aceleration = steering / AgentRigid.mass;
             AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
 
-            RotateAgent();
-            
+            RotateAgent();            
             if (!IsReachedTarget)
             {
                 IsReachedTarget = CheckReachedTarget();
@@ -178,6 +179,12 @@ namespace Common.Entity
             return false;
         }
 
+        public void SetTarget(TargetType type,Vector3 position)
+        {
+            isReachedTarget = false;
+            TargetType = type;
+            target = position;
+        }
         public void OffObsAvoidance() { OnObsAvoidance = false; }
         public override void Dead()
         {
@@ -219,16 +226,37 @@ namespace Common.Entity
         {
             if (TargetEntity != null)
             {
-                TargetEntity.TakeDamage(1);
+                TargetEntity.TakeDamage(Damage);
                 if (TargetEntity.IsDead)
                 {
                     TargetEntity = null;
+                    TargetType = TargetType.None;
                 }
             }
         }
         public void DetectEnemy()
         {
             if (TargetEntity != null) return;
+            List<Player> players = UpdateGameStatus.Instance.Players;
+            List<AIAgent> enemies;
+            for (int i = 0; i < players.Count; i++)
+            {
+                if(players[i].Group != PlayerGroup)
+                {
+                    enemies = players[i].Agents;
+                    for (int j = 0; j < enemies.Count; j++)
+                    {
+                        if(enemies[j] != null && !enemies[j].IsDead && Vector3.Distance(enemies[j].Position,Position) <= AttackRange)
+                        {
+                            TargetEntity = enemies[j];
+                            TargetType = TargetType.NPC;
+                            target = enemies[j].Position;
+                            break;
+                        }
+                    }
+                }
+                if (TargetEntity != null) break;
+            }
         }
 
 #if UNITY_EDITOR
@@ -247,10 +275,6 @@ namespace Common.Entity
                 }
             }
         }
-
-       
-
-
 #endif
     }
 }

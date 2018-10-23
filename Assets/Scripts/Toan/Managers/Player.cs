@@ -2,22 +2,24 @@
 using Common.Entity;
 using DelegateCollection;
 using EnumCollection;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Manager
 {
-    public class Player:MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public Group Group;
         public GameAction LoseAction { get; set; }
         private PlayerContainer status;
 
-        
         private void Awake()
         {
-            UpdateGameStatus.Instance.AddPlayer(this);
             status = new PlayerContainer();
-
+        }
+        private void Start()
+        {
+            UpdateGameStatus.Instance.AddPlayer(this);
         }
 
         public void AddConstruct(object construct)
@@ -62,7 +64,13 @@ namespace Manager
         {
             // if this is enemy,broadcast to player
             // if this is play, show notify
-            LoseAction(Group);
+            if (LoseAction != null)
+                LoseAction(Group);
+        }
+
+        public List<AIAgent> Agents
+        {
+            get { return status.Agents; }
         }
 
     }

@@ -22,9 +22,16 @@ namespace Common.Entity
 
         public override void Attack()
         {
-            Rigidbody copyBall = Instantiate(FireBall, LauncherPoint.position, Quaternion.identity);
+            Rigidbody copyBall = Instantiate(FireBall, LauncherPoint.position, LauncherPoint.rotation);
             copyBall.gameObject.SetActive(true);
+            copyBall.AddRelativeForce(0, 0, 300);
+
             base.Attack();
+        }
+
+        public override void Dead()
+        {
+            base.Dead();
         }
     }
 

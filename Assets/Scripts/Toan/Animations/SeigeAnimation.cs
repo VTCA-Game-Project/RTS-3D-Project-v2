@@ -14,7 +14,7 @@ namespace Animation
 
         protected override void Damage() { }
 
-        protected override void Dead() { }
+        protected override void Dead() {  }
 
         protected override void Idle()
         {
