@@ -13,11 +13,11 @@ namespace Manager
         public GameAction LoseAction { get; set; }
         private PlayerContainer status;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             status = new PlayerContainer();
         }
-        private void Start()
+        protected virtual void Start()
         {
             UpdateGameStatus.Instance.AddPlayer(this);
         }
