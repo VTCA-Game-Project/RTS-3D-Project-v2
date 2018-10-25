@@ -7,19 +7,19 @@ public class MainGameLoad : MonoBehaviour {
 
 
 
-    string PlayerClass=Singleton.classname;
+    string PlayerClass= Singleton.classname;
 
     public List<GameObject> Orc;
     public List<GameObject> Human;
     public List<GameObject> ButtonList;
 
-    
 
+   
 
     void Start ()
     {
+        
 
-       
 
 
         if (PlayerClass=="Human")

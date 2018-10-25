@@ -38,6 +38,8 @@ namespace Common.Entity
         public float AvoidanceWeight { get; protected set; }
         public TargetType TargetType { get; protected set; }
         public Group PlayerGroup { get; protected set; }
+      
+
 
         public AgentOffset offset;
 #if UNITY_EDITOR
@@ -47,6 +49,7 @@ namespace Common.Entity
 
         #region Properties
         public int HP { get; protected set; }
+        public int MaxHP { get; protected set; }
         public float MaxSpeed { get; protected set; }
         public float Radius { get; protected set; }
         public float NeighbourRadius { get; protected set; }
@@ -88,6 +91,7 @@ namespace Common.Entity
         {
             Damage = 2;
             HP = 2;
+            MaxHP = HP;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
 

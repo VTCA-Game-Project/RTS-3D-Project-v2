@@ -8,16 +8,20 @@ namespace Common.Entity
         public Rigidbody Arrow;
         public Transform LauncherPoint;
         public float ShootForce;
+      
+        public HPBar hpvalues;
         protected override void Awake()
         {
             base.Awake();
         }
         protected override void Start()
         {
+           
             base.Start();
         }
         protected override void FixedUpdate()
         {
+            hpvalues.SetValue((float)HP / MaxHP);
             base.FixedUpdate();
         }
 

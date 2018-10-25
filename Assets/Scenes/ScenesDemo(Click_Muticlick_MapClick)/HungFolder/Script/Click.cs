@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Click : MonoBehaviour
 {
@@ -31,8 +32,15 @@ public class Click : MonoBehaviour
             RighMouseDown();
         }
 
+
+       
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                Debug.Log("Clicked on the UI");
+                return;
+            }
             LeftMouseDown();
         }
         else if (Input.GetMouseButtonUp(0))

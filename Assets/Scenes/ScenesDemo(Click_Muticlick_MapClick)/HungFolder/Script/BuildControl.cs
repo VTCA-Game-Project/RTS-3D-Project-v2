@@ -42,6 +42,8 @@ public class BuildControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
+
         if (OnselectTaget == true)
         {
             foreach (CubeManager cube in ListInSelect)
