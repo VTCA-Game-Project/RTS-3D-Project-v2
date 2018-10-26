@@ -31,7 +31,6 @@ namespace Common
         public override Vector3 Velocity { get { return Vector3.zero; } }
         public override bool IsDead { get; protected set; }
        
-
         protected virtual void Awake() { }
         protected virtual void Start()
         {

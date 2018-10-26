@@ -77,6 +77,11 @@ namespace Common.Entity
             if (Owner.Group == Group.Player)
             {
                 gameObject.AddComponent<ClickOn>();
+                gameObject.layer = LayerMask.NameToLayer("");
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("NPC");
             }
 
             pointer = FindObjectOfType<Pointer>();
