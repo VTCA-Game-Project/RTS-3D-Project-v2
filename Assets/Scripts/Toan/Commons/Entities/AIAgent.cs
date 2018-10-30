@@ -38,7 +38,7 @@ namespace Common.Entity
         public float AvoidanceWeight { get; protected set; }
         public TargetType TargetType { get; protected set; }
         public Group PlayerGroup { get; protected set; }
-      
+
 
 
         public AgentOffset offset;
@@ -80,7 +80,7 @@ namespace Common.Entity
             if (Owner.Group == Group.Player)
             {
                 gameObject.AddComponent<ClickOn>();
-                gameObject.layer = LayerMask.NameToLayer("");
+                gameObject.layer = 13;
             }
             else
             {
@@ -95,7 +95,7 @@ namespace Common.Entity
         protected virtual void Start()
         {
             Damage = 2;
-            HP = 2;
+            HP = 10;
             MaxHP = HP;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
@@ -108,7 +108,6 @@ namespace Common.Entity
         protected virtual void FixedUpdate()
         {
             if (IsDead) return;
-            DetectEnemy();
             steering = Vector3.zero;
             aceleration = Vector3.zero;
             if (!IsReachedTarget)
@@ -121,6 +120,10 @@ namespace Common.Entity
                     steering += flockBh.Alignment(this, neighbours) * Alignment;
                     steering += flockBh.Cohesion(this, neighbours) * Cohesion;
                 }
+            }
+            else
+            {
+                DetectEnemy();
             }
             // obstacle avoidance test
             if (AgentRigid.velocity.sqrMagnitude > MinVelocity)
@@ -141,12 +144,11 @@ namespace Common.Entity
                     AgentRigid.velocity = Vector3.zero;
                 }
             }
-
-
 #if UNITY_EDITOR
             // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
 #endif
         }
+
         protected void MoveToTarget()
         {
             if (IsSelected)
@@ -168,9 +170,9 @@ namespace Common.Entity
             {
                 transform.forward += (AgentRigid.velocity / AgentRigid.mass);
             }
-            else if (TargetType == TargetType.NPC)
+            else if (TargetType == TargetType.NPC && TargetEntity != null)
             {
-                transform.LookAt(target);
+                transform.LookAt(TargetEntity.Position);
             }
         }
         protected bool CheckReachedTarget()
@@ -238,28 +240,25 @@ namespace Common.Entity
         public virtual void Action() { MoveToTarget(); }
         public virtual void Attack()
         {
-            if (TargetEntity != null)
+            if (TargetEntity == null || TargetEntity.IsDead)
             {
-                TargetEntity.TakeDamage(Damage);
-                if (TargetEntity.IsDead)
-                {
-                    TargetEntity = null;
-                    TargetType = TargetType.None;
-                }
-            }
-            else
-            {
-                if(TargetType == TargetType.NPC)
-                {
-                    TargetType = TargetType.None;
-                }
+                TargetEntity = null;
+                TargetType = TargetType.None;
             }
         }
         public void DetectEnemy()
         {
+            if(TargetEntity != null && Vector3.Distance(Position,TargetEntity.Position) > AttackRange)
+            {
+                TargetType = TargetType.None;
+                TargetEntity = null;
+                return;
+            }
             if (TargetEntity != null) return;
             List<Player> players = UpdateGameStatus.Instance.Players;
-            List<AIAgent> enemies;
+            List<AIAgent> enemies = null;
+            List<Construct> enemyConstruct = null;
+
             for (int i = 0; i < players.Count; i++)
             {
                 if (players[i].Group != PlayerGroup)
@@ -275,7 +274,19 @@ namespace Common.Entity
                             break;
                         }
                     }
+                    enemyConstruct = players[i].Constructs;
+                    for (int j = 0; j < enemyConstruct.Count; j++)
+                    {
+                        if (enemyConstruct[j] != null && !enemyConstruct[j].IsDead && Vector3.Distance(enemyConstruct[j].Position, Position) <= AttackRange)
+                        {
+                            TargetEntity = enemyConstruct[j];
+                            TargetType = TargetType.NPC;
+                            target = enemyConstruct[j].Position;
+                            break;
+                        }
+                    }
                 }
+                
                 if (TargetEntity != null) break;
             }
         }
@@ -295,6 +306,7 @@ namespace Common.Entity
                     Gizmos.DrawRay(transform.position, transform.forward * DetectBoxLenght);
                 }
             }
+            Gizmos.DrawSphere(Position, 1);
         }
 #endif
     }

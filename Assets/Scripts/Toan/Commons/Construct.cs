@@ -9,8 +9,7 @@ namespace Common
     public abstract class Construct : GameEntity
     {
 
-        protected ConstructId[] onwed;
-        public Player player;
+        public Player Player;
 
         public int Hp { get; protected set; }
         public ConstructId Id { get; protected set; }
@@ -34,16 +33,16 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-            if (Singleton.classname == "Human")
-            {
-                player = FindObjectOfType<MainPlayer>();
-            }
-            else
-            {
-                player = FindObjectOfType<NPCPlayer>();
-            }
-            AddConstruct = player.AddConstruct;
-            RemoveConstruct = player.RemoveConstruct;
+        //    if (Singleton.classname == "Human")
+        //    {
+        //        Player = FindObjectOfType<MainPlayer>();
+        //    }
+        //    else
+        //    {
+        //        Player = FindObjectOfType<NPCPlayer>();
+        //    }
+            AddConstruct = Player.AddConstruct;
+            RemoveConstruct = Player.RemoveConstruct;
             Hp = 1;
             Init();
         }
@@ -54,26 +53,26 @@ namespace Common
             switch (Id)
             {
                 case ConstructId.Yard:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Refinery,
                     };
                     break;
                 case ConstructId.Refinery:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Barrack,
                     };
                     break;
                 case ConstructId.Barrack:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Defender,
                     ConstructId.Radar,
                     };
                     break;
                 default:
-                    onwed = new ConstructId[0];
+                    Owned = new ConstructId[0];
 #if UNITY_EDITOR
                     Debug.Log("Tower name not found");
 #endif
@@ -82,7 +81,7 @@ namespace Common
         }
         protected void UnlockConstruct()
         {
-            if(AddConstruct == null) AddConstruct = player.AddConstruct;
+            if(AddConstruct == null) AddConstruct = Player.AddConstruct;
             AddConstruct(this);
         }
 

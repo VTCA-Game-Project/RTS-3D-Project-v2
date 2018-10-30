@@ -4,8 +4,7 @@ namespace Common.Entity
 {
     public class AIWarrior : AIAgent
     {
-
-       public HPBar heath;
+        public HPBar heath;
         protected override void Awake()
         {
             base.Awake();
@@ -22,6 +21,10 @@ namespace Common.Entity
         public override void Attack()
         {
             base.Attack();
+            if(TargetEntity != null)
+            {
+                TargetEntity.TakeDamage(Damage);
+            }
         }
     }
 }
