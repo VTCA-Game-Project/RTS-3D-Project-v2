@@ -1,24 +1,24 @@
 fileFormatVersion: 2
-guid: 493b25ff2a36a38499453aa67a94a6fe
+guid: 5a51efa3910e2a44c99f001cb73952f3
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: Bip001
-    100002: Bip001 Backpack
-    100004: Bip001 BackpackNub
-    100006: Bip001 Eye L
-    100008: Bip001 Eye LNub
-    100010: Bip001 Eye R
-    100012: Bip001 Eye RNub
-    100014: Bip001 Eyelid L
-    100016: Bip001 Eyelid LNub
-    100018: Bip001 Eyelid R
-    100020: Bip001 Eyelid RNub
-    100022: Bip001 Footsteps
-    100024: Bip001 ForeHaed
-    100026: Bip001 ForeHaedNub
-    100028: Bip001 Head
-    100030: Bip001 HeadNub
+    100002: Bip001 Eye L
+    100004: Bip001 Eye LNub
+    100006: Bip001 Eye R
+    100008: Bip001 Eye RNub
+    100010: Bip001 Eyelid L
+    100012: Bip001 Eyelid LNub
+    100014: Bip001 Eyelid R
+    100016: Bip001 Eyelid RNub
+    100018: Bip001 Footsteps
+    100020: Bip001 ForeHaed
+    100022: Bip001 ForeHaedNub
+    100024: Bip001 Head
+    100026: Bip001 HeadNub
+    100028: Bip001 Horn
+    100030: Bip001 HornNub
     100032: Bip001 Jaw
     100034: Bip001 JawNub
     100036: Bip001 L Calf
@@ -53,32 +53,30 @@ ModelImporter:
     100094: Bip001 R Toe0
     100096: Bip001 R Toe0Nub
     100098: Bip001 R UpperArm
-    100100: Bip001 Skirt
-    100102: Bip001 Skirt02
-    100104: Bip001 SkirtNub
-    100106: Bip001 Spine
-    100108: Bip001 Spine1
-    100110: Bip001 Spine2
-    100112: Bip001 Weapon
-    100114: Bip001 WeaponNub
-    100116: mon_trolCurer
-    100118: //RootNode
+    100100: Bip001 Spine
+    100102: Bip001 Spine1
+    100104: Bip001 Spine2
+    100106: Bip001 Stomach
+    100108: Bip001 StomachNub
+    100110: Bip001 Weapon
+    100112: Bip001 WeaponNub
+    100114: //RootNode
     400000: Bip001
-    400002: Bip001 Backpack
-    400004: Bip001 BackpackNub
-    400006: Bip001 Eye L
-    400008: Bip001 Eye LNub
-    400010: Bip001 Eye R
-    400012: Bip001 Eye RNub
-    400014: Bip001 Eyelid L
-    400016: Bip001 Eyelid LNub
-    400018: Bip001 Eyelid R
-    400020: Bip001 Eyelid RNub
-    400022: Bip001 Footsteps
-    400024: Bip001 ForeHaed
-    400026: Bip001 ForeHaedNub
-    400028: Bip001 Head
-    400030: Bip001 HeadNub
+    400002: Bip001 Eye L
+    400004: Bip001 Eye LNub
+    400006: Bip001 Eye R
+    400008: Bip001 Eye RNub
+    400010: Bip001 Eyelid L
+    400012: Bip001 Eyelid LNub
+    400014: Bip001 Eyelid R
+    400016: Bip001 Eyelid RNub
+    400018: Bip001 Footsteps
+    400020: Bip001 ForeHaed
+    400022: Bip001 ForeHaedNub
+    400024: Bip001 Head
+    400026: Bip001 HeadNub
+    400028: Bip001 Horn
+    400030: Bip001 HornNub
     400032: Bip001 Jaw
     400034: Bip001 JawNub
     400036: Bip001 L Calf
@@ -113,22 +111,19 @@ ModelImporter:
     400094: Bip001 R Toe0
     400096: Bip001 R Toe0Nub
     400098: Bip001 R UpperArm
-    400100: Bip001 Skirt
-    400102: Bip001 Skirt02
-    400104: Bip001 SkirtNub
-    400106: Bip001 Spine
-    400108: Bip001 Spine1
-    400110: Bip001 Spine2
-    400112: Bip001 Weapon
-    400114: Bip001 WeaponNub
-    400116: mon_trolCurer
-    400118: //RootNode
-    4300000: Weapon
-    4300002: mon_trolCurer
+    400100: Bip001 Spine
+    400102: Bip001 Spine1
+    400104: Bip001 Spine2
+    400106: Bip001 Stomach
+    400108: Bip001 StomachNub
+    400110: Bip001 Weapon
+    400112: Bip001 WeaponNub
+    400114: //RootNode
+    4300000: mon_orgeHitter
+    4300002: Weapon
     7400000: Take 001
     9500000: //RootNode
     11100000: //RootNode
-    13700000: mon_trolCurer
   externalObjects: {}
   materials:
     importMaterials: 0

@@ -24,8 +24,8 @@ namespace Common.Entity
         protected ObstacleAvoidance avoidanceBh;
         protected BaseAnimation anims;
         protected Pointer pointer;
+        protected int Damage { get; set; }
 
-        public int Damage;
         public Player Owner;/*{ get; set; }*/
         public GameEntity TargetEntity { get; protected set; }
         public bool OnObsAvoidance { get; set; }
@@ -94,16 +94,24 @@ namespace Common.Entity
         }
         protected virtual void Start()
         {
-            Damage = 2;
-            HP = 10;
-            MaxHP = HP;
+            InitOffset();
+
+            HP = MaxHP;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
+            if (PlayerGroup == Group.NPC)
+            {
+                gameObject.layer = LayerMask.NameToLayer("NPC");
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
+            }
 
             steerBh = Singleton.SteerBehavior;
             flockBh = Singleton.FlockBehavior;
             avoidanceBh = Singleton.ObstacleAvoidance;
-            InitOffset();
+
         }
         protected virtual void FixedUpdate()
         {
@@ -187,7 +195,10 @@ namespace Common.Entity
                 case TargetType.Construct:
                     return true;
                 case TargetType.NPC:
-                    return (Vector3.Distance(Position, target) <= AttackRange);
+                    if (TargetEntity != null)
+                        return (Vector3.Distance(Position, TargetEntity.Position) <= AttackRange);
+                    else
+                        return (Vector3.Distance(Position,target) <= AttackRange);
                 default:
                     return true;
             }
@@ -226,13 +237,16 @@ namespace Common.Entity
             AvoidanceWeight = offset.ObstacleAvoidance;
             MaxSpeed = offset.MaxSpeed;
             AttackRange = offset.AttackRadius;
+            MaxHP = offset.MaxHP;
+            Damage = offset.Damage;
 
             IsDead = false;
             IsSelected = false;
             IsReachedTarget = Owner.Group == Group.Player ? false : true;
             OnObsAvoidance = true;
             MinDetectionBoxLenght = Radius;
-            Radius = SkinMeshRenderer.bounds.extents.x;
+            Radius = SkinMeshRenderer.bounds.size.x;
+
         }
         // INTERFACE
         public void Select() { IsSelected = true; }
@@ -248,7 +262,7 @@ namespace Common.Entity
         }
         public void DetectEnemy()
         {
-            if(TargetEntity != null && Vector3.Distance(Position,TargetEntity.Position) > AttackRange)
+            if (TargetEntity != null && Vector3.Distance(Position, TargetEntity.Position) > AttackRange)
             {
                 TargetType = TargetType.None;
                 TargetEntity = null;
@@ -286,7 +300,7 @@ namespace Common.Entity
                         }
                     }
                 }
-                
+
                 if (TargetEntity != null) break;
             }
         }

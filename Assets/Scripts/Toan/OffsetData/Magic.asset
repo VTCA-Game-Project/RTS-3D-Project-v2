@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2351a8f3c21a4945840cce76bef70aa, type: 3}
   m_Name: Magic
   m_EditorClassIdentifier: 
+  MaxHP: 10
+  Damage: 3
   Seeking: 0.8
   MaxSpeed: 3.5
   Cohesion: 0.1
   Separation: 1
   Alignment: 0.01
-  AttackRadius: 6
+  AttackRadius: 10
   NeighboursRadius: 5
-  ObstacleAvoidance: 20
+  ObstacleAvoidance: 1.5

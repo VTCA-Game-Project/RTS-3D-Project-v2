@@ -33,16 +33,25 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-        //    if (Singleton.classname == "Human")
-        //    {
-        //        Player = FindObjectOfType<MainPlayer>();
-        //    }
-        //    else
-        //    {
-        //        Player = FindObjectOfType<NPCPlayer>();
-        //    }
-            AddConstruct = Player.AddConstruct;
-            RemoveConstruct = Player.RemoveConstruct;
+            if (Singleton.classname == "Human")
+            {
+                Player = FindObjectOfType<MainPlayer>();
+            }
+            else
+            {
+                Player = FindObjectOfType<NPCPlayer>();
+            }
+
+            if (Player.Group == Group.NPC)
+            {
+                gameObject.layer = LayerMask.NameToLayer("NPC");
+            }
+            else
+            {
+                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
+            }
+            AddConstruct        = Player.AddConstruct;
+            RemoveConstruct     = Player.RemoveConstruct;
             Hp = 1;
             Init();
         }
