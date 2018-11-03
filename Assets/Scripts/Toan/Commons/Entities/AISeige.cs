@@ -26,8 +26,8 @@ namespace Common.Entity
         {
             Rigidbody copyBall = Instantiate(FireBall, LauncherPoint.position, LauncherPoint.rotation);
             copyBall.gameObject.SetActive(true);
-            copyBall.AddRelativeForce(0, 0, 300);
-
+            //copyBall.AddRelativeForce(0, 0, 300);
+            copyBall.GetComponent<AIFireBall>().Init(TargetEntity, Damage);
             base.Attack();
         }
 

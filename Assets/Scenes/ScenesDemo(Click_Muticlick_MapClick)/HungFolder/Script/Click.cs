@@ -106,7 +106,7 @@ public class Click : MonoBehaviour
                    (ray: cameraRaycaster.ScreenPointToRay(mousePosition),
                     hitInfo: out hitInfo,
                     maxDistance: Mathf.Infinity,
-                    layerMask: Clicklayer))
+                    layerMask: LayerMask.NameToLayer("Clicklayer")))
             {
                 ClickOn obj = hitInfo.collider.GetComponent<ClickOn>();
                 if(obj != null)

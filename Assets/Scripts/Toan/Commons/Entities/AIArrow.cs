@@ -42,9 +42,4 @@ public class AIArrow : GameEntity
         Target = target;
         Damage = damage;
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(Position, 1);
-    }
 }
