@@ -80,7 +80,7 @@ namespace Common.Entity
             if (Owner.Group == Group.Player)
             {
                 gameObject.AddComponent<ClickOn>();
-                gameObject.layer = 13;
+                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
             }
             else
             {
@@ -99,14 +99,6 @@ namespace Common.Entity
             HP = MaxHP;
             Owner.AddAgent(this);
             PlayerGroup = Owner.Group;
-            if (PlayerGroup == Group.NPC)
-            {
-                gameObject.layer = LayerMask.NameToLayer("NPC");
-            }
-            else
-            {
-                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
-            }
 
             steerBh = Singleton.SteerBehavior;
             flockBh = Singleton.FlockBehavior;

@@ -9,27 +9,25 @@ namespace Common.Building
 {
     public class Defender : Construct, IDetectEnemy, IAttackable
     {
-        public float DelayAttack;
-        public float ShootForce;
-        public Transform LauncherPoint;
-        public Rigidbody Arrow;
-        public GameEntity TargetEntity { get; set; }
-        public Group PlayerGroup { get; set; }
-
         private bool isDetectedEnemy;
-
-        public int Damage;
-        public float AttackRange;
-
         private float attackCounter;
+
+        public Rigidbody Arrow;
+        public Transform LauncherPoint;
+        public Group PlayerGroup { get; set; }
+        public GameEntity TargetEntity { get; set; }
+
+        public int Damage { get; set; }
+        public float AttackRange { get; set; }
+        public float DelayAttack { get; set; }
+        public float ShootForce { get; set; }
 
         protected override void Start()
         {
             Id = ConstructId.Defender;
             base.Start();
-            // test
-            Build();
         }
+
         protected override void Update()
         {
             if (IsDead) return;
@@ -47,6 +45,7 @@ namespace Common.Building
                 }
             }
         }
+
         public void DetectEnemy()
         {
             // find agent inside attack range 
@@ -107,6 +106,13 @@ namespace Common.Building
                 copyArrow.GetComponent<AIArrow>().Init(TargetEntity, Damage);
             }
         }
- 
+
+        protected override void InitOffset()
+        {
+            Damage      = Offset.Damage;
+            AttackRange = Offset.AttackRadius;
+            DelayAttack = Offset.DelayAttack;
+            ShootForce  = Offset.AttackForce;
+        }
     }
 }

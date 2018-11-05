@@ -6,12 +6,19 @@ namespace Common.Entity
     {
         [SerializeField]
         private AnimationCurve heightSampler;
-        public int Damage { get; set; }
-        public GameEntity Target { get; set; }
+        private Vector3 origin;
+        private const float MAX_HEIGHT = 4.5f;
 
+        public float Speed;
+        public int Damage           { get; set; }
+        public GameEntity Target    { get; set; }
         public override bool IsDead { get; protected set; }
 
-        private void FixedUpdate()
+        private void Awake()
+        {
+            origin = Position;
+        }
+        private void Update()
         {
             if (IsDead) return;
             if (transform.position.y <= 0)
@@ -19,17 +26,15 @@ namespace Common.Entity
                 Dead();
             }
 
-            Vector3 pos = Position;
-            Debug.Log(Position.magnitude / Target.Position.magnitude);
-            float hieght = heightSampler.Evaluate((Position.magnitude/Target.Position.magnitude));
-            pos = Vector3.MoveTowards(pos, Target.Position, Time.deltaTime *1);
-
-            pos.y = hieght;
-            transform.position = pos;
+            float sampler = (Position - origin).magnitude / (origin - Target.Position).magnitude;
+            Vector3 position = Position;
+            position = Vector3.MoveTowards(position, Target.Position, Time.deltaTime * Speed);
+            position.y = heightSampler.Evaluate(sampler) * MAX_HEIGHT;
+            transform.position = position;
         }
 
 
-        public void Init(GameEntity target,int damage)
+        public void Init(GameEntity target, int damage)
         {
             Target = target;
             Damage = damage;

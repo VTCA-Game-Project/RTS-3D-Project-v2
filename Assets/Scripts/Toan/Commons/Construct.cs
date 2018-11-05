@@ -2,20 +2,22 @@
 using EnumCollection;
 using Manager;
 using Pattern;
+using RTS_ScriptableObject;
 using UnityEngine;
 
 namespace Common
 {
     public abstract class Construct : GameEntity
     {
-
+        public ConstructOffset Offset;
         public Player Player;
 
-        public int Hp { get; protected set; }
-        public ConstructId Id { get; protected set; }
-        public ConstructId[] Owned { get; protected set; }
-        public GameAction AddConstruct { protected get; set; }
-        public GameAction RemoveConstruct { protected get; set; }
+        public int Hp                       { get; protected set; }
+        public Group Group                  { get; set; }
+        public ConstructId Id               { get; protected set; }
+        public ConstructId[] Owned          { get; protected set; }
+        public GameAction AddConstruct      { protected get; set; }
+        public GameAction RemoveConstruct   { protected get; set; }
 
         public override Vector3 Position
         {
@@ -33,27 +35,21 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-            if (Singleton.classname == "Human")
-            {
-                Player = FindObjectOfType<MainPlayer>();
-            }
-            else
-            {
-                Player = FindObjectOfType<NPCPlayer>();
-            }
-
-            if (Player.Group == Group.NPC)
+            if (Group == Group.NPC)
             {
                 gameObject.layer = LayerMask.NameToLayer("NPC");
+                Player = FindObjectOfType<NPCPlayer>();
             }
             else
             {
                 gameObject.layer = LayerMask.NameToLayer("Clicklayer");
+                Player = FindObjectOfType<MainPlayer>();
             }
             AddConstruct        = Player.AddConstruct;
             RemoveConstruct     = Player.RemoveConstruct;
-            Hp = 1;
+
             Init();
+            InitOffset();
         }
         protected virtual void Update() { }
 
@@ -92,6 +88,11 @@ namespace Common
         {
             if(AddConstruct == null) AddConstruct = Player.AddConstruct;
             AddConstruct(this);
+        }
+
+        protected virtual void InitOffset()
+        {
+            Hp = Offset.MaxHP;
         }
 
         // public method
