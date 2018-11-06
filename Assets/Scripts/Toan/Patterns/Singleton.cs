@@ -16,7 +16,7 @@ namespace Pattern
 
         // utils singleton
         public static readonly MathUtils            MathUtils = MathUtils.Instance;
-        public static readonly AssetUtils           AssetUtils = AssetUtils.Instance;
+       
 
 
         // manager

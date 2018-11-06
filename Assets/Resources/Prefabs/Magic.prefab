@@ -751,13 +751,14 @@ GameObject:
   - component: {fileID: 114472606073702532}
   - component: {fileID: 54772079201344696}
   - component: {fileID: 114506077964530210}
+  - component: {fileID: 136699498250622806}
   m_Layer: 0
   m_Name: Magic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1782029568498508
 GameObject:
   m_ObjectHideFlags: 1
@@ -1163,7 +1164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773506538048138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0500776, y: 0, z: -5.016575}
+  m_LocalPosition: {x: 1.74, y: -0.46, z: -6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4795765715548042}
@@ -2123,6 +2124,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!136 &136699498250622806
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1773506538048138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!137 &137585534314912938
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

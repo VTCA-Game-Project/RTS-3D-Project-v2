@@ -13,7 +13,7 @@ public class UpdateGameStatus : MonoBehaviour
         if (Instance == null) Instance = this;
         else Destroy(Instance.gameObject);
         Players = new List<Player>();
-        InvokeRepeating("UpdatePlayerState", 30.0f, 2.0f);
+        // InvokeRepeating("UpdatePlayerState", 30.0f, 2.0f);
     }
     public void AddPlayer(Player player)
     {

@@ -82,6 +82,7 @@ public class Click : MonoBehaviour
     {
         if (selectableObjects.Contains(obj)) return;
         selectableObjects.Add(obj);
+        Debug.Log(selectableObjects.Count);
     }
 
     // mouse events
@@ -101,11 +102,12 @@ public class Click : MonoBehaviour
         }
         else
         {
-            if(Physics.Raycast
+            bool hitted = Physics.Raycast
                    (ray: cameraRaycaster.ScreenPointToRay(mousePosition),
                     hitInfo: out hitInfo,
-                    maxDistance: Mathf.Infinity,
-                    layerMask: LayerMask.NameToLayer("Clicklayer")))
+                    maxDistance: float.MaxValue,
+                    layerMask: Clicklayer);
+            if (hitted)
             {
                 ClickOn obj = hitInfo.collider.GetComponent<ClickOn>();
                 if(obj != null)

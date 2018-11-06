@@ -73,13 +73,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567382335979630}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MainHouse_Orc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4284511139237468
 Transform:
   m_ObjectHideFlags: 1
@@ -113,8 +113,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1931072666782256}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 85.47987, y: 0, z: 87.581116}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4915655444889948}
@@ -283,4 +283,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01e30dcad715b846a01278e5549f2c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  Offset: {fileID: 11400000, guid: 0ce3e0bf55eb34446a8915b81ef18de7, type: 2}
+  Player: {fileID: 0}

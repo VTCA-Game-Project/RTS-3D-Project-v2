@@ -32,8 +32,7 @@ namespace Common
         public override Vector3 Velocity { get { return Vector3.zero; } }
         public override bool IsDead { get; protected set; }
        
-        protected virtual void Awake() { }
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             if (Group == Group.NPC)
             {
@@ -42,13 +41,17 @@ namespace Common
             }
             else
             {
-                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
+                gameObject.layer = LayerMask.NameToLayer("Construct");
                 Player = FindObjectOfType<MainPlayer>();
             }
+            Init();
+        }
+        protected virtual void Start()
+        {
+           
             AddConstruct        = Player.AddConstruct;
             RemoveConstruct     = Player.RemoveConstruct;
-
-            Init();
+           
             InitOffset();
         }
         protected virtual void Update() { }

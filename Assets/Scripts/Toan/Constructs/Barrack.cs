@@ -4,6 +4,7 @@ using InterfaceCollection;
 using Manager;
 using Pattern;
 using UnityEngine;
+using Utils;
 
 namespace Common.Building
 {
@@ -15,7 +16,7 @@ namespace Common.Building
         }
         protected override void Start()
         {
-            Build();
+         
             SoilderElement[] buySoliderButtons = FindObjectsOfType<SoilderElement>();
             
             if(buySoliderButtons != null)
@@ -35,7 +36,7 @@ namespace Common.Building
         {
             if (type.GetType() == typeof(Soldier))
             {
-                return Singleton.AssetUtils.GetAsset(type.ToString()) as GameObject;
+                return AssetUtils.Instance.GetAsset(type.ToString()) as GameObject;
             }
             return null;
         }

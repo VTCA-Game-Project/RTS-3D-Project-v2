@@ -129,6 +129,7 @@ public class BuildControl : MonoBehaviour
 
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
+                        NewGO.SetActive(true);
                         construct.Build();                                          
                         ListInSelect.Clear();
                         ResetTaget();
