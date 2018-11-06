@@ -16,6 +16,11 @@ namespace Manager
         public List<Construct> Constructs               { get; private set; }
         public List<ConstructId> ConstructsCantBuild    { get; private set; }
         
+        public bool IsCanBuild(ConstructId type)
+        {
+            return ConstructsCantBuild.Contains(type);
+        }
+
         public bool IsAlive
         {
             get { return Agents.Count + Constructs.Count > 0; }

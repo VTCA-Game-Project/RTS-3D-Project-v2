@@ -78,5 +78,9 @@ namespace Manager
             get { return status.Constructs; }
         }
 
+        public bool IsCanBuild(ConstructId type)
+        {
+            return status.IsCanBuild(type);
+        }
     }
 }
