@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4324003830429138}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LegJaw (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4949769169338536}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Siege Creep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,13 +54,13 @@ GameObject:
   - component: {fileID: 65938682995590720}
   - component: {fileID: 114068890392405194}
   - component: {fileID: 114384222331894608}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: WoodHorse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1172483762092348
 GameObject:
   m_ObjectHideFlags: 1
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4141168804862362}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: on_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4067266180385192}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LegJaw (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4744353954400818}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Front_Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4478123265711446}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LauncherPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4143701822522064}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LegJaw (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4793935081838686}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cannon_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4764142412601162}
   - component: {fileID: 137654080751233588}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Siege_Creep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016102715391964}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: LegJaw (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 114880340103656792}
   - component: {fileID: 114654591269113084}
   - component: {fileID: 114484203501727360}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 224844734321247416}
   - component: {fileID: 222538593921864602}
   - component: {fileID: 114052711032459140}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4229718993014818}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Back_Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 224393311844165758}
   - component: {fileID: 222075325377061178}
   - component: {fileID: 114255734208988208}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: HPBAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 4385000061405904}
   - component: {fileID: 33348221815930188}
   - component: {fileID: 23956145070539508}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4209700949981430}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ROOT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ Transform:
   m_GameObject: {fileID: 1425526113507672}
   m_LocalRotation: {x: -0.37384635, y: -0.000027826394, z: 0.00006903563, w: 0.92749065}
   m_LocalPosition: {x: -0.016427994, y: 3.33, z: 0.8786602}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4803702767602448}
   m_RootOrder: 2
@@ -671,11 +671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4b1d01ad86e664996b2be4b48e8ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: af35f0031008ac5428fb104fa01956ba, type: 2}
   drawGizmos: 0
-  FireBall: {fileID: 54794499945953608, guid: d64ba15fcdd0f914fb150593af5e11e8, type: 2}
+  FireBall: {fileID: 0}
   LauncherPoint: {fileID: 4478123265711446}
   heath: {fileID: 114484203501727360}
 --- !u!114 &114484203501727360

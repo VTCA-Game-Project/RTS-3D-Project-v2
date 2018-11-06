@@ -33,7 +33,7 @@ namespace Common.Building
         }
         protected void OnMouseDown()
         {
-            if (player.Group == Group.Player)
+            if (Player.Group == Group.Player)
             {
                 Produce(null);
             }
@@ -43,7 +43,7 @@ namespace Common.Building
         {
             if (RemainingGold > 0)
             {
-                player.TakeGold(RemainingGold);
+                Player.TakeGold(RemainingGold);
                 counter = 0.0f;
                 RemainingGold = 0;
             }

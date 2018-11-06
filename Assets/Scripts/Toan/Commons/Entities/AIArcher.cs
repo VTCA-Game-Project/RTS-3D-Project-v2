@@ -26,13 +26,16 @@ namespace Common.Entity
         }
 
         public override void Attack()
-        {           
+        {
+            base.Attack();
+            if (TargetEntity == null || TargetEntity.IsDead) return;
+            Vector3 direction = (TargetEntity.Position - Position).normalized;
             Rigidbody copyArrow = Instantiate(Arrow, LauncherPoint.position,transform.rotation);
             copyArrow.gameObject.SetActive(true);
-            copyArrow.AddForce(transform.forward * ShootForce);
-            Destroy(copyArrow.gameObject, ShootForce / AttackRange);
-            base.Attack();
-           
+            copyArrow.transform.forward = direction;
+            copyArrow.AddForce(direction * ShootForce);
+            copyArrow.GetComponent<AIArrow>().Init(TargetEntity,Damage);
+                       
         }
     }
 }

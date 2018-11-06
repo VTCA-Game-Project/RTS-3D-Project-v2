@@ -69,7 +69,14 @@ namespace Animation
             CurrentState = AnimState.None;
             NextState = DefaultState;
         }
-        protected virtual void Update() {
+        protected virtual void Update()
+        {
+            if(agent.IsDead)
+            {
+                NextState = AnimState.Dead;
+                Play(NextState);
+                return;
+            }
             if (CurrentState == AnimState.Idle)
             {
                 if (agentRigid.velocity.sqrMagnitude > 0.1f)

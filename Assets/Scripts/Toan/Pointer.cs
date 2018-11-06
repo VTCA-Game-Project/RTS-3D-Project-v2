@@ -57,8 +57,16 @@ public class Pointer : MonoBehaviour
             }
             else if (hitLayer == LayerMask.NameToLayer("Construct"))
             {
-                TargetType = TargetType.Construct;
-                TargetEntity = hitInfo.collider.gameObject.GetComponent<GameEntity>();
+                Construct targetHit = hitInfo.collider.gameObject.GetComponent<Construct>();
+                if (targetHit.Player.Group == Group.NPC)
+                {
+                    TargetType = TargetType.NPC;
+                }
+                else
+                {
+                    TargetType = TargetType.Construct;
+                }
+                TargetEntity = targetHit.GetComponent<GameEntity>();
             }
             else if (hitLayer == LayerMask.NameToLayer("UI"))
             {

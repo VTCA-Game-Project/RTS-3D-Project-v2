@@ -18,14 +18,15 @@ public class AIGoblinWizard : AIAgent
         Heath.SetValue((float)HP / MaxHP);
     }
     public override void Attack()
-    {
-        
-
-        Rigidbody ef = Instantiate(effect, startpoisition.position, transform.rotation);
-        ef.gameObject.SetActive(true);
-        ef.AddForce(transform.forward * ShootForce);
-     
-       
+    {       
         base.Attack();
+        if(TargetEntity != null)
+        {
+            Rigidbody ef = Instantiate(effect, startpoisition.position, transform.rotation);
+            ef.gameObject.SetActive(true);
+            ef.AddForce(transform.forward * ShootForce);
+
+            TargetEntity.TakeDamage(Damage);
+        }
     }
 }

@@ -2,21 +2,22 @@
 using EnumCollection;
 using Manager;
 using Pattern;
+using RTS_ScriptableObject;
 using UnityEngine;
 
 namespace Common
 {
     public abstract class Construct : GameEntity
     {
+        public ConstructOffset Offset;
+        public Player Player;
 
-        protected ConstructId[] onwed;
-        public Player player;
-
-        public int Hp { get; protected set; }
-        public ConstructId Id { get; protected set; }
-        public ConstructId[] Owned { get; protected set; }
-        public GameAction AddConstruct { protected get; set; }
-        public GameAction RemoveConstruct { protected get; set; }
+        public int Hp                       { get; protected set; }
+        public Group Group                  { get; set; }
+        public ConstructId Id               { get; protected set; }
+        public ConstructId[] Owned          { get; protected set; }
+        public GameAction AddConstruct      { protected get; set; }
+        public GameAction RemoveConstruct   { protected get; set; }
 
         public override Vector3 Position
         {
@@ -34,18 +35,21 @@ namespace Common
         protected virtual void Awake() { }
         protected virtual void Start()
         {
-            if (Singleton.classname == "Human")
+            if (Group == Group.NPC)
             {
-                player = FindObjectOfType<MainPlayer>();
+                gameObject.layer = LayerMask.NameToLayer("NPC");
+                Player = FindObjectOfType<NPCPlayer>();
             }
             else
             {
-                player = FindObjectOfType<NPCPlayer>();
+                gameObject.layer = LayerMask.NameToLayer("Clicklayer");
+                Player = FindObjectOfType<MainPlayer>();
             }
-            AddConstruct = player.AddConstruct;
-            RemoveConstruct = player.RemoveConstruct;
-            Hp = 1;
+            AddConstruct        = Player.AddConstruct;
+            RemoveConstruct     = Player.RemoveConstruct;
+
             Init();
+            InitOffset();
         }
         protected virtual void Update() { }
 
@@ -54,26 +58,26 @@ namespace Common
             switch (Id)
             {
                 case ConstructId.Yard:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Refinery,
                     };
                     break;
                 case ConstructId.Refinery:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Barrack,
                     };
                     break;
                 case ConstructId.Barrack:
-                    onwed = new ConstructId[]
+                    Owned = new ConstructId[]
                     {
                     ConstructId.Defender,
                     ConstructId.Radar,
                     };
                     break;
                 default:
-                    onwed = new ConstructId[0];
+                    Owned = new ConstructId[0];
 #if UNITY_EDITOR
                     Debug.Log("Tower name not found");
 #endif
@@ -82,8 +86,13 @@ namespace Common
         }
         protected void UnlockConstruct()
         {
-            if(AddConstruct == null) AddConstruct = player.AddConstruct;
+            if(AddConstruct == null) AddConstruct = Player.AddConstruct;
             AddConstruct(this);
+        }
+
+        protected virtual void InitOffset()
+        {
+            Hp = Offset.MaxHP;
         }
 
         // public method

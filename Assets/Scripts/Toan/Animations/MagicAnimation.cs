@@ -16,7 +16,7 @@ namespace Animation
 
         protected override void Dead()
         {
-            anims.SetBool("IsRunning", true);
+            anims.SetTrigger("Dead");
         }
 
         protected override void Idle()

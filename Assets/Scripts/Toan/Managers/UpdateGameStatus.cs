@@ -26,7 +26,11 @@ public class UpdateGameStatus : MonoBehaviour
     {
         for (int i = 0; i < Players.Count; i++)
         {
+<<<<<<< HEAD
          
+=======
+            //Debug.Log(Players[i].name+"_" + Players[i].Agents.Count+"_" + Players[i].Constructs.Count);
+>>>>>>> 5c04351dc5d368e0f661dddd6e9281e25bb74637
             if(Players[i] != null && !Players[i].IsAlive())
             {
                 Players[i].Lose();
