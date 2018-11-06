@@ -79,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4241407871975224
 Transform:
   m_ObjectHideFlags: 1
@@ -267,7 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8201dcd9fdf124ba18580933d1a86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  Offset: {fileID: 11400000, guid: e9af658bd8a6943439f9277e7e5d4a39, type: 2}
+  Player: {fileID: 0}
 --- !u!114 &114733556439769528
 MonoBehaviour:
   m_ObjectHideFlags: 1

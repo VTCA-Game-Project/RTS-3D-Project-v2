@@ -53,13 +53,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4907031914626988}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Barack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1731735166484110
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,8 +126,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1711757244432984}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 88.08125, y: 0, z: 78.37991}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4029141907072058}
@@ -268,7 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a8201dcd9fdf124ba18580933d1a86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  Offset: {fileID: 11400000, guid: e9af658bd8a6943439f9277e7e5d4a39, type: 2}
+  Player: {fileID: 0}
 --- !u!114 &114953522653618852
 MonoBehaviour:
   m_ObjectHideFlags: 1
