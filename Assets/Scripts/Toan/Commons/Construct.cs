@@ -78,9 +78,6 @@ namespace Common
                     break;
                 default:
                     Owned = new ConstructId[0];
-#if UNITY_EDITOR
-                    Debug.Log("Tower name not found");
-#endif
                     break;
             }
         }

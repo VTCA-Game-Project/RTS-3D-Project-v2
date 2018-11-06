@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildControl : MonoBehaviour {
+public class BuildControl : MonoBehaviour
+{
 
     public Camera rtsCamera;
     private Vector2 LatPoint;
@@ -13,7 +14,7 @@ public class BuildControl : MonoBehaviour {
 
     private List<CubeManager> ListBuildCube = new List<CubeManager>();
 
-   
+
 
     public bool OnselectTaget = false;
 
@@ -31,16 +32,17 @@ public class BuildControl : MonoBehaviour {
     private MapControl ControlMap;
 
 
-    void Start () {
-        
+    void Start()
+    {
+
         if (Map != null)
         {
             ControlMap = Map.GetComponent<MapControl>();
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
 
 
@@ -92,8 +94,8 @@ public class BuildControl : MonoBehaviour {
 
                     setBuildSize(BuildSize, cube);
 
-                    
-                  
+
+
                 }
 
 
@@ -110,7 +112,8 @@ public class BuildControl : MonoBehaviour {
                 else
                 {
                     if (Input.GetMouseButtonDown(0))
-                    {if (ListInSelect.Count < BuildSize.x * BuildSize.y)
+                    {
+                        if (ListInSelect.Count < BuildSize.x * BuildSize.y)
                         { return; }
                         for (int k = 0; k < ListInSelect.Count; k++)
                         {
@@ -121,9 +124,12 @@ public class BuildControl : MonoBehaviour {
                             ListBuildCube.Add(ListInSelect[k]);
                         }
 
-                      GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
-                      
-                        //NewGO.GetComponentInChildren<Construct>().Build();
+
+                         GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
+
+                        Construct construct = NewGO.GetComponentInChildren<Construct>();
+                        construct.Group = EnumCollection.Group.Player;
+                        construct.Build();                                          
                         ListInSelect.Clear();
                         ResetTaget();
                     }
@@ -144,7 +150,7 @@ public class BuildControl : MonoBehaviour {
     }
     private void setBuildSize(Vector2 size, CubeManager currentpoint)
     {
-      
+
         if (LatPoint != currentpoint.CodeLocal)
         {
             foreach (CubeManager minicube in ListInSelect)
@@ -157,7 +163,7 @@ public class BuildControl : MonoBehaviour {
             if (!CheckBuildedCude(currentpoint))
             {
                 LatPoint = currentpoint.CodeLocal;
-              
+
             }
 
             for (int i = 0; i < size.x; i++)
@@ -168,7 +174,8 @@ public class BuildControl : MonoBehaviour {
                     CubeManager sub = ControlMap.GetCubeBylocal(currentpoint.CodeLocal + new Vector2(i, j));
                     if (sub != null)
 
-                    { ListInSelect.Add(sub);
+                    {
+                        ListInSelect.Add(sub);
 
                     }
 
@@ -176,7 +183,7 @@ public class BuildControl : MonoBehaviour {
 
                 }
             }
-           
+
         }
 
 
@@ -206,7 +213,7 @@ public class BuildControl : MonoBehaviour {
 
     public Transform getOrigin()
     {
-      int taget=  ListInSelect.Count / 2;
+        int taget = ListInSelect.Count / 2;
         return ListInSelect[taget].transform;
     }
 

@@ -27,11 +27,11 @@ namespace EnumCollection
     public enum Soldier
     {
         Magic,
-        WoflKnigh,
         Warrior,
         Archer,
         WoodHorse,
-        HumanWarrior
+        HumanWarrior,
+        OrcTanker
     }
 
     public enum AnimState
