@@ -3,12 +3,15 @@ using UnityEngine;
 
 namespace Utils
 {
-    public class AssetUtils
+    public class AssetUtils : MonoBehaviour
     {
-        private static readonly AssetUtils instance = new AssetUtils();
+        private static AssetUtils instance;
         private Dictionary<int, Object> assets;
-        private AssetUtils()
+        private void Awake()
         {
+            if (instance == null) instance = this;
+            else Destroy(this.gameObject);
+
             assets = new Dictionary<int, Object>();
             Load(@"Prefabs", false);
         }
