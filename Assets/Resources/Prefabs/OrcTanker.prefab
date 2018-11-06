@@ -545,7 +545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1497870644863712
 GameObject:
   m_ObjectHideFlags: 1
@@ -1928,7 +1928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1434b568dc251484087a05c7eae56e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: a93a820afef673b49b36426167a30956, type: 2}
   drawGizmos: 0

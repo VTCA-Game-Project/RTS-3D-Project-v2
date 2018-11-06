@@ -1305,7 +1305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1434b568dc251484087a05c7eae56e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: 9d560003a4687c14688331550bc2333e, type: 2}
   drawGizmos: 0
