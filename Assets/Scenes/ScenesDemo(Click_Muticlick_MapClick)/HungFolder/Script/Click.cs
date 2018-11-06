@@ -38,7 +38,7 @@ public class Click : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicked on the UI");
+             
                 return;
             }
             LeftMouseDown();

@@ -11,13 +11,17 @@ public class ClickOnMap : MonoBehaviour {
 
     public GameObject effect;
 
+    public GameObject Minimap;
+
+    int MapWidth=100;
+    int MapHeight=100;
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log("Clicked on the UI");
+               
             }
             else
             {
@@ -42,4 +46,27 @@ public class ClickOnMap : MonoBehaviour {
         Physics.Raycast(ray, out hit,Mathf.Infinity,LayerMask.GetMask("Place","Floor"));
         return hit.point;
     }
+
+
+    public void MinimapClick()
+    {
+        var miniMapRect = Minimap.GetComponent<RectTransform>().rect;
+        Debug.Log(miniMapRect);
+        var screenRect = new Rect(
+            Minimap.transform.position.x,
+            Minimap.transform.position.y,
+            miniMapRect.width, miniMapRect.height);
+
+        var mousePos = Input.mousePosition;
+        mousePos.y -= screenRect.y;
+        mousePos.x -= screenRect.x;
+
+        var camPos = new Vector3(
+            mousePos.x * (MapWidth / screenRect.width), Camera.main.transform.position.y,
+            mousePos.y * (MapHeight / screenRect.height)
+           );
+        Camera.main.transform.position = camPos;    
+    }
+
+
 }

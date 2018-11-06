@@ -14,14 +14,15 @@ namespace Common.Building
             base.Awake();
         }
         protected override void Start()
-        {            
+        {
+            Build();
             SoilderElement[] buySoliderButtons = FindObjectsOfType<SoilderElement>();
-            Debug.Log(buySoliderButtons);
+            
             if(buySoliderButtons != null)
             {
                 for (int i = 0; i < buySoliderButtons.Length; i++)
                 {
-                    Debug.Log(buySoliderButtons[i].name);
+                   
                     buySoliderButtons[i].setsomething(Produce);
 
                 }

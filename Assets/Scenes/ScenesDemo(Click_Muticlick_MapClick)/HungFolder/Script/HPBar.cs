@@ -8,11 +8,12 @@ public class HPBar : MonoBehaviour {
     // Use this for initialization
 
     public Image imageHealthValue;
-
+  
     private float counter;
 
-    void Start() { 
-   
+    void Start()
+    { 
+  
 		
 	}
 	
@@ -20,7 +21,9 @@ public class HPBar : MonoBehaviour {
 	void Update ()
 
     {
-        transform.LookAt(Camera.main.transform);
+        transform.eulerAngles = Camera.main.transform.eulerAngles;
+        //transform.forward = Camera.main.transform.position;
+       
     }
 
     public void SetValue(float value)
