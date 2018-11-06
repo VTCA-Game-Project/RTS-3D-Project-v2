@@ -124,12 +124,12 @@ public class BuildControl : MonoBehaviour
                             ListBuildCube.Add(ListInSelect[k]);
                         }
 
-                        GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x + ((int)BuildSize.x / 2), 0, LatPoint.y + ((int)BuildSize.y / 2)), Quaternion.identity);
+
+                         GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
 
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
-                        construct.Build();
-
+                        construct.Build();                                          
                         ListInSelect.Clear();
                         ResetTaget();
                     }
