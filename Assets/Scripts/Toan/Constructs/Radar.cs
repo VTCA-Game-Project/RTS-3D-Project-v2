@@ -4,10 +4,10 @@ namespace Common.Building
 {
     public class Radar : Construct
     {
-        protected override void Start()
+        protected override void Awake()
         {
             Id = ConstructId.Radar;
-            base.Start();
+            base.Awake();
         }
     }
 }

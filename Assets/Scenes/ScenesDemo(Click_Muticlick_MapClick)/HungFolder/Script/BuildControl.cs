@@ -1,4 +1,8 @@
 ﻿using Common;
+using Common.Building;
+using DelegateCollection;
+using EnumCollection;
+using Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,19 +18,21 @@ public class BuildControl : MonoBehaviour
 
     private List<CubeManager> ListBuildCube = new List<CubeManager>();
 
-
+    public UIController uiControl;
 
     public bool OnselectTaget = false;
 
     private bool OnholdTaget = false;
     [HideInInspector]
     public GameObject BuildModel;
-
+    [HideInInspector]
+    public ConstructId BuildModelContructID;
 
     [HideInInspector]
 
     public Vector2 BuildSize = new Vector2();
 
+   
 
     public GameObject Map;
     private MapControl ControlMap;
@@ -34,7 +40,8 @@ public class BuildControl : MonoBehaviour
 
     void Start()
     {
-
+        Player _player = FindObjectOfType<MainPlayer>();
+        _player.DestroyConstructUI = uiControl.GetACtiveBuild;
         if (Map != null)
         {
             ControlMap = Map.GetComponent<MapControl>();
@@ -123,16 +130,19 @@ public class BuildControl : MonoBehaviour
                             ListInSelect[k].OnraycastIn();
                             ListBuildCube.Add(ListInSelect[k]);
                         }
-
-
                          GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
 
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
+
+                        //construct.Id = BuildModelContructID;
                         NewGO.SetActive(true);
+
                         construct.Build();                                          
                         ListInSelect.Clear();
                         ResetTaget();
+                        uiControl.GetACtiveBuild(construct.Player);
+                       
                     }
                 }
 
@@ -225,6 +235,7 @@ public class BuildControl : MonoBehaviour
         OnholdTaget = false;
         BuildSize = new Vector2();
         BuildModel = null;
+        BuildModelContructID = ConstructId.None;
 
     }
 }

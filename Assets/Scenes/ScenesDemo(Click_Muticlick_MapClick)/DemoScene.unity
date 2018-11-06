@@ -1518,6 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
   CurrentImage: {fileID: 239087090}
   NewImage: {fileID: 21300000, guid: 5bfd02c89d9835941ad8798f507175f7, type: 3}
   Mouse: {fileID: 1102176188}
@@ -2109,6 +2110,7 @@ MonoBehaviour:
   - {fileID: 239087086}
   - {fileID: 1724365890}
   - {fileID: 663364725}
+  goldvalues: {fileID: 311237853}
 --- !u!4 &278269756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4060926397692160, guid: 8e7e45f038371fe42997bbfefb310027,
@@ -2260,12 +2262,12 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 28
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2343,7 +2345,6 @@ GameObject:
   - component: {fileID: 314593121}
   - component: {fileID: 314593123}
   - component: {fileID: 314593122}
-  - component: {fileID: 314593124}
   m_Layer: 5
   m_Name: UnitBuyBuild
   m_TagString: Untagged
@@ -2413,17 +2414,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 314593120}
   m_CullTransparentMesh: 0
---- !u!114 &314593124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 314593120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f423cc55dbdda5d41b4500d0b04d3350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &316117248
 Prefab:
   m_ObjectHideFlags: 0
@@ -2909,6 +2899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
   CurrentImage: {fileID: 370370187}
   NewImage: {fileID: 21300000, guid: 132a7d164f81b7c49af708c32716d511, type: 3}
   Mouse: {fileID: 1102176188}
@@ -5087,6 +5078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 2
   CurrentImage: {fileID: 663364729}
   NewImage: {fileID: 21300000, guid: 0ce2f9b7bd520f24d92a8f596732fd21, type: 3}
   Mouse: {fileID: 1102176188}
@@ -6335,6 +6327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
   CurrentImage: {fileID: 854710764}
   NewImage: {fileID: 21300000, guid: 132a7d164f81b7c49af708c32716d511, type: 3}
   Mouse: {fileID: 1102176188}
@@ -7035,7 +7028,7 @@ RectTransform:
   m_GameObject: {fileID: 977055336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2648879, y: 0.36129642, z: 1}
+  m_LocalScale: {x: 1.3755656, y: 0.5499654, z: 1}
   m_Children:
   - {fileID: 327179395}
   - {fileID: 311237852}
@@ -7545,8 +7538,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rtsCamera: {fileID: 534669904}
+  uiControl: {fileID: 1302874565}
   OnselectTaget: 0
   BuildModel: {fileID: 1559337462785256, guid: e8964654a1e7fd54990d17904bae5493, type: 2}
+  BuildModelContructID: 0
   BuildSize: {x: 0, y: 0}
   Map: {fileID: 897769258}
 --- !u!114 &1102176190
@@ -8767,6 +8762,7 @@ GameObject:
   - component: {fileID: 1302874563}
   - component: {fileID: 1302874562}
   - component: {fileID: 1302874561}
+  - component: {fileID: 1302874565}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8854,6 +8850,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1302874565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302874560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b09ad3ac4729048a9a5009479f3f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  build: {fileID: 924417668}
+  solidetbutton: {fileID: 327401426}
 --- !u!1001 &1306518130
 Prefab:
   m_ObjectHideFlags: 0
@@ -9358,6 +9367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 1
   CurrentImage: {fileID: 1347449586}
   NewImage: {fileID: 21300000, guid: 868f39b6fdf16b343a9bed7da8f3c788, type: 3}
   Mouse: {fileID: 1102176188}
@@ -12786,7 +12796,6 @@ GameObject:
   - component: {fileID: 1719128420}
   - component: {fileID: 1719128423}
   - component: {fileID: 1719128422}
-  - component: {fileID: 1719128421}
   m_Layer: 5
   m_Name: UnitBuySoilder
   m_TagString: Untagged
@@ -12820,17 +12829,6 @@ RectTransform:
   m_AnchoredPosition: {x: -80.999985, y: 493.99994}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1719128421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1719128419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f423cc55dbdda5d41b4500d0b04d3350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1719128422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12969,6 +12967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 4
   CurrentImage: {fileID: 1724365894}
   NewImage: {fileID: 21300000, guid: 81c94b44e7d25b945a5f777eb55abdf4, type: 3}
   Mouse: {fileID: 1102176188}
@@ -14723,6 +14722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 3
   CurrentImage: {fileID: 1942325381}
   NewImage: {fileID: 21300000, guid: 51454876885d2444da3a0eb2ff51d4e2, type: 3}
   Mouse: {fileID: 1102176188}
@@ -15638,6 +15638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa94da4cc570f464ca4afbc5957c3844, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 0
   CurrentImage: {fileID: 2083914615}
   NewImage: {fileID: 21300000, guid: 132a7d164f81b7c49af708c32716d511, type: 3}
   Mouse: {fileID: 1102176188}

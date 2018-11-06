@@ -13,6 +13,8 @@ namespace Manager
         public GameAction LoseAction { get; set; }
         private PlayerContainer status;
 
+        public PlayerAction DestroyConstructUI;
+
         protected virtual void Awake()
         {
             status = new PlayerContainer();
@@ -35,6 +37,7 @@ namespace Manager
             if (construct is Construct)
             {
                 status.RemoveConstruct((Construct)construct);
+                DestroyConstructUI(this);
             }
         }
 
@@ -82,5 +85,10 @@ namespace Manager
         {
             return status.IsCanBuild(type);
         }
+        public float GetGold()
+        {
+            return status.Gold;
+        }
+
     }
 }

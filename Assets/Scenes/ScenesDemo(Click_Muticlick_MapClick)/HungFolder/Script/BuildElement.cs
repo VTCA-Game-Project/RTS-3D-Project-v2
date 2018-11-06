@@ -6,8 +6,9 @@ using EnumCollection;
 public class BuildElement : MonoBehaviour {
 
     // Use this for initialization
-    ConstructId Id = ConstructId.Barrack;
-    [HideInInspector]   
+
+   
+    public ConstructId Id;
     public Image CurrentImage;
     public Sprite NewImage;
     public GameObject Mouse;
@@ -25,6 +26,7 @@ public class BuildElement : MonoBehaviour {
     private bool CowDownComplete;
     void Start()
     {
+     
         ClickEvent = Mouse.GetComponent<BuildControl>();
 
         CurrentImage = GetComponent<Image>();
@@ -101,6 +103,7 @@ public class BuildElement : MonoBehaviour {
                 //ClickEvent.BuildSize = buidSize;
                 ClickEvent.OnselectTaget = true;
                 ClickEvent.BuildModel = BuildModel;
+                ClickEvent.BuildModelContructID = Id;
 
 
                 ClickEvent.BuildSize = info;

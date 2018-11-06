@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pattern;
+using UnityEngine.UI;
+using Manager;
 
 public class MainGameLoad : MonoBehaviour {
 
@@ -13,14 +15,14 @@ public class MainGameLoad : MonoBehaviour {
     public List<GameObject> Human;
     public List<GameObject> ButtonList;
 
+    public Text goldvalues;
 
-   
-
+    Player _player;
     void Start ()
     {
-        
 
 
+        _player = FindObjectOfType<MainPlayer>();
 
         if (PlayerClass=="Human")
         {
@@ -45,7 +47,9 @@ public class MainGameLoad : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        goldvalues.text = ((int)_player.GetGold()).ToString();
+
+    }
 }

@@ -13,13 +13,13 @@ namespace Common.Building
         public int RemainingGold { get; protected set; }
 
         private float counter;
-        protected override void Start()
+        protected override void Awake()
         {
             MaxRetainGold = 10;
             counter = 0.0f;
 
             Id = ConstructId.Refinery;
-            base.Start();
+            base.Awake();
         }
 
         protected override void Update()
@@ -37,6 +37,7 @@ namespace Common.Building
             {
                 Produce(null);
             }
+            Debug.Log(Player.GetGold());
         }
 
         public void Produce(Enum type = null)

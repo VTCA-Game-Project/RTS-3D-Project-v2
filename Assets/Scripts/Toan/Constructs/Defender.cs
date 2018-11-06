@@ -22,10 +22,10 @@ namespace Common.Building
         public float DelayAttack { get; set; }
         public float ShootForce { get; set; }
 
-        protected override void Start()
+        protected override void Awake()
         {
             Id = ConstructId.Defender;
-            base.Start();
+            base.Awake();
         }
 
         protected override void Update()

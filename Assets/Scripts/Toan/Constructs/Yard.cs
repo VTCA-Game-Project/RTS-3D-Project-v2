@@ -4,10 +4,10 @@ namespace Common.Building
 {
     public class Yard : Construct
     {
-        protected override void Start()
+        protected override void Awake()
         {
             Id = ConstructId.Yard;    
-            base.Start();
+            base.Awake();
         }
     }
 }

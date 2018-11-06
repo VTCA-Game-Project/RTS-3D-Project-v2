@@ -3,6 +3,7 @@ namespace EnumCollection
 {
     public enum ConstructId
     {
+        None,
         Refinery,
         Barrack,
         Radar,

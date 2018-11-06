@@ -12,6 +12,7 @@ namespace Common.Building
     {
         protected override void Awake()
         {
+            Id = ConstructId.Barrack;
             base.Awake();
         }
         protected override void Start()
@@ -28,7 +29,7 @@ namespace Common.Building
 
                 }
             }
-            Id = ConstructId.Barrack;            
+                   
             base.Start();
         }
 
