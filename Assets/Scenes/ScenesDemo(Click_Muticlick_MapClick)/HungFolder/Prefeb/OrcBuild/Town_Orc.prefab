@@ -45,6 +45,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1402588002470844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4725263072218306}
+  m_Layer: 0
+  m_Name: LauncherPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1566110074378912
 GameObject:
   m_ObjectHideFlags: 1
@@ -71,6 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4245010873287404}
+  - component: {fileID: 114092457320130416}
   m_Layer: 0
   m_Name: Town_Orc
   m_TagString: Untagged
@@ -99,11 +115,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1842761808003034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 14.148664, y: 0, z: -34.628452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4563995459008270}
   - {fileID: 4052445758336650}
+  - {fileID: 4725263072218306}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,6 +149,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4052445758336650}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4725263072218306
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402588002470844}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.02, y: 3.21, z: 0.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4245010873287404}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23316225870483044
 MeshRenderer:
@@ -241,6 +271,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114092457320130416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842761808003034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce83ba1d5395d4d44bd4e8d92dd52704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {fileID: 11400000, guid: 3ff97ee34f556f5439b4b652dc6c3ca4, type: 2}
+  Player: {fileID: 0}
+  Arrow: {fileID: 54509471050829448, guid: 224638d4de7ac6349b1ddf3592414982, type: 2}
+  LauncherPoint: {fileID: 4725263072218306}
 --- !u!114 &114300906246561864
 MonoBehaviour:
   m_ObjectHideFlags: 1
