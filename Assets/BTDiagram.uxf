@@ -374,8 +374,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>477</x>
-      <y>828</y>
+      <x>675</x>
+      <y>972</y>
       <w>189</w>
       <h>36</h>
     </coordinates>
@@ -398,17 +398,17 @@ on Refinery Construct</panel_attributes>
     <coordinates>
       <x>414</x>
       <y>765</y>
-      <w>162</w>
-      <h>81</h>
+      <w>360</w>
+      <h>225</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>160.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>380.0;230.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>675</x>
-      <y>918</y>
+      <x>1044</x>
+      <y>1062</y>
       <w>153</w>
       <h>36</h>
     </coordinates>
@@ -418,8 +418,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>567</x>
-      <y>855</y>
+      <x>765</x>
+      <y>999</y>
       <w>27</w>
       <h>81</h>
     </coordinates>
@@ -429,13 +429,13 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>567</x>
-      <y>855</y>
-      <w>207</w>
+      <x>765</x>
+      <y>999</y>
+      <w>378</w>
       <h>81</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>210.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>400.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -528,8 +528,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>495</x>
-      <y>918</y>
+      <x>693</x>
+      <y>1062</y>
       <w>153</w>
       <h>36</h>
     </coordinates>
@@ -539,20 +539,20 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>684</x>
-      <y>990</y>
+      <x>1053</x>
+      <y>1134</y>
       <w>162</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>! Repeat until Susscess
+    <panel_attributes>! Repeat until Succcess
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>747</x>
-      <y>945</y>
+      <x>1116</x>
+      <y>1089</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -562,8 +562,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>684</x>
-      <y>1062</y>
+      <x>1053</x>
+      <y>1206</y>
       <w>162</w>
       <h>36</h>
     </coordinates>
@@ -573,8 +573,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>756</x>
-      <y>1017</y>
+      <x>1125</x>
+      <y>1161</y>
       <w>27</w>
       <h>63</h>
     </coordinates>
@@ -584,8 +584,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>594</x>
-      <y>1134</y>
+      <x>963</x>
+      <y>1278</y>
       <w>162</w>
       <h>36</h>
     </coordinates>
@@ -595,8 +595,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>657</x>
-      <y>1089</y>
+      <x>1026</x>
+      <y>1233</y>
       <w>126</w>
       <h>63</h>
     </coordinates>
@@ -606,8 +606,8 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>801</x>
-      <y>1134</y>
+      <x>1170</x>
+      <y>1278</y>
       <w>162</w>
       <h>36</h>
     </coordinates>
@@ -617,12 +617,199 @@ on Refinery Construct</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>756</x>
-      <y>1089</y>
+      <x>1125</x>
+      <y>1233</y>
       <w>144</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>140.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>477</x>
+      <y>1062</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>? Unclock Refinery</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>351</x>
+      <y>1143</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>. Check Unclocked Refinery</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>567</x>
+      <y>1143</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>~ Buy Yard Construct</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>999</y>
+      <w>225</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>1089</y>
+      <w>144</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>558</x>
+      <y>1089</y>
+      <w>117</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>450</x>
+      <y>1215</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>. Check enough gold</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>531</x>
+      <y>1170</y>
+      <w>144</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>648</x>
+      <y>1215</y>
+      <w>189</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>! Repeat until Success</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>1170</y>
+      <w>117</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>576</x>
+      <y>1350</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>. Check end countdown</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>369</x>
+      <y>1269</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>. Set position for Refinery</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>756</x>
+      <y>1350</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>. Set position for Yard</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>738</x>
+      <y>1314</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>1314</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>666</x>
+      <y>1287</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>~ Location Construct</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>738</x>
+      <y>1242</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
