@@ -9,13 +9,12 @@ public class AIGoblinWizard : AIAgent
     public Transform startpoisition;
     public float ShootForce;
 
-    public HPBar Heath;
- 
 
-    
+
+
+
     public void Update()
     {
-        Heath.SetValue((float)HP / MaxHP);
     }
     public override void Attack()
     {       

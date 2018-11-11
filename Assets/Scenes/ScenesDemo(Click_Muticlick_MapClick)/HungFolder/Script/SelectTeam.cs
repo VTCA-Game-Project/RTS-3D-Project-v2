@@ -10,13 +10,14 @@ public class SelectTeam : MonoBehaviour {
     public void OnHumanclick()
     {
         Singleton.classname = "Human";
-        SceneManager.LoadScene(3);
+        new LoadSceneTagetButton().LoadSceneNum(3);
+     
 
     }
     public void OnOrcClick()
     {
         Singleton.classname = "Orc";
-        SceneManager.LoadScene(3);
+        new LoadSceneTagetButton().LoadSceneNum(3);
     }
 }
 

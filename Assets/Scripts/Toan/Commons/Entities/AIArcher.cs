@@ -9,7 +9,7 @@ namespace Common.Entity
         public Transform LauncherPoint;
         public float ShootForce;
       
-        public HPBar hpvalues;
+     
         protected override void Awake()
         {
             base.Awake();
@@ -21,7 +21,7 @@ namespace Common.Entity
         }
         protected override void FixedUpdate()
         {
-            hpvalues.SetValue((float)HP / MaxHP);
+          
             base.FixedUpdate();
         }
 

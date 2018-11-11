@@ -18,7 +18,7 @@ namespace Common
         public ConstructId[] Owned          { get; protected set; }
         public GameAction AddConstruct      { protected get; set; }
         public GameAction RemoveConstruct   { protected get; set; }
-
+        private HPBar hpimage;
         public override Vector3 Position
         {
             get
@@ -51,7 +51,8 @@ namespace Common
            
             AddConstruct        = Player.AddConstruct;
             RemoveConstruct     = Player.RemoveConstruct;
-           
+
+            hpimage = this.GetComponentInChildren<HPBar>();
             InitOffset();
         }
         protected virtual void Update() { }
@@ -99,6 +100,8 @@ namespace Common
         public override void TakeDamage(int damage)
         {
             Hp -= damage;
+
+            hpimage.SetValue(Hp / Offset.MaxHP);
             if (Hp <= 0)
             {
                 IsDead = true;

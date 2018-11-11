@@ -14,8 +14,8 @@ public class LoadingScreenManager : MonoBehaviour
     public Image fadeOverlay;
 
     [Header("Timing Settings")]
-    public float waitOnLoadEnd = 0.25f;
-    public float fadeDuration = 0.25f;
+    public float waitOnLoadEnd = 2f;
+    public float fadeDuration = 2f;
 
     [Header("Loading Settings")]
     public LoadSceneMode loadSceneMode = LoadSceneMode.Single;
@@ -28,7 +28,7 @@ public class LoadingScreenManager : MonoBehaviour
     AsyncOperation operation;
     Scene currentScene;
 
-    static int sceneToLoad; 
+    public static int sceneToLoad = -1;
     // IMPORTANT! This is the build index of your loading scene. You need to change this to match your actual scene index
     static int loadingSceneIndex = 2;
 
@@ -36,7 +36,9 @@ public class LoadingScreenManager : MonoBehaviour
     {
         Application.backgroundLoadingPriority = ThreadPriority.High;
         sceneToLoad = levelNum;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(loadingSceneIndex);
+        SceneManager.LoadScene(loadingSceneIndex);
+
+      
     }
 
     void Start()
@@ -45,8 +47,9 @@ public class LoadingScreenManager : MonoBehaviour
             return;
 
         fadeOverlay.gameObject.SetActive(true); // Making sure it's on so that we can crossfade Alpha
-        currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+        currentScene = SceneManager.GetActiveScene();
         StartCoroutine(LoadAsync(sceneToLoad));
+     
     }
 
     private IEnumerator LoadAsync(int levelNum)
@@ -57,52 +60,56 @@ public class LoadingScreenManager : MonoBehaviour
 
         FadeIn();
         StartOperation(levelNum);
-
-        float lastProgress = 0f;
+        progressBar.fillAmount = 0;
+        yield return new WaitForSeconds(0.5f);
 
         // operation does not auto-activate scene, so it's stuck at 0.9
-        while (DoneLoading() == false)
-        {
+        while (!operation.isDone && progressBar.fillAmount < 0.9f)
+        {  
+                progressBar.fillAmount =Mathf.MoveTowards(progressBar.fillAmount, operation.progress,0.01f);
             yield return null;
-
-            if (Mathf.Approximately(operation.progress, lastProgress) == false)
-            {
-                progressBar.fillAmount = operation.progress;
-                lastProgress = operation.progress;
-            }
         }
 
         if (loadSceneMode == LoadSceneMode.Additive)
             audioListener.enabled = false;
 
         ShowCompletionVisuals();
-
-        yield return new WaitForSeconds(waitOnLoadEnd);
+        yield return new WaitForSeconds(0.5f);
+      
 
         FadeOut();
 
         yield return new WaitForSeconds(fadeDuration);
 
         if (loadSceneMode == LoadSceneMode.Additive)
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(currentScene.name);
+            SceneManager.UnloadSceneAsync(currentScene.name);
         else
             operation.allowSceneActivation = true;
+
+        SoundManager.instanece.ChangeMusic(sceneToLoad);
+        operation.allowSceneActivation = true;
+     
+       
+        yield return new WaitForSeconds(waitOnLoadEnd);
+       
+
+
+
     }
 
     private void StartOperation(int levelNum)
     {
         Application.backgroundLoadingPriority = loadThreadPriority;
-        operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(levelNum.ToString(), loadSceneMode);
+        operation = SceneManager.LoadSceneAsync(levelNum, loadSceneMode);
 
 
         if (loadSceneMode == LoadSceneMode.Single)
             operation.allowSceneActivation = false;
+
+        operation.allowSceneActivation = false;
     }
 
-    private bool DoneLoading()
-    {
-        return (loadSceneMode == LoadSceneMode.Additive && operation.isDone) || (loadSceneMode == LoadSceneMode.Single && operation.progress >= 0.9f);
-    }
+    
 
     void FadeIn()
     {
@@ -131,5 +138,6 @@ public class LoadingScreenManager : MonoBehaviour
         progressBar.fillAmount = 1f;
         loadingText.text = "LOADING DONE";
     }
+
 
 }

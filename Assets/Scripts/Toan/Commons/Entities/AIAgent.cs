@@ -39,7 +39,7 @@ namespace Common.Entity
         public TargetType TargetType { get; protected set; }
         public Group PlayerGroup { get; protected set; }
 
-
+        private HPBar HPVAlues;
 
         public AgentOffset offset;
 #if UNITY_EDITOR
@@ -77,6 +77,7 @@ namespace Common.Entity
 
         protected virtual void Awake()
         {
+            HPVAlues = this.GetComponentInChildren<HPBar>();
             if (Owner.Group == Group.Player)
             {
                 gameObject.AddComponent<ClickOn>();
@@ -213,6 +214,7 @@ namespace Common.Entity
         public override void TakeDamage(int damage)
         {
             HP -= damage;
+            HPVAlues.SetValue(HP / offset.MaxHP);
             if (HP <= 0)
             {
                 HP = 0;

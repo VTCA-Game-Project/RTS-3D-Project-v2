@@ -6,7 +6,7 @@ namespace Common.Entity
     {
         public Transform FireBall;
         public Transform LauncherPoint;
-        public HPBar heath;
+       
         protected override void Awake()
         {
             base.Awake();
@@ -17,7 +17,7 @@ namespace Common.Entity
         }
         protected override void FixedUpdate()
         {
-            heath.SetValue((float)HP / MaxHP);
+           
             base.FixedUpdate();
         }
 
