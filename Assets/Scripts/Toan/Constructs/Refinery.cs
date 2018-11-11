@@ -37,7 +37,6 @@ namespace Common.Building
             {
                 Produce(null);
             }
-            Debug.Log(Player.GetGold());
         }
 
         public void Produce(Enum type = null)

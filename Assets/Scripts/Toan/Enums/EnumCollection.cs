@@ -59,11 +59,19 @@ namespace EnumCollection
         UI,
         None
     }
+
     public enum GameStatus
     {
         Win,
         Lose,
         Playing
+    }
+
+    public enum NodeState
+    {
+        Success,
+        Failure,
+        Running
     }
 }
 
