@@ -19,6 +19,7 @@ namespace Manager
         {
             status = new PlayerContainer();
         }
+
         protected virtual void Start()
         {
             UpdateGameStatus.Instance.AddPlayer(this);
@@ -85,6 +86,7 @@ namespace Manager
         {
             return status.IsCanBuild(type);
         }
+
         public float GetGold()
         {
             return status.Gold;
