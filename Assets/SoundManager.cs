@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class SoundManager : MonoBehaviour {
 
@@ -29,9 +30,22 @@ public class SoundManager : MonoBehaviour {
     }
     // Update is called once per frame
     void Update ()
-    {    
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                SoundEffect.clip = SoundEffectList[4];
+                SoundEffect.Play();
+               
+            }
+        }
     }
-
+    public void PlayEffect(int num)
+    {
+        SoundEffect.clip = SoundEffectList[num];
+        SoundEffect.Play();
+    }
     public  void ChangeMusic(int num)
     {
         int index= num;

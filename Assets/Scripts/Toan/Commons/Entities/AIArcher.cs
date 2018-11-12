@@ -27,6 +27,7 @@ namespace Common.Entity
 
         public override void Attack()
         {
+            SoundManager.instanece.PlayEffect(5);
             base.Attack();
             if (TargetEntity == null || TargetEntity.IsDead) return;
             Vector3 direction = (TargetEntity.Position - Position).normalized;

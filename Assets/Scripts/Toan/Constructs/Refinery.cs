@@ -12,9 +12,11 @@ namespace Common.Building
         public int MaxRetainGold { get; protected set; }
         public int RemainingGold { get; protected set; }
 
+     
         private float counter;
         protected override void Awake()
         {
+           
             MaxRetainGold = 10;
             counter = 0.0f;
 
@@ -30,12 +32,16 @@ namespace Common.Building
                 counter = RefreshTime;
             }
             RemainingGold = (int)(MaxRetainGold * (counter / RefreshTime));
+
+
+          
         }
         protected void OnMouseDown()
         {
             if (Player.Group == Group.Player)
             {
                 Produce(null);
+                SoundManager.instanece.PlayEffect(0);
             }
         }
 

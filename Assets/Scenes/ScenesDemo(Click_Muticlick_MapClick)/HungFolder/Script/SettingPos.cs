@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Common.Building;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,12 @@ public class SettingPos : MonoBehaviour {
     public GameObject mytaget;
     public GameObject Mychild;
     MeshRenderer muren;
+
+    Refinery recode;
 	void Start ()
     {
+       
+
         muren = Mychild.GetComponent<MeshRenderer>();
 		if(mytaget.gameObject.layer==12)
         {
@@ -24,6 +29,8 @@ public class SettingPos : MonoBehaviour {
 
 
     }
+
+
 	
 	// Update is called once per frame
 	
