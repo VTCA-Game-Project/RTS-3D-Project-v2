@@ -18,6 +18,7 @@ namespace Common.Entity
         }
         public override void Attack()
         {
+            SoundManager.instanece.PlayEffect(1);
             base.Attack();
             if (TargetEntity != null)
             {

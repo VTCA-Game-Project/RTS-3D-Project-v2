@@ -135,7 +135,7 @@ public class BuildControl : MonoBehaviour
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
 
-                        //construct.Id = BuildModelContructID;
+                        SoundManager.instanece.PlayEffect(2);
                         NewGO.SetActive(true);
 
                         construct.Build();                                          

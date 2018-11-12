@@ -16,6 +16,7 @@ namespace Common.Building
             get { return counter == RefreshTime; }
         }
 
+     
         private float counter;
         protected override void Awake()
         {
@@ -34,6 +35,9 @@ namespace Common.Building
                 counter = RefreshTime;
             }
             RemainingGold = (int)(MaxRetainGold * (counter / RefreshTime));
+
+
+          
         }
 
         protected void OnMouseDown()
@@ -41,6 +45,7 @@ namespace Common.Building
             if (Player.Group == Group.Player)
             {
                 Produce(null);
+                SoundManager.instanece.PlayEffect(0);
             }
         }
 
