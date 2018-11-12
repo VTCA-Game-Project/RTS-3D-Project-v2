@@ -11,6 +11,10 @@ namespace Common.Building
         public float RefreshTime;
         public int MaxRetainGold { get; protected set; }
         public int RemainingGold { get; protected set; }
+        public bool IsMax
+        {
+            get { return counter == RefreshTime; }
+        }
 
         private float counter;
         protected override void Awake()
@@ -31,6 +35,7 @@ namespace Common.Building
             }
             RemainingGold = (int)(MaxRetainGold * (counter / RefreshTime));
         }
+
         protected void OnMouseDown()
         {
             if (Player.Group == Group.Player)
