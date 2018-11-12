@@ -22,7 +22,7 @@ public class SettingPos : MonoBehaviour {
         {
             muren.material = m1;
         }
-        if (mytaget.gameObject.layer == 13)
+        if (mytaget.gameObject.layer == 13||mytaget.gameObject.layer==11)
         {
             muren.material = m2;
         }
