@@ -15,7 +15,7 @@ public class Coincontrol : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if(_refinery.RemainingGold>=_refinery.MaxRetainGold)
+		if(_refinery.IsMax)
         {
 
             Coin.SetActive(true);
