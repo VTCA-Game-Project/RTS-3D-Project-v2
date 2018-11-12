@@ -7,7 +7,7 @@ namespace AIs.BT.Commoms
     {
         protected ActionNodeDelegate action;
 
-        public ActionNode(ActionNodeDelegate argAction)
+        public ActionNode(ActionNodeDelegate argAction) : base()
         {
             action = argAction;
         }

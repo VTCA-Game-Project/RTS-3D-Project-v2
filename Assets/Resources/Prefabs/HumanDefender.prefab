@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4080173498525442}
-  - component: {fileID: 114205166275829538}
   m_Layer: 11
   m_Name: HumanDefender
   m_TagString: Untagged
@@ -369,21 +368,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114205166275829538
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1197192762242074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce83ba1d5395d4d44bd4e8d92dd52704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Offset: {fileID: 0}
-  Player: {fileID: 0}
-  Arrow: {fileID: 54509471050829448, guid: 224638d4de7ac6349b1ddf3592414982, type: 2}
-  LauncherPoint: {fileID: 4141229242096026}
 --- !u!114 &114237883851661912
 MonoBehaviour:
   m_ObjectHideFlags: 1

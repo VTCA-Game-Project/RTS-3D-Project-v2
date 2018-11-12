@@ -513,7 +513,7 @@ bg=red</panel_attributes>
       <w>144</w>
       <h>32</h>
     </coordinates>
-    <panel_attributes>~ Location Construct
+    <panel_attributes>~ Location Refinery Construct
 bg=green</panel_attributes>
     <additional_attributes/>
   </element>
@@ -737,7 +737,7 @@ bg=red</panel_attributes>
       <w>144</w>
       <h>32</h>
     </coordinates>
-    <panel_attributes>~ Location Construct
+    <panel_attributes>~ Location Yard Construct
 bg=green</panel_attributes>
     <additional_attributes/>
   </element>

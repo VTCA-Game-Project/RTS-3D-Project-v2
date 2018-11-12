@@ -10,6 +10,6 @@ namespace AIs.BT.Commoms
         public NodeState State { get; protected set; }
 
         public abstract NodeState Evaluate();
-        public BaseNode() { }
+        public BaseNode() { State = NodeState.Running; }
     }
 }

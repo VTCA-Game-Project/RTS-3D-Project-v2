@@ -7,9 +7,9 @@ namespace AIs.BT.Commoms
     {
         protected List<BaseNode> children;
 
-        public Sequence(List<BaseNode> argChildren)
+        public Sequence(List<BaseNode> argChildren) : base()
         {
-            children = new List<BaseNode>();
+            children = argChildren;
         }
 
         public override NodeState Evaluate()
@@ -24,7 +24,8 @@ namespace AIs.BT.Commoms
                     case NodeState.Success:
                         continue;                        
                     case NodeState.Running:
-                        return NodeState.Running;
+                        State = NodeState.Running;
+                        return State;
                 }
             }
             State = NodeState.Success;

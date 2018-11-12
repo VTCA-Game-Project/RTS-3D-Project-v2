@@ -6,7 +6,7 @@ namespace AIs.BT.Commoms
     {
         protected BaseNode child;
 
-        public Inverter(BaseNode argChild)
+        public Inverter(BaseNode argChild) : base()
         {
             child = argChild;
         }

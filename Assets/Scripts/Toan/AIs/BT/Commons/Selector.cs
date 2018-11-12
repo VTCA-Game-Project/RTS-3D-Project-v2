@@ -7,9 +7,9 @@ namespace AIs.BT.Commoms
     {
         protected List<BaseNode> children;
 
-        public Selector(List<BaseNode> argChildren)
+        public Selector(List<BaseNode> argChildren) : base()
         {
-            children = new List<BaseNode>();
+            children = argChildren;
         }
 
         public override NodeState Evaluate()

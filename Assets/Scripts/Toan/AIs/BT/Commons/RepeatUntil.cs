@@ -3,25 +3,27 @@ using EnumCollection;
 
 namespace AIs.BT.Commoms
 {
-    public class Repeater : BaseNode
+    public class RepeaterUntil : BaseNode
     {
         protected BaseNode child;
+        protected ActionNodeDelegate terminalCondition;
 
-        public Repeater(BaseNode argChild) : base()
+        public RepeaterUntil(BaseNode argChild,ActionNodeDelegate condition) : base()
         {
             child = argChild;
+            terminalCondition = condition;
         }
 
         public override NodeState Evaluate()
-        {            
-            switch (child.State)
+        {
+            switch (terminalCondition())
             {
                 case NodeState.Failure:
-                case NodeState.Running:
                     child.Evaluate();
                     State = NodeState.Running;
                     break;
                 case NodeState.Success:
+                case NodeState.Running:
                     return State;
             }
             return State;
