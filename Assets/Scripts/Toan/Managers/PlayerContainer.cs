@@ -30,7 +30,7 @@ namespace Manager
 
         public PlayerContainer()
         {
-            Gold = 0;            
+            Gold = 2500;            
             Agents = new List<AIAgent>();
             Constructs = new List<Construct>();
             ConstructsCantBuild = new List<ConstructId>();

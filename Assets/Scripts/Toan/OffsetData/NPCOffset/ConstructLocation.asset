@@ -11,4 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884cf8b64115b874bb2a0bba0c053b30, type: 3}
   m_Name: ConstructLocation
   m_EditorClassIdentifier: 
-  Yard: {x: 0, y: 0, z: 0}
+  Yard: {x: 95, y: 0, z: 90}
+  Refinery: {x: 74, y: 0, z: 93}
+  Barrack: {x: 88, y: 0, z: 75}
+  Defender:
+  - {x: 74, y: 0, z: 83}
+  - {x: 74, y: 0, z: 74}
+  - {x: 80, y: 0, z: 70}

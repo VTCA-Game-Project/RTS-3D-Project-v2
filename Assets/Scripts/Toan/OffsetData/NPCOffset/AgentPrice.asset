@@ -11,4 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6272414da492c9443a988ca389c1fec4, type: 3}
   m_Name: AgentPrice
   m_EditorClassIdentifier: 
-  Warrior: 0
+  Warrior: 100
+  Magic: 150
+  OrcTanker: 300
+  Archer: 150
+  WoodHorse: 300
+  HumanWarrior: 100

@@ -19,7 +19,7 @@ namespace Common.Building
         private float counter;
         protected override void Awake()
         {
-            MaxRetainGold = 10;
+            MaxRetainGold = 100;
             counter = 0.0f;
 
             Id = ConstructId.Refinery;

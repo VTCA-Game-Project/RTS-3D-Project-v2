@@ -4,6 +4,7 @@ using Common.Building;
 using Common.Entity;
 using EnumCollection;
 using Manager;
+using RTS_ScriptableObject;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ namespace AIs.BT.BehaviorTree
             { ConstructId.Defender  , 2.0f },
             { ConstructId.Radar     , 2.0f },
         };
-
         private readonly Dictionary<Soldier, float> AgentBuyDelay = new Dictionary<Soldier, float>()
         {
             { Soldier.Archer        ,2.0f},
@@ -36,6 +36,10 @@ namespace AIs.BT.BehaviorTree
 
         private Dictionary<ConstructId, float> constructCountQuery;
         private Dictionary<Soldier, float> agentCountQuery;
+
+        public ConstructLocationOffset LocationOffset   { get; set; }
+        public ConstructPrice ConstructPrice            { get; set; }
+        public GameEntityPrice AgentPrice               { get; set; }
 
         public BaseNode Root { get; private set; }
 
