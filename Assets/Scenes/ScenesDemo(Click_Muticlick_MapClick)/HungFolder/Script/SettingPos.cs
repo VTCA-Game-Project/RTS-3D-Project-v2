@@ -21,10 +21,12 @@ public class SettingPos : MonoBehaviour {
 		if(mytaget.gameObject.layer==12)
         {
             muren.material = m1;
+            this.gameObject.layer = 12;
         }
         if (mytaget.gameObject.layer == 13||mytaget.gameObject.layer==11)
         {
             muren.material = m2;
+            this.gameObject.layer = 13;
         }
 
 

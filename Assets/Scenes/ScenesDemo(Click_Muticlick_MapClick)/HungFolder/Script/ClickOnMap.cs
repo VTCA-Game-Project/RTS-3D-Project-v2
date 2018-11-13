@@ -51,7 +51,7 @@ public class ClickOnMap : MonoBehaviour {
     public void MinimapClick()
     {
         var miniMapRect = Minimap.GetComponent<RectTransform>().rect;
-        Debug.Log(miniMapRect);
+       
         var screenRect = new Rect(
             Minimap.transform.position.x,
             Minimap.transform.position.y,

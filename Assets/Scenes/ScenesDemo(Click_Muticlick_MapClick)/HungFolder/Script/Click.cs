@@ -82,7 +82,7 @@ public class Click : MonoBehaviour
     {
         if (selectableObjects.Contains(obj)) return;
         selectableObjects.Add(obj);
-        Debug.Log(selectableObjects.Count);
+       
     }
 
     // mouse events

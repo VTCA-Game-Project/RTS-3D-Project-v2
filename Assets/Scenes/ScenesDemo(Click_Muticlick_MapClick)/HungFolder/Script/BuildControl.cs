@@ -27,17 +27,12 @@ public class BuildControl : MonoBehaviour
     public GameObject BuildModel;
     [HideInInspector]
     public ConstructId BuildModelContructID;
-
     [HideInInspector]
-
     public Vector2 BuildSize = new Vector2();
-
-   
-
     public GameObject Map;
     private MapControl ControlMap;
 
-
+    public int BuildPrice;
     void Start()
     {
         Player _player = FindObjectOfType<MainPlayer>();
@@ -111,7 +106,19 @@ public class BuildControl : MonoBehaviour
 
             if (OnholdTaget)
             {
-
+                if (Input.GetMouseButtonDown(1))
+                { 
+                    for (int k = 0; k < ListInSelect.Count; k++)
+                    {
+                        ListInSelect[k].SetState("None");
+                        ListInSelect[k].OnraycastIn();
+                    }
+                    Player _player = FindObjectOfType<MainPlayer>();
+                    _player.TakeGold(BuildPrice);
+                    ResetTaget();
+                    ListInSelect.Clear();
+                    return;
+                }
                 if (Input.GetMouseButtonDown(0) && select() == false)
                 {
                     return;
@@ -130,14 +137,13 @@ public class BuildControl : MonoBehaviour
                             ListInSelect[k].OnraycastIn();
                             ListBuildCube.Add(ListInSelect[k]);
                         }
-                         GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
 
+
+                        GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
-
                         SoundManager.instanece.PlayEffect(2);
                         NewGO.SetActive(true);
-
                         construct.Build();                                          
                         ListInSelect.Clear();
                         ResetTaget();

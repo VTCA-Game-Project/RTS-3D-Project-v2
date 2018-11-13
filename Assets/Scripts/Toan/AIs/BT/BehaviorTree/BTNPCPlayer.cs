@@ -98,7 +98,7 @@ namespace AIs.BT.BehaviorTree
             //    //new ActionNode(CheckGameStatus),
             //    BuyRefineryConstructSequence(),
             //});
-            Root = BuyAgentSequence();
+            Root = BuyRefineryConstructSequence();
         }
 
         //  commons action node
@@ -283,9 +283,9 @@ namespace AIs.BT.BehaviorTree
 
             GameObject yardGameObj = GameObject.Instantiate(prefab);
             Construct yard = yardGameObj.GetComponentInChildren<Construct>();
-            yard.Group = Group.NPC;
-            yardGameObj.SetActive(true);
             yard.Player = npc;
+            yard.Group = Group.NPC;
+            yardGameObj.SetActive(true);            
             yard.Build();
 
             return SetConstructPosition(ConstructId.Yard, LocationOffset.Yard, yardGameObj.transform);

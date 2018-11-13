@@ -14,7 +14,7 @@ MonoBehaviour:
   MaxHP: 15
   Damage: 2
   Seeking: 1
-  MaxSpeed: 6.5
+  MaxSpeed: 5
   Cohesion: 0.1
   Separation: 1
   Alignment: 0.02

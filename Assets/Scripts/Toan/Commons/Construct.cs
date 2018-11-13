@@ -101,7 +101,7 @@ namespace Common
         {
             Hp -= damage;
 
-            hpimage.SetValue(Hp / Offset.MaxHP);
+            hpimage.SetValue((float)Hp / Offset.MaxHP);
             if (Hp <= 0)
             {
                 IsDead = true;
@@ -117,7 +117,7 @@ namespace Common
         {
             var effect = Instantiate(destructEffect, transform.position, Quaternion.identity);
             RemoveConstruct(this);
-            Destroy(this.gameObject,0.5f);
+            Destroy(transform.root.gameObject);
             Destroy(effect, 0.5f);
         }
 

@@ -13,6 +13,7 @@ namespace Common.Entity
         public int Damage           { get; set; }
         public GameEntity Target    { get; set; }
         public override bool IsDead { get; protected set; }
+        Vector3 TagetPositon;
 
         private void Awake()
         {
@@ -26,9 +27,9 @@ namespace Common.Entity
                 Dead();
             }
 
-            float sampler = (Position - origin).magnitude / (origin - Target.Position).magnitude;
+            float sampler = (Position - origin).magnitude / (origin - TagetPositon).magnitude;
             Vector3 position = Position;
-            position = Vector3.MoveTowards(position, Target.Position, Time.deltaTime * Speed);
+            position = Vector3.MoveTowards(position, TagetPositon, Time.deltaTime * Speed);
             position.y = heightSampler.Evaluate(sampler) * MAX_HEIGHT;
             transform.position = position;
         }
@@ -37,6 +38,7 @@ namespace Common.Entity
         public void Init(GameEntity target, int damage)
         {
             Target = target;
+            TagetPositon = Target.Position;
             Damage = damage;
         }
 

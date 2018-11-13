@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 114220110898611638}
   - component: {fileID: 114257205933527204}
   - component: {fileID: 54476503914587332}
+  - component: {fileID: 65970101988053756}
   m_Layer: 0
   m_Name: HumanWarrior
   m_TagString: Untagged
@@ -1217,6 +1218,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!65 &65970101988053756
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419146589697450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95568833577990190
 Animator:
   serializedVersion: 3

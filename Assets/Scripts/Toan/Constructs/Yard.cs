@@ -9,5 +9,9 @@ namespace Common.Building
             Id = ConstructId.Yard;    
             base.Awake();
         }
+        protected override void Start()
+        {
+            base.Start();
+        }
     }
 }
