@@ -27,7 +27,10 @@ namespace Common.Building
             Id = ConstructId.Defender;
             base.Awake();
         }
-
+        protected override void Start()
+        {
+            base.Start();
+        }
         protected override void Update()
         {
             if (IsDead) return;

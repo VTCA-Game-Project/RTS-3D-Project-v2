@@ -34,6 +34,7 @@ namespace Manager
             Agents = new List<AIAgent>();
             Constructs = new List<Construct>();
             ConstructsCantBuild = new List<ConstructId>();
+            isAlive = true;
         }                 
 
         private void NewConstructBuilt(Construct construct)
@@ -54,9 +55,7 @@ namespace Manager
             for (int i = 0; i < unlock.Length; i++)
             {
                 ConstructsCantBuild.RemoveAt(ConstructsCantBuild.IndexOf((unlock[i])));
-#if UNITY_EDITOR
-                Debug.Log(unlock[i] + " remove cant build list");
-#endif
+
             }
         }
         public void TakeGold(float gold)
@@ -122,9 +121,7 @@ namespace Manager
                 Constructs.RemoveAt(index);
                 ConstructDestroyed(construct);
             }
-#if UNITY_EDITOR
-            Debug.Log(construct.Id + " destroyed");
-#endif
+
         }
 
         public Construct GetConstruct(System.Type type)

@@ -85,7 +85,7 @@ public class LoadingScreenManager : MonoBehaviour
             SceneManager.UnloadSceneAsync(currentScene.name);
         else
             operation.allowSceneActivation = true;
-
+        if(sceneToLoad!=0)
         SoundManager.instanece.ChangeMusic(sceneToLoad);
         operation.allowSceneActivation = true;
      

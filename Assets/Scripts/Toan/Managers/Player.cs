@@ -37,8 +37,9 @@ namespace Manager
         {
             if (construct is Construct)
             {
-                status.RemoveConstruct((Construct)construct);
-                DestroyConstructUI(this);
+                if (Group != Group.NPC)
+                { DestroyConstructUI(this); }
+                status.RemoveConstruct((Construct)construct);                
             }
         }
 

@@ -51,8 +51,10 @@ public class CanvasManager : MonoBehaviour {
     }
     public void ReturnClick()
     {
+
+        Destroy(SoundManager.instanece.gameObject);
         Time.timeScale = 1f;
-        SceneManager.LoadScene(0);
+        LoadSceneTagetButton.instanece.LoadSceneNum(0);
     }
 }
 

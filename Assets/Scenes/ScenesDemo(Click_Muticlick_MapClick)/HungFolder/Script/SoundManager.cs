@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour {
 
 
    
-    bool changMusic  = false;
+   
     void Awake ()
     {
         if (instanece == null)
@@ -61,12 +61,21 @@ public class SoundManager : MonoBehaviour {
     }
     public void SetMusicVolum(float values)
     {
+        if (values > 1 || values < 0)
+        {
+            SoundEffect.volume = 1;
+            return;
+        }
 
         MainMusic.volume = values;
     }
     public void SeteffectVolum(float values)
     {
-
+        if (values > 1 || values < 0)
+        {
+            SoundEffect.volume = 1;
+            return;
+        }
         SoundEffect.volume = values;
     }
 }

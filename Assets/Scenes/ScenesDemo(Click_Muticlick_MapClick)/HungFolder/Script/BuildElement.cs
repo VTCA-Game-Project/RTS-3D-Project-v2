@@ -109,7 +109,7 @@ public class BuildElement : MonoBehaviour {
         Player _player = FindObjectOfType<MainPlayer>();
         if (inputvalues == "RIGHT" )
         {
-            if (stateCowdown == true)
+            if (stateCowdown == true|| CowDownComplete==true)
                 _player.TakeGold(Price);
             CowDownComplete = false;
             stateCowdown = false;
@@ -122,7 +122,7 @@ public class BuildElement : MonoBehaviour {
         }
         if (!stateCowdown&&!CowDownComplete)
         {
-            Debug.Log("hello");
+            
             if (_player.GetGold() >= Price)
             {
 
@@ -136,12 +136,13 @@ public class BuildElement : MonoBehaviour {
         {
             if (inputvalues == "LEFT")
             {
-                Debug.Log("in here");
+               
                 ClickEvent.ResetTaget();               
                 ClickEvent.OnselectTaget = true;
                 ClickEvent.BuildModel = BuildModel;
                 ClickEvent.BuildModelContructID = Id;
                 ClickEvent.BuildSize = info;
+                ClickEvent.BuildPrice = Price;
                 CowDownComplete = false;
                 newcolo.a = 0;
                 CountDownIMG.color = newcolo;
