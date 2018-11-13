@@ -126,5 +126,18 @@ namespace Manager
             Debug.Log(construct.Id + " destroyed");
 #endif
         }
+
+        public Construct GetConstruct(System.Type type)
+        {
+            int count = Constructs.Count;
+            for (int i = 0; i < count; i++)
+            {
+                if(Constructs[i].GetType() == type)
+                {
+                    return Constructs[i];
+                }
+            }
+            return null;
+        }
     }
 }

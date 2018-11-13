@@ -32,19 +32,34 @@ namespace AIs.BT.BehaviorTree
             { Soldier.Magic         ,2.0f},
         };
 
+        private readonly Soldier[] OrcAgent = new Soldier[]
+        {
+            Soldier.Magic,
+            Soldier.OrcTanker,
+            Soldier.Warrior
+        };
+
+        private readonly Soldier[] HumanAgent = new Soldier[]
+       {
+            Soldier.Archer,
+            Soldier.WoodHorse,
+            Soldier.HumanWarrior
+       };
+
+        private Soldier typeAgentWantToBuy;
         private NPCPlayer npc;
         private MainPlayer mainPlayer;
 
         private QueryList<ConstructId, float> constructCountQuery;
         private QueryList<Soldier, float> agentCountQuery;
 
-        public ConstructLocationOffset LocationOffset   { get; set; }
-        public ConstructPrice ConstructPrice            { get; set; }
-        public GameEntityPrice AgentPrice               { get; set; }
+        public ConstructLocationOffset LocationOffset { get; set; }
+        public ConstructPrice ConstructPrice { get; set; }
+        public GameEntityPrice AgentPrice { get; set; }
 
         public BaseNode Root { get; private set; }
 
-        public BTNPCPlayer(NPCPlayer player,MainPlayer main)
+        public BTNPCPlayer(NPCPlayer player, MainPlayer main)
         {
             npc = player;
             mainPlayer = main;
@@ -57,7 +72,7 @@ namespace AIs.BT.BehaviorTree
 
         public void UpdateCountDown(float deltaTime)
         {
-            List<QueryItem<ConstructId,float>> queryItems = constructCountQuery.QueryItemList();
+            List<QueryItem<ConstructId, float>> queryItems = constructCountQuery.QueryItemList();
             for (int i = 0; i < queryItems.Count; i++)
             {
                 queryItems[i].value += deltaTime;
@@ -68,7 +83,7 @@ namespace AIs.BT.BehaviorTree
             {
                 agentItems[i].value += deltaTime;
             }
-            
+
         }
 
         public NodeState Evaluate()
@@ -83,7 +98,7 @@ namespace AIs.BT.BehaviorTree
             //    //new ActionNode(CheckGameStatus),
             //    BuyRefineryConstructSequence(),
             //});
-            Root = BuyRefineryConstructSequence();
+            Root = BuyAgentSequence();
         }
 
         //  commons action node
@@ -102,20 +117,20 @@ namespace AIs.BT.BehaviorTree
             return NodeState.Failure;
         }
 
-        private NodeState SetConstructPosition(ConstructId type,Vector3 pos,Transform construct)
+        private NodeState SetConstructPosition(ConstructId type, Vector3 pos, Transform construct)
         {
-            if(constructCountQuery.Remove(type))
+            if (constructCountQuery.Remove(type))
             {
-                construct.position = pos;                
+                construct.position = pos;
                 return NodeState.Success;
-            }           
+            }
             return NodeState.Failure;
         }
 
         private NodeState CheckConstructCountdown(ConstructId type)
         {
             float time;
-            if(constructCountQuery.TryGetValue(type,out time))
+            if (constructCountQuery.TryGetValue(type, out time))
             {
                 if (time >= ConstructBuyDelay[type]) return NodeState.Success;
             }
@@ -125,7 +140,7 @@ namespace AIs.BT.BehaviorTree
         private NodeState CheckAgentCountdown(Soldier type)
         {
             float time;
-            if (agentCountQuery.TryGetValue(type,out time))
+            if (agentCountQuery.TryGetValue(type, out time))
             {
                 if (time >= AgentBuyDelay[type]) return NodeState.Success;
             }
@@ -141,26 +156,12 @@ namespace AIs.BT.BehaviorTree
             return NodeState.Failure;
         }
 
-        private NodeState SelectOnRefineryConstruct()
+        private NodeState CheckContainConstruct(System.Type constructType)
         {
             List<Construct> constructs = npc.Constructs;
             for (int i = 0; i < constructs.Count; i++)
             {
-                if(constructs[i] is Refinery)
-                {
-                    ((Refinery)constructs[i]).Produce(null);
-                    return NodeState.Success;
-                }
-            }
-            return NodeState.Failure;
-        }
-
-        private NodeState CheckContainConstruct(ConstructId type)
-        {
-            List<Construct> constructs = npc.Constructs;
-            for (int i = 0; i < constructs.Count; i++)
-            {
-                if (constructs[i] is Refinery)
+                if (constructs[i].GetType() == constructType)
                 {
                     return NodeState.Success;
                 }
@@ -170,12 +171,12 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CheckAllBuyProgressSuccess(System.Type type)
         {
-            if(type == typeof(ConstructId))
+            if (type == typeof(ConstructId))
             {
                 List<QueryItem<ConstructId, float>> queryItems = constructCountQuery.QueryItemList();
                 for (int i = 0; i < queryItems.Count; i++)
                 {
-                    if(queryItems[i].value < ConstructBuyDelay[queryItems[i].key]) return NodeState.Failure;
+                    if (queryItems[i].value < ConstructBuyDelay[queryItems[i].key]) return NodeState.Failure;
                 }
                 return NodeState.Success;
             }
@@ -192,7 +193,7 @@ namespace AIs.BT.BehaviorTree
             return NodeState.Failure;
         }
 
-        private NodeState MoveAgentsTo(Vector3 pos,TargetType targetType)
+        private NodeState MoveAgentsTo(Vector3 pos, TargetType targetType)
         {
             List<AIAgent> agent = npc.Agents;
             for (int i = 0; i < agent.Count; i++)
@@ -222,7 +223,7 @@ namespace AIs.BT.BehaviorTree
         {
             if (!constructCountQuery.ContainsKey(type))
             {
-                constructCountQuery.Add(new QueryItem<ConstructId,float>(type, 0.0f));
+                constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f));
             }
             return NodeState.Success;
         }
@@ -231,11 +232,31 @@ namespace AIs.BT.BehaviorTree
         {
             if (!agentCountQuery.ContainsKey(type))
             {
-                agentCountQuery.Add(new QueryItem<Soldier,float>(type, 0.0f));
+                agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f));
             }
             return NodeState.Success;
         }
 
+        private NodeState CheckEnoughGoldToBuyAgent(Soldier type)
+        {
+            switch (type)
+            {
+                case Soldier.Archer:
+                    return CheckEnoughGold(AgentPrice.Archer);
+                case Soldier.HumanWarrior:
+                    return CheckEnoughGold(AgentPrice.HumanWarrior);
+                case Soldier.Magic:
+                    return CheckEnoughGold(AgentPrice.Magic);
+                case Soldier.OrcTanker:
+                    return CheckEnoughGold(AgentPrice.OrcTanker);
+                case Soldier.Warrior:
+                    return CheckEnoughGold(AgentPrice.Warrior);
+                case Soldier.WoodHorse:
+                    return CheckEnoughGold(AgentPrice.WoodHorse);
+                default:
+                    return NodeState.Failure;
+            }
+        }
         // tree node
 
         #region Location Yard Construct Sequence
@@ -244,14 +265,14 @@ namespace AIs.BT.BehaviorTree
             return new Sequence(new List<BaseNode>()
             {
                 new ActionNode(CheckYardEndCountDown),
-                new ActionNode(SetYardContrustPostion),                
+                new ActionNode(SetYardContrustPostion),
             });
         }
-        
+
         private NodeState SetYardContrustPostion()
         {
             GameObject prefab;
-            if(Singleton.classname == "Human")
+            if (Singleton.classname == "Human")
             {
                 prefab = AssetUtils.Instance.GetAsset("OrcYard") as GameObject;
             }
@@ -378,6 +399,97 @@ namespace AIs.BT.BehaviorTree
             return BuyConstruct(ConstructId.Refinery);
         }
 
+        #endregion
+
+        #region Select on Refinery Construct
+        private Sequence SelectOnRefineryConstruct()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                new ActionNode(ChechHasRefinery),
+                RepeatUntilEnoughGoldToBuyAgent(),
+            });
+        }
+
+        private RepeaterUntil RepeatUntilEnoughGoldToBuyAgent()
+        {
+            return new RepeaterUntil(new ActionNode(SelectOnRefinery), CheckEnoughGoldToBuyAgentAction);
+        }
+
+        private NodeState ChechHasRefinery()
+        {
+            return CheckContainConstruct(typeof(Refinery));
+        }
+
+        private NodeState CheckEnoughGoldToBuyAgentAction()
+        {
+            return CheckEnoughGoldToBuyAgent(typeAgentWantToBuy);
+        }
+
+        private NodeState SelectOnRefinery()
+        {
+            Construct refinery = npc.GetConstruct(typeof(Refinery));
+            if (refinery != null)
+            {
+                ((Refinery)refinery).Produce(null);
+                return NodeState.Success;
+            }
+            return NodeState.Failure;
+        }
+        #endregion
+
+        #region Produce Gold Selector
+        private Selector ProduceGoldSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                SelectOnRefineryConstruct(),
+                BuyRefineryConstructSequence(),
+            });
+        }
+        #endregion
+
+        #region Enough Gold Selector
+        private Selector EnoughGoldSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                new ActionNode(CheckEnoughGoldToBuyAgentAction),
+                ProduceGoldSelector(),
+            });
+        }
+        #endregion
+
+        #region Buy Agent Sequence
+        private Sequence BuyAgentSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                new ActionNode(ChooseTypeAgentWantToBuy),
+                EnoughGoldSelector(),
+                new ActionNode(BuyAgentAction),
+            });
+        }
+
+        private NodeState BuyAgentAction()
+        {
+            Debug.Log("Buy Agent Type: " + typeAgentWantToBuy);
+            return BuyAgent(typeAgentWantToBuy);
+        }
+
+        private NodeState ChooseTypeAgentWantToBuy()
+        {
+            int i = Random.Range((int)0, (int)3);
+            if (Singleton.classname == "Human")
+            {
+                typeAgentWantToBuy = OrcAgent[i];
+            }
+            else
+            {
+                typeAgentWantToBuy = HumanAgent[i];
+            }
+            return NodeState.Success;
+        }
         #endregion
     }
 }

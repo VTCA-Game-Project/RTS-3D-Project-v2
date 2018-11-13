@@ -92,5 +92,10 @@ namespace Manager
             return status.Gold;
         }
 
+        public Construct GetConstruct(System.Type type)
+        {
+            return status.GetConstruct(type);
+        }
+
     }
 }

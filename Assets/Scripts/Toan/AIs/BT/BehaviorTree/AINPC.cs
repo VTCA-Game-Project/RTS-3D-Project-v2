@@ -29,7 +29,7 @@ namespace AIs.BT.BehaviorTree
         private void Update()
         {
             decisionTree.UpdateCountDown(Time.deltaTime);
-            Debug.Log(decisionTree.Evaluate());
+            // Debug.Log(decisionTree.Evaluate());
         }
     }
 }
