@@ -128,7 +128,7 @@ namespace AIs.BT.BehaviorTree
             //    //new ActionNode(CheckGameStatus),
             //    BuyRefineryConstructSequence(),
             //});
-            Root = BuyRefineryConstructSequence();
+            Root = EnoughAgentSelector();
         }
 
         private void ResetAgentCheckUpdated()
