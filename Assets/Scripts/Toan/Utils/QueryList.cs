@@ -29,9 +29,12 @@ namespace Utils
             dict = new List<QueryItem<Key, Value>>();
         }
 
-        public void Add(QueryItem<Key, Value> queryItem)
+        public void Add(QueryItem<Key, Value> queryItem,bool overrideKey)
         {
-            Remove(queryItem.key);
+            if (overrideKey)
+            {
+                Remove(queryItem.key);
+            }
             dict.Add(queryItem);
         }
 

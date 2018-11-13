@@ -114,6 +114,7 @@ namespace AIs.BT.BehaviorTree
                 }
             }
             ResetAgentCheckUpdated();
+            InstantiateAgent();
         }
 
         public NodeState Evaluate()
@@ -138,6 +139,31 @@ namespace AIs.BT.BehaviorTree
             isUpdatedRange = false;
         }
 
+        private void InstantiateAgent()
+        {
+            List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
+            for (int i = 0; i < agentItems.Count; i++)
+            {
+                if(agentItems[i].value <= AgentBuyDelay[agentItems[i].key])
+                {
+                    CreateAgent(agentItems[i].key);
+                    agentCountQuery.Remove(agentItems[i].key);
+                }
+            }
+        }
+
+        private void CreateAgent(Soldier type)
+        {
+            GameObject prefab = AssetUtils.Instance.GetAsset(type.ToString()) as GameObject;
+            Construct barrack = npc.GetConstruct(typeof(Barrack));
+            if(prefab != null && barrack != null)
+            {
+                AIAgent agent = GameObject.Instantiate(prefab, barrack.transform.position, Quaternion.identity).GetComponent<AIAgent>();
+                agent.Owner = npc;
+                agent.gameObject.SetActive(true);
+                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(barrack.transform.position + barrack.transform.forward * 5, Vector3.up));
+            }
+        }
         //  commons action node
         private NodeState CheckGameStatus()
         {
@@ -260,7 +286,7 @@ namespace AIs.BT.BehaviorTree
         {
             if (!constructCountQuery.ContainsKey(type))
             {
-                constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f));
+                constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f),true);
             }
             return NodeState.Success;
         }
@@ -269,7 +295,7 @@ namespace AIs.BT.BehaviorTree
         {
             if (!agentCountQuery.ContainsKey(type))
             {
-                agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f));
+                agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f),false);
             }
             return NodeState.Success;
         }
@@ -511,6 +537,30 @@ namespace AIs.BT.BehaviorTree
         private NodeState BuyAgentAction()
         {
             Debug.Log("Buy Agent Type: " + typeAgentWantToBuy);
+            int price = 0;
+            switch(typeAgentWantToBuy)
+            {
+                case Soldier.Archer:
+                    price = AgentPrice.Archer;
+                    break;
+                case Soldier.HumanWarrior:
+                    price = AgentPrice.HumanWarrior;
+                    break;
+                case Soldier.Magic:
+                    price = AgentPrice.Magic;
+                    break;
+                case Soldier.OrcTanker:
+                    price = AgentPrice.OrcTanker;
+                    break;
+                case Soldier.Warrior:
+                    price = AgentPrice.Warrior;
+                    break;
+                case Soldier.WoodHorse:
+                    price = AgentPrice.WoodHorse;
+                    break;
+
+            }
+            npc.TakeGold(-price);
             return BuyAgent(typeAgentWantToBuy);
         }
 
@@ -586,8 +636,6 @@ namespace AIs.BT.BehaviorTree
             {
                 new ActionNode(CheckHasBarrack),
                 CanBuyBarrackSequence(),
-                new ActionNode(BuyBarrackAction),
-                LocationBarrackConstructNode(),
             });
         }
 
@@ -605,7 +653,9 @@ namespace AIs.BT.BehaviorTree
             return new Sequence(new List<BaseNode>()
             {
                 UnclockBarrackSelector(),
-                EnoughGoldSelector(),
+                new ActionNode(() => CheckEnoughGold(ConstructPrice.Barrack)),
+                new ActionNode(BuyBarrackAction),
+                LocationBarrackConstructNode(),
             });
         }
 

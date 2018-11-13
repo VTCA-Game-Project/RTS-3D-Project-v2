@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Yard: {x: 95, y: 0, z: 90}
   Refinery: {x: 74, y: 0, z: 93}
-  Barrack: {x: 88, y: 0, z: 75}
+  Barrack: {x: 84, y: 0, z: 79}
   Defender:
   - {x: 74, y: 0, z: 83}
   - {x: 74, y: 0, z: 74}

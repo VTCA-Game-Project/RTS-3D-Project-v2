@@ -31,7 +31,7 @@ namespace Utils
         public Object GetAsset(string name)
         {
             Object asset = null;
-            assets.TryGetValue(name.GetHashCode(), out asset);
+            assets.TryGetValue(name.GetHashCode(), out asset);           
 #if UNITY_EDITOR
             if (asset == null) Debug.Log("Not found asset");
 #endif

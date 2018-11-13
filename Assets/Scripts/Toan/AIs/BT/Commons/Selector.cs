@@ -25,7 +25,8 @@ namespace AIs.BT.Commoms
                         State = NodeState.Success;
                         return State;
                     case NodeState.Running:
-                        continue;
+                        State = NodeState.Running;
+                        return State;
                 }
             }
             State = NodeState.Failure;

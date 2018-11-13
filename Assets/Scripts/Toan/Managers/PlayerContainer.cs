@@ -43,9 +43,6 @@ namespace Manager
             for (int i = 0; i < unlock.Length; i++)
             {
                 ConstructsCantBuild.Add(unlock[i]);
-#if UNITY_EDITOR
-                Debug.Log(unlock[i] + " add cant build list");
-#endif
             }
         }
 
@@ -109,9 +106,6 @@ namespace Manager
         {
             Constructs.Add(construct);
             NewConstructBuilt(construct);
-#if UNITY_EDITOR
-            Debug.Log(construct.Id + " added");
-#endif
         }
         public void RemoveConstruct(Construct construct)
         {

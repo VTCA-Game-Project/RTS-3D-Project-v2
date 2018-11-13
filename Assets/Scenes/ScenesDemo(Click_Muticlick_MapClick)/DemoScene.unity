@@ -4179,7 +4179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clicklayer:
     serializedVersion: 2
-    m_Bits: 10240
+    m_Bits: 5120
   cameraRaycaster: {fileID: 534669904}
 --- !u!114 &534669908
 MonoBehaviour:
