@@ -11,7 +11,7 @@ namespace Common
     {
         public ConstructOffset Offset;
         public Player Player;
-
+        public GameObject destructEffect;
         public int Hp                       { get; protected set; }
         public Group Group                  { get; set; }
         public ConstructId Id               { get; protected set; }
@@ -115,8 +115,10 @@ namespace Common
         }
         public virtual void DestroyConstruct()
         {
+            var effect = Instantiate(destructEffect, transform.position, Quaternion.identity);
             RemoveConstruct(this);
-            Destroy(this.gameObject);
+            Destroy(this.gameObject,0.5f);
+            Destroy(effect, 0.5f);
         }
 
     }

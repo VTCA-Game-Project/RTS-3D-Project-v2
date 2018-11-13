@@ -1247,6 +1247,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageHealthValue: {fileID: 114374787287371798}
+  hpbot: {fileID: 1665313134773456}
+  agent: {fileID: 114257205933527204}
 --- !u!114 &114139925107398560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1308,7 +1310,6 @@ MonoBehaviour:
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: 9d560003a4687c14688331550bc2333e, type: 2}
   drawGizmos: 0
-  heath: {fileID: 114138436920883866}
 --- !u!114 &114374787287371798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1487,16 +1488,16 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1375313851791348}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2322252, y: 2.1689043, z: 1}
   m_Children: []
-  m_Father: {fileID: 224849643462877652}
-  m_RootOrder: 1
+  m_Father: {fileID: 224851137358849926}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.043378063}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224849643462877652
@@ -1510,7 +1511,6 @@ RectTransform:
   m_LocalScale: {x: 1.8067544, y: 0.4187, z: 1}
   m_Children:
   - {fileID: 224851137358849926}
-  - {fileID: 224329816613200342}
   m_Father: {fileID: 4094095862542210}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -1528,7 +1528,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.81154, y: 0.46106258, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 224329816613200342}
   m_Father: {fileID: 224849643462877652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

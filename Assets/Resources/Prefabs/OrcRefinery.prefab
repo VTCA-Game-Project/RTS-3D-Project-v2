@@ -152,7 +152,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716561243524054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.6261635, y: 7.955193e-17, z: 13.672993}
+  m_LocalPosition: {x: 14.983162, y: 7.528278e-17, z: 15.59565}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4026429772747996}
@@ -336,6 +336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Offset: {fileID: 11400000, guid: bc1424984bb3dea4a83e88183e0eebdf, type: 2}
   Player: {fileID: 0}
+  destructEffect: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 2}
   RefreshTime: 10
 --- !u!114 &114477166471462980
 MonoBehaviour:
@@ -428,6 +429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageHealthValue: {fileID: 114483564056254084}
+  hpbot: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!222 &222101157753583740
 CanvasRenderer:
   m_ObjectHideFlags: 1

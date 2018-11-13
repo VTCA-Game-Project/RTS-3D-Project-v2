@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class SoundManager : MonoBehaviour {
     public List<AudioClip> Musiclist;
     public AudioSource SoundEffect;
     public List<AudioClip> SoundEffectList;
+
+
+   
     bool changMusic  = false;
     void Awake ()
     {
@@ -54,5 +58,15 @@ public class SoundManager : MonoBehaviour {
         MainMusic.Stop();
         MainMusic.clip = Musiclist[index];
         MainMusic.Play();
+    }
+    public void SetMusicVolum(float values)
+    {
+
+        MainMusic.volume = values;
+    }
+    public void SeteffectVolum(float values)
+    {
+
+        SoundEffect.volume = values;
     }
 }

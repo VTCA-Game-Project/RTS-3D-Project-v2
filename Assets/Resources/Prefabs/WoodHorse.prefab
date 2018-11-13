@@ -676,7 +676,6 @@ MonoBehaviour:
   drawGizmos: 0
   FireBall: {fileID: 4135352945315266, guid: d64ba15fcdd0f914fb150593af5e11e8, type: 2}
   LauncherPoint: {fileID: 4478123265711446}
-  heath: {fileID: 114484203501727360}
 --- !u!114 &114484203501727360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -689,6 +688,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageHealthValue: {fileID: 114052711032459140}
+  hpbot: {fileID: 1816487739686904}
+  agent: {fileID: 114384222331894608}
 --- !u!114 &114595935880339480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -836,7 +837,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.81154, y: 0.46106258, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 224844734321247416}
   m_Father: {fileID: 224802585668593112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -856,7 +858,6 @@ RectTransform:
   m_LocalScale: {x: 1.8067544, y: 0.4187, z: 1}
   m_Children:
   - {fileID: 224393311844165758}
-  - {fileID: 224844734321247416}
   m_Father: {fileID: 4803702767602448}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -871,15 +872,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1717797404147578}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2322252, y: 2.1689043, z: 1}
   m_Children: []
-  m_Father: {fileID: 224802585668593112}
-  m_RootOrder: 1
+  m_Father: {fileID: 224393311844165758}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.043378063}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}

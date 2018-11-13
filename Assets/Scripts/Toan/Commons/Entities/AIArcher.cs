@@ -25,6 +25,7 @@ namespace Common.Entity
             base.FixedUpdate();
         }
 
+        
         public override void Attack()
         {
             SoundManager.instanece.PlayEffect(5);
