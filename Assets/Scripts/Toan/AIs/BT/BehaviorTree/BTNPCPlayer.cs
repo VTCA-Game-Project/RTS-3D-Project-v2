@@ -14,6 +14,7 @@ namespace AIs.BT.BehaviorTree
 {
     public class BTNPCPlayer
     {
+        private const int NumAgentToAttack = 10;
         private readonly Dictionary<ConstructId, float> ConstructBuyDelay = new Dictionary<ConstructId, float>()
         {
             { ConstructId.Yard      , 2.0f },
@@ -38,13 +39,16 @@ namespace AIs.BT.BehaviorTree
             Soldier.OrcTanker,
             Soldier.Warrior
         };
-
         private readonly Soldier[] HumanAgent = new Soldier[]
        {
             Soldier.Archer,
             Soldier.WoodHorse,
             Soldier.HumanWarrior
        };
+
+        private bool isUpdatedWarrior;
+        private bool isUpdatedRange;
+        private bool isUpdatedTank;
 
         private Soldier typeAgentWantToBuy;
         private NPCPlayer npc;
@@ -68,6 +72,7 @@ namespace AIs.BT.BehaviorTree
             agentCountQuery = new QueryList<Soldier, float>();
 
             InitBT();
+            ResetAgentCheckUpdated();
         }
 
         public void UpdateCountDown(float deltaTime)
@@ -81,9 +86,34 @@ namespace AIs.BT.BehaviorTree
             List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
             for (int i = 0; i < agentItems.Count; i++)
             {
-                agentItems[i].value += deltaTime;
-            }
+                if((agentItems[i].key == Soldier.Warrior || agentItems[i].key == Soldier.HumanWarrior) 
+                    && !isUpdatedWarrior)
+                {
+                    agentItems[i].value += deltaTime;
+                    isUpdatedWarrior = true;
+                    continue;
+                }
+                if ((agentItems[i].key == Soldier.Archer || agentItems[i].key == Soldier.Magic)
+                    && !isUpdatedRange)
+                {
+                    agentItems[i].value += deltaTime;
+                    isUpdatedRange = true;
+                    continue;
+                }
+                if ((agentItems[i].key == Soldier.OrcTanker || agentItems[i].key == Soldier.WoodHorse)
+                    && !isUpdatedTank)
+                {
+                    agentItems[i].value += deltaTime;
+                    isUpdatedTank = true;
+                    continue;
+                }
 
+                if(isUpdatedTank && isUpdatedWarrior & isUpdatedRange)
+                {
+                    break;
+                }
+            }
+            ResetAgentCheckUpdated();
         }
 
         public NodeState Evaluate()
@@ -99,6 +129,13 @@ namespace AIs.BT.BehaviorTree
             //    BuyRefineryConstructSequence(),
             //});
             Root = BuyAgentSequence();
+        }
+
+        private void ResetAgentCheckUpdated()
+        {
+            isUpdatedRange = false;
+            isUpdatedTank = false;
+            isUpdatedRange = false;
         }
 
         //  commons action node
@@ -215,7 +252,7 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CountAgentsToAttack()
         {
-            if (npc.Agents.Count >= 10) return NodeState.Success;
+            if (npc.Agents.Count >= NumAgentToAttack) return NodeState.Success;
             return NodeState.Failure;
         }
 
@@ -489,6 +526,160 @@ namespace AIs.BT.BehaviorTree
                 typeAgentWantToBuy = HumanAgent[i];
             }
             return NodeState.Success;
+        }
+        #endregion
+
+        #region Wait for all agent queue countdown complete Sequence
+        private Sequence WaitAllAgentCountdownSuccessSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+               new ActionNode(CheckAgentQueueFull),
+               WaitAllAgentCountdownComplete(),
+            });
+        }
+
+        private NodeState CheckAgentQueueFull()
+        {
+            if(agentCountQuery.Count >= NumAgentToAttack)
+            {
+                return NodeState.Success;
+            }
+            return NodeState.Failure;
+        }
+
+        private Repeater WaitAllAgentCountdownComplete()
+        {
+            return new Repeater(new ActionNode(CheckAllAgentCountdownCompleteAction));
+        }
+
+        private NodeState CheckAllAgentCountdownCompleteAction()
+        {
+            return CheckAllBuyProgressSuccess(typeof(Soldier));
+        }
+        #endregion
+
+        #region Repeat until enough agent in buy sequence
+        private RepeaterUntil RepeatUntilEnoughAgentInSequece()
+        {
+            return new RepeaterUntil(BuyAgentSequence(), CheckAgentQueueFull);
+        }
+        #endregion
+
+        #region Produce Agent Sequence
+        private Sequence ProduceAgentSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+               HasBarrackSelector(),
+               RepeatUntilEnoughAgentInSequece(),
+               WaitAllAgentCountdownComplete(),
+            });
+        }
+        #endregion
+
+        #region Has Barrack Selector
+
+        private Selector HasBarrackSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                new ActionNode(CheckHasBarrack),
+                CanBuyBarrackSequence(),
+                new ActionNode(BuyBarrackAction),
+                LocationBarrackConstructNode(),
+            });
+        }
+
+        private NodeState CheckHasBarrack()
+        {
+            return CheckContainConstruct(typeof(Barrack));
+        }
+        
+        #endregion
+
+        #region Buy Can Barrack Sequence
+
+        private Sequence CanBuyBarrackSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                UnclockBarrackSelector(),
+                EnoughGoldSelector(),
+            });
+        }
+
+        private NodeState BuyBarrackAction()
+        {
+            return BuyConstruct(ConstructId.Barrack);
+        }
+
+        #endregion
+
+        #region Unclock Barrack Selector
+
+        private Selector UnclockBarrackSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                new ActionNode(CheckUnclockedBarrack),
+                BuyRefineryConstructSequence(),
+            });
+        }
+
+        private NodeState CheckUnclockedBarrack()
+        {
+            return CheckUnclockedConstruct(ConstructId.Barrack);
+        }
+        #endregion
+
+        #region Location Barrack Sequence
+
+        private NodeState CheckBarrackEndCountdown()
+        {
+            return CheckConstructCountdown(ConstructId.Barrack);
+        }
+
+        private NodeState SetBarrackConstructPosition()
+        {
+            GameObject prefab;
+            if (Singleton.classname == "Human")
+            {
+                prefab = AssetUtils.Instance.GetAsset("OrcBarrack") as GameObject;
+            }
+            else
+            {
+                prefab = AssetUtils.Instance.GetAsset("HumanBarrack") as GameObject;
+            }
+            GameObject barrackGameObj = GameObject.Instantiate(prefab);
+            Construct barrack = barrackGameObj.GetComponentInChildren<Construct>();
+            barrack.Player = npc;
+            barrack.Group = Group.NPC;
+            barrackGameObj.SetActive(true);
+            barrack.Build();
+
+            return SetConstructPosition(ConstructId.Barrack, LocationOffset.Barrack, barrackGameObj.transform);
+        }
+
+        private Sequence LocationBarrackConstructNode()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                new ActionNode(CheckBarrackEndCountdown),
+                new ActionNode(SetBarrackConstructPosition),
+            });
+        }
+        #endregion
+
+        #region Enough Agent Selector
+        private Selector EnoughAgentSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                WaitAllAgentCountdownSuccessSequence(),
+                new ActionNode(CountAgentsToAttack),
+                ProduceAgentSequence(),
+            });
         }
         #endregion
     }

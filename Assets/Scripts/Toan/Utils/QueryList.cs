@@ -19,6 +19,10 @@ namespace Utils
     public class QueryList<Key, Value>
     {
         private List<QueryItem<Key, Value>> dict;
+        public int Count
+        {
+            get { return dict.Count; }
+        }
 
         public QueryList()
         {
