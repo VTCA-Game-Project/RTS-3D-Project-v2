@@ -129,7 +129,7 @@ namespace AIs.BT.BehaviorTree
             //    //new ActionNode(CheckGameStatus),
             //    BuyRefineryConstructSequence(),
             //});
-            Root = EnoughAgentSelector();
+            Root = ProduceAgentSequence();
         }
 
         private void ResetAgentCheckUpdated()
@@ -144,7 +144,7 @@ namespace AIs.BT.BehaviorTree
             List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
             for (int i = 0; i < agentItems.Count; i++)
             {
-                if(agentItems[i].value <= AgentBuyDelay[agentItems[i].key])
+                if(agentItems[i].value >= AgentBuyDelay[agentItems[i].key])
                 {
                     CreateAgent(agentItems[i].key);
                     agentCountQuery.Remove(agentItems[i].key);
@@ -158,7 +158,7 @@ namespace AIs.BT.BehaviorTree
             Construct barrack = npc.GetConstruct(typeof(Barrack));
             if(prefab != null && barrack != null)
             {
-                AIAgent agent = GameObject.Instantiate(prefab, barrack.transform.position, Quaternion.identity).GetComponent<AIAgent>();
+                AIAgent agent = GameObject.Instantiate(prefab, barrack.transform.root.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = npc;
                 agent.gameObject.SetActive(true);
                 agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(barrack.transform.position + barrack.transform.forward * 5, Vector3.up));
@@ -287,6 +287,22 @@ namespace AIs.BT.BehaviorTree
             if (!constructCountQuery.ContainsKey(type))
             {
                 constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f),true);
+                int price = 0;
+                switch(type)
+                {
+                    case ConstructId.Barrack:
+                        price = ConstructPrice.Barrack;
+                        break;
+                    case ConstructId.Defender:
+                        price = ConstructPrice.Defender;
+                        break;
+                    case ConstructId.Refinery:
+                        price = ConstructPrice.Refinery;
+                        break;
+                    case ConstructId.Yard:
+                        price = ConstructPrice.Yard;
+                        break;
+                }
             }
             return NodeState.Success;
         }

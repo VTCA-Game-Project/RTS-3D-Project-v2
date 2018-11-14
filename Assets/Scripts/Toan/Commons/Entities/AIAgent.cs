@@ -12,7 +12,7 @@ namespace Common.Entity
 {
     public abstract class AIAgent : GameEntity, ISelectable, IAttackable, IDetectEnemy
     {
-        protected bool isReachedTarget;
+        public bool StartReachedTargetState = false;
         protected Vector3 target;
         protected Vector3 steering;
         protected Vector3 aceleration;
@@ -191,7 +191,7 @@ namespace Common.Entity
                     if (TargetEntity != null)
                         return (Vector3.Distance(Position, TargetEntity.Position) <= AttackRange);
                     else
-                        return (Vector3.Distance(Position,target) <= AttackRange);
+                        return (Vector3.Distance(Position, target) <= AttackRange);
                 default:
                     return true;
             }
@@ -200,7 +200,7 @@ namespace Common.Entity
 
         public void SetTarget(TargetType type, Vector3 position)
         {
-            isReachedTarget = false;
+            IsReachedTarget = false;
             TargetType = type;
             target = position;
         }
@@ -236,7 +236,7 @@ namespace Common.Entity
 
             IsDead = false;
             IsSelected = false;
-            IsReachedTarget = Owner.Group == Group.Player ? false : true;
+            IsReachedTarget = StartReachedTargetState;
             OnObsAvoidance = true;
             MinDetectionBoxLenght = Radius;
             Radius = SkinMeshRenderer.bounds.size.x;
@@ -252,6 +252,7 @@ namespace Common.Entity
             {
                 TargetEntity = null;
                 TargetType = TargetType.None;
+                anims.ForceResetState();
             }
         }
         public void DetectEnemy()
@@ -298,24 +299,5 @@ namespace Common.Entity
                 if (TargetEntity != null) break;
             }
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            if (SkinMeshRenderer == null) SkinMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-            if (drawGizmos)
-            {
-                Gizmos.color = Color.black;
-                Gizmos.DrawWireSphere(transform.position, Radius);
-
-                if (AgentRigid != null)
-                {
-                    Gizmos.color = Color.blue;
-                    Gizmos.DrawRay(transform.position, transform.forward * DetectBoxLenght);
-                }
-            }
-            Gizmos.DrawSphere(Position, 1);
-        }
-#endif
     }
 }
