@@ -21,9 +21,15 @@ public class AIGoblinWizard : AIAgent
         base.Attack();
         if(TargetEntity != null)
         {
-            Rigidbody ef = Instantiate(effect, startpoisition.position, transform.rotation);
-            ef.gameObject.SetActive(true);
-            ef.AddForce(transform.forward * ShootForce);
+            if (startpoisition != null)
+            {
+                Rigidbody ef = Instantiate(effect, startpoisition.position, transform.rotation);
+                if (ef != null)
+                {
+                    ef.gameObject.SetActive(true);
+                    ef.AddForce(transform.forward * ShootForce);
+                }
+            }
 
             TargetEntity.TakeDamage(Damage);
         }

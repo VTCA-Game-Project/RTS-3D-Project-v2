@@ -29,7 +29,7 @@ namespace Utils
             dict = new List<QueryItem<Key, Value>>();
         }
 
-        public void Add(QueryItem<Key, Value> queryItem,bool overrideKey)
+        public void Add(QueryItem<Key, Value> queryItem, bool overrideKey)
         {
             if (overrideKey)
             {
@@ -93,6 +93,17 @@ namespace Utils
         public List<QueryItem<Key, Value>> QueryItemList()
         {
             return dict;
+        }
+
+        public int IndexOf(QueryItem<Key, Value> item)
+        {
+            return dict.IndexOf(item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (index >= 0)
+                dict.RemoveAt(index);
         }
     }
 }

@@ -19,11 +19,12 @@ namespace AIs.BT.Commoms
             switch (terminalCondition())
             {
                 case NodeState.Failure:
+                case NodeState.Running:
                     child.Evaluate();
                     State = NodeState.Running;
-                    break;
+                    return State;
                 case NodeState.Success:
-                case NodeState.Running:
+                    State = NodeState.Success;
                     return State;
             }
             return State;
