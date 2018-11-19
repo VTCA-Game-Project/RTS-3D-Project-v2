@@ -17,7 +17,8 @@ namespace Manager
 
         protected virtual void Awake()
         {
-            status = new PlayerContainer();
+            if (status == null)
+                status = new PlayerContainer();
         }
 
         protected virtual void Start()
@@ -39,7 +40,7 @@ namespace Manager
             {
                 if (Group != Group.NPC)
                 { DestroyConstructUI(this); }
-                status.RemoveConstruct((Construct)construct);                
+                status.RemoveConstruct((Construct)construct);
             }
         }
 
@@ -50,6 +51,7 @@ namespace Manager
 
         public void AddAgent(AIAgent agent)
         {
+            if (status == null) status = new PlayerContainer();
             status.AddAgent(agent);
         }
 

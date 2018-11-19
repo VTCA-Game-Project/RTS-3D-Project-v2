@@ -1246,7 +1246,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470152064875464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.25987, y: 0, z: -34.879997}
+  m_LocalPosition: {x: 14.544156, y: 0, z: 26.569857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4693357767363216}
@@ -2046,6 +2046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1434b568dc251484087a05c7eae56e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartReachedTargetState: 0
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: a93a820afef673b49b36426167a30956, type: 2}
   drawGizmos: 0
@@ -2072,10 +2073,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 3.25
+  m_Radius: 1.01
+  m_Height: 3.43
   m_Direction: 1
-  m_Center: {x: -0.04, y: 0.81, z: 0}
+  m_Center: {x: -0.04, y: 1.06, z: 0}
 --- !u!137 &137110619393135770
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

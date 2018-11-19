@@ -115,11 +115,11 @@ bg=red</panel_attributes>
     <id>UMLUseCase</id>
     <coordinates>
       <x>1370</x>
-      <y>510</y>
+      <y>460</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>~ Group Attack</panel_attributes>
+    <panel_attributes>~ Group Attack Wave</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -130,14 +130,17 @@ bg=red</panel_attributes>
       <w>130</w>
       <h>50</h>
     </coordinates>
-    <panel_attributes>. Set target</panel_attributes>
+    <panel_attributes>! Repeat
+Until kill all enemy or
+dead all
+bg=red</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>600</x>
-      <y>370</y>
+      <x>620</x>
+      <y>360</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -158,24 +161,13 @@ bg=red</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
+      <x>670</x>
       <y>310</y>
-      <w>370</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;350.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1420</x>
-      <y>460</y>
-      <w>30</w>
+      <w>350</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;330.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -213,24 +205,24 @@ bg=red</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
-      <y>400</y>
-      <w>50</w>
-      <h>60</h>
+      <x>670</x>
+      <y>390</y>
+      <w>30</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>30.0;40.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>650</x>
-      <y>400</y>
-      <w>140</w>
-      <h>70</h>
+      <x>670</x>
+      <y>390</y>
+      <w>120</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;45.0;10.0;10.0</additional_attributes>
+    <additional_attributes>100.0;55.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -1051,8 +1043,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1180</x>
-      <y>720</y>
+      <x>1190</x>
+      <y>610</y>
       <w>150</w>
       <h>50</h>
     </coordinates>
@@ -1063,20 +1055,8 @@ to wait point </panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1370</x>
-      <y>730</y>
-      <w>120</w>
-      <h>50</h>
-    </coordinates>
-    <panel_attributes>! Repeat 
-Until Success</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
       <x>1360</x>
-      <y>830</y>
+      <y>710</y>
       <w>130</w>
       <h>60</h>
     </coordinates>
@@ -1088,29 +1068,7 @@ reached target</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1420</x>
-      <y>770</y>
-      <w>30</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1260</x>
-      <y>670</y>
-      <w>30</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1420</x>
-      <y>670</y>
+      <y>650</y>
       <w>30</w>
       <h>80</h>
     </coordinates>
@@ -1120,24 +1078,13 @@ reached target</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1510</x>
-      <y>620</y>
+      <x>1550</x>
+      <y>780</y>
       <w>120</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>. Choose target</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1420</x>
-      <y>540</y>
-      <w>170</w>
-      <h>100</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>150.0;80.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -1163,79 +1110,37 @@ bg=red</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1330</x>
-      <y>400</y>
-      <w>210</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>! Repeat
-Until Success OR
-Current agents dead
-bg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1200</x>
-      <y>610</y>
-      <w>140</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>! Fake state
-if child node success
-one time
-bg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1360</x>
-      <y>610</y>
-      <w>140</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>! Fake state
-if child node success
-one time
-bg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>1260</x>
-      <y>540</y>
+      <y>490</y>
       <w>190</w>
-      <h>90</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;170.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;170.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1420</x>
-      <y>540</y>
+      <y>490</y>
       <w>30</w>
-      <h>90</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1420</x>
-      <y>540</y>
+      <y>490</y>
       <w>300</w>
-      <h>100</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>280.0;80.0;10.0;10.0</additional_attributes>
+    <additional_attributes>280.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -1249,37 +1154,15 @@ bg=red</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>1060</x>
-      <y>400</y>
-      <w>180</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>. Refresh Fake State</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1140</x>
-      <y>330</y>
-      <w>150</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;130.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>1260</x>
       <y>330</y>
       <w>180</w>
-      <h>90</h>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>160.0;70.0;10.0;10.0</additional_attributes>
+    <additional_attributes>160.0;130.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -1375,12 +1258,12 @@ countdown Succcess</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>540</x>
-      <y>400</y>
-      <w>140</w>
-      <h>60</h>
+      <y>390</y>
+      <w>160</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;40.0;120.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;140.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -1461,5 +1344,94 @@ bg=green</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>190.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1720</x>
+      <y>780</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>. Set target</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1640</x>
+      <y>710</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>~ Attack</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1690</x>
+      <y>660</y>
+      <w>30</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1610</x>
+      <y>750</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1690</x>
+      <y>750</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1370</x>
+      <y>610</y>
+      <w>120</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>! Repeat 
+Until Success</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>710</x>
+      <y>220</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>. Check is attack</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>820</x>
+      <y>230</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;70.0</additional_attributes>
   </element>
 </diagram>

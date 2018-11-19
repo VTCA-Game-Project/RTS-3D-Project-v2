@@ -87,7 +87,7 @@ namespace Common.Entity
             {
                 gameObject.layer = LayerMask.NameToLayer("NPC");
             }
-
+            Owner.AddAgent(this);
             pointer = FindObjectOfType<Pointer>();
             anims = GetComponent<BaseAnimation>();
             AgentRigid = GetComponent<Rigidbody>();
@@ -98,7 +98,7 @@ namespace Common.Entity
             InitOffset();
 
             HP = MaxHP;
-            Owner.AddAgent(this);
+            
             PlayerGroup = Owner.Group;
 
             steerBh = Singleton.SteerBehavior;
@@ -182,7 +182,7 @@ namespace Common.Entity
             switch (TargetType)
             {
                 case TargetType.Place:
-                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity && Vector3.Distance(Position,target) < 1f)
+                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity || Vector3.Distance(Position,target) < 1f)
                         return true; 
                     break;
                 case TargetType.Construct:
@@ -214,7 +214,10 @@ namespace Common.Entity
         public override void TakeDamage(int damage)
         {
             HP -= damage;
-            HPVAlues.SetValue((float)HP / offset.MaxHP);
+            if (HPVAlues != null)
+            {
+                HPVAlues.SetValue((float)HP / offset.MaxHP);
+            }
             if (HP <= 0)
             {
                 HP = 0;
