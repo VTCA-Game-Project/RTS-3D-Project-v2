@@ -48,18 +48,18 @@ namespace Animation
         protected abstract void Dead();
         protected virtual void ResetParams()
         {
-            //switch (CurrentState)
-            //{
-            //    case AnimState.Attack:
-            //        anims.SetBool("IsAttack", false);
-            //        break;
-            //    case AnimState.Idle:
-            //        anims.SetBool("IsRunning", false);
-            //        break;
-            //}
+            switch (CurrentState)
+            {
+                case AnimState.Attack:
+                    anims.SetBool("IsAttack", false);
+                    break;
+                case AnimState.Idle:
+                    anims.SetBool("IsRunning", false);
+                    break;
+            }
 
-            anims.SetBool("IsAttack", false);
-            anims.SetBool("IsRunning", false);
+            //anims.SetBool("IsAttack", false);
+            //anims.SetBool("IsRunning", false);
         }
 
         protected virtual void Awake()
@@ -115,9 +115,8 @@ namespace Animation
 
         public void ForceResetState()
         {
-            anims.SetBool("IsAttack", false);
-            anims.SetBool("IsRunning", false);
-            CurrentState = AnimState.Idle;
+            CurrentState = AnimState.Attack;
+            NextState = AnimState.Idle;
         }
     }
 }

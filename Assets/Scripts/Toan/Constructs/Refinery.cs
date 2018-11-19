@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Common.Building
 {
-    public class Refinery : Construct,IProduce
+    public class Refinery : Construct, IProduce
     {
         public float RefreshTime;
         public int MaxRetainGold { get; protected set; }
@@ -16,11 +16,11 @@ namespace Common.Building
             get { return counter == RefreshTime; }
         }
 
-     
+
         private float counter;
         protected override void Awake()
         {
-            MaxRetainGold = 100;
+            MaxRetainGold = 300;
             counter = 0.0f;
 
             Id = ConstructId.Refinery;
@@ -33,14 +33,11 @@ namespace Common.Building
         protected override void Update()
         {
             counter += Time.deltaTime;
-            if(counter > RefreshTime)
+            if (counter > RefreshTime)
             {
                 counter = RefreshTime;
             }
             RemainingGold = (int)(MaxRetainGold * (counter / RefreshTime));
-
-
-          
         }
 
         protected void OnMouseDown()
@@ -59,6 +56,8 @@ namespace Common.Building
                 Player.TakeGold(RemainingGold);
                 counter = 0.0f;
                 RemainingGold = 0;
+                if (Player.Group == Group.NPC)
+                    Debug.Log(Player.GetGold());
             }
         }
     }

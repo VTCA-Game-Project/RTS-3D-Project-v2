@@ -182,8 +182,8 @@ namespace Common.Entity
             switch (TargetType)
             {
                 case TargetType.Place:
-                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity)
-                        return true;
+                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity && Vector3.Distance(Position,target) < 1f)
+                        return true; 
                     break;
                 case TargetType.Construct:
                     return true;
@@ -214,7 +214,7 @@ namespace Common.Entity
         public override void TakeDamage(int damage)
         {
             HP -= damage;
-            HPVAlues.SetValue(HP / offset.MaxHP);
+            HPVAlues.SetValue((float)HP / offset.MaxHP);
             if (HP <= 0)
             {
                 HP = 0;
@@ -240,7 +240,7 @@ namespace Common.Entity
             OnObsAvoidance = true;
             MinDetectionBoxLenght = Radius;
             Radius = SkinMeshRenderer.bounds.size.x;
-
+            MinVelocity = 0.01f;
         }
         // INTERFACE
         public void Select() { IsSelected = true; }

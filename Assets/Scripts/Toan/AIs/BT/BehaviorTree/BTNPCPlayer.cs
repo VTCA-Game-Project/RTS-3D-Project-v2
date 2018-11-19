@@ -35,9 +35,9 @@ namespace AIs.BT.BehaviorTree
 
         private readonly Soldier[] OrcAgent = new Soldier[]
         {
+            Soldier.Warrior,
             Soldier.Magic,
-            Soldier.OrcTanker,
-            Soldier.Warrior
+            Soldier.OrcTanker,            
         };
         private readonly Soldier[] HumanAgent = new Soldier[]
        {
@@ -136,7 +136,7 @@ namespace AIs.BT.BehaviorTree
         {
             isUpdatedRange = false;
             isUpdatedTank = false;
-            isUpdatedRange = false;
+            isUpdatedWarrior = false;
         }
 
         private void InstantiateAgent()
@@ -146,10 +146,43 @@ namespace AIs.BT.BehaviorTree
             {
                 if(agentItems[i].value >= AgentBuyDelay[agentItems[i].key])
                 {
-                    CreateAgent(agentItems[i].key);
-                    agentCountQuery.Remove(agentItems[i].key);
+                    if (CheckEnoughGoldToBuyAgent(agentItems[i].key) == NodeState.Success)
+                    {
+                        CreateAgent(agentItems[i].key);
+                        PayAgentGold(agentItems[i].key);
+                        agentCountQuery.RemoveAt(i);
+                        break;
+                    }
                 }
             }
+        }
+
+        private void PayAgentGold(Soldier type)
+        {
+            int price = 0;
+            switch (type)
+            {
+                case Soldier.Archer:
+                    price = AgentPrice.Archer;
+                    break;
+                case Soldier.HumanWarrior:
+                    price = AgentPrice.HumanWarrior;
+                    break;
+                case Soldier.Magic:
+                    price = AgentPrice.Magic;
+                    break;
+                case Soldier.OrcTanker:
+                    price = AgentPrice.OrcTanker;
+                    break;
+                case Soldier.Warrior:
+                    price = AgentPrice.Warrior;
+                    break;
+                case Soldier.WoodHorse:
+                    price = AgentPrice.WoodHorse;
+                    break;
+
+            }
+            npc.TakeGold(-price);
         }
 
         private void CreateAgent(Soldier type)
@@ -303,7 +336,8 @@ namespace AIs.BT.BehaviorTree
                         price = ConstructPrice.Yard;
                         break;
                 }
-            }
+                npc.TakeGold(-price);
+            }            
             return NodeState.Success;
         }
 
@@ -508,7 +542,7 @@ namespace AIs.BT.BehaviorTree
         private NodeState SelectOnRefinery()
         {
             Construct refinery = npc.GetConstruct(typeof(Refinery));
-            if (refinery != null)
+            if (refinery != null && ((Refinery)refinery).IsMax)
             {
                 ((Refinery)refinery).Produce(null);
                 return NodeState.Success;
@@ -551,32 +585,7 @@ namespace AIs.BT.BehaviorTree
         }
 
         private NodeState BuyAgentAction()
-        {
-            Debug.Log("Buy Agent Type: " + typeAgentWantToBuy);
-            int price = 0;
-            switch(typeAgentWantToBuy)
-            {
-                case Soldier.Archer:
-                    price = AgentPrice.Archer;
-                    break;
-                case Soldier.HumanWarrior:
-                    price = AgentPrice.HumanWarrior;
-                    break;
-                case Soldier.Magic:
-                    price = AgentPrice.Magic;
-                    break;
-                case Soldier.OrcTanker:
-                    price = AgentPrice.OrcTanker;
-                    break;
-                case Soldier.Warrior:
-                    price = AgentPrice.Warrior;
-                    break;
-                case Soldier.WoodHorse:
-                    price = AgentPrice.WoodHorse;
-                    break;
-
-            }
-            npc.TakeGold(-price);
+        {           
             return BuyAgent(typeAgentWantToBuy);
         }
 
@@ -607,7 +616,7 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CheckAgentQueueFull()
         {
-            if(agentCountQuery.Count >= NumAgentToAttack)
+            if(agentCountQuery.Count + npc.Agents.Count >= NumAgentToAttack)
             {
                 return NodeState.Success;
             }
@@ -669,9 +678,18 @@ namespace AIs.BT.BehaviorTree
             return new Sequence(new List<BaseNode>()
             {
                 UnclockBarrackSelector(),
-                new ActionNode(() => CheckEnoughGold(ConstructPrice.Barrack)),
+                EnoughGoldToBuyBrrackSelector(),
                 new ActionNode(BuyBarrackAction),
                 LocationBarrackConstructNode(),
+            });
+        }
+
+        private Selector EnoughGoldToBuyBrrackSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                new ActionNode(() => CheckEnoughGold(ConstructPrice.Barrack)),
+                ProduceGoldSelector(),
             });
         }
 
