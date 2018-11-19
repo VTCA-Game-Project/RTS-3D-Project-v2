@@ -14,11 +14,10 @@ namespace AIs.BT.Commoms
 
         public override NodeState Evaluate()
         {            
-            switch (child.State)
+            switch (child.Evaluate())
             {
                 case NodeState.Failure:
                 case NodeState.Running:
-                    child.Evaluate();
                     State = NodeState.Running;
                     break;
                 case NodeState.Success:

@@ -14,30 +14,31 @@ namespace AIs.BT.BehaviorTree
 {
     public class BTNPCPlayer
     {
+        private readonly Vector3 WayPoint = new Vector3(48, 0, 48);
         private const int NumAgentToAttack = 10;
         private readonly Dictionary<ConstructId, float> ConstructBuyDelay = new Dictionary<ConstructId, float>()
         {
-            { ConstructId.Yard      , 2.0f },
-            { ConstructId.Refinery  , 2.0f },
-            { ConstructId.Barrack   , 2.0f },
-            { ConstructId.Defender  , 2.0f },
-            { ConstructId.Radar     , 2.0f },
+            { ConstructId.Yard      , 5.0f },
+            { ConstructId.Refinery  , 5.0f },
+            { ConstructId.Barrack   , 5.0f },
+            { ConstructId.Defender  , 5.0f },
+            { ConstructId.Radar     , 5.0f },
         };
         private readonly Dictionary<Soldier, float> AgentBuyDelay = new Dictionary<Soldier, float>()
         {
-            { Soldier.Archer        ,2.0f},
-            { Soldier.HumanWarrior  ,2.0f},
-            { Soldier.WoodHorse     ,2.0f},
-            { Soldier.Warrior       ,2.0f},
-            { Soldier.OrcTanker     ,2.0f},
-            { Soldier.Magic         ,2.0f},
+            { Soldier.Archer        ,3.0f},
+            { Soldier.HumanWarrior  ,3.0f},
+            { Soldier.WoodHorse     ,3.0f},
+            { Soldier.Warrior       ,3.0f},
+            { Soldier.OrcTanker     ,3.0f},
+            { Soldier.Magic         ,3.0f},
         };
 
         private readonly Soldier[] OrcAgent = new Soldier[]
         {
             Soldier.Warrior,
             Soldier.Magic,
-            Soldier.OrcTanker,            
+            Soldier.OrcTanker,
         };
         private readonly Soldier[] HumanAgent = new Soldier[]
        {
@@ -46,14 +47,17 @@ namespace AIs.BT.BehaviorTree
             Soldier.HumanWarrior
        };
 
+        private bool isAttack;
         private bool isUpdatedWarrior;
         private bool isUpdatedRange;
         private bool isUpdatedTank;
 
+        private GameEntity currentTarget;
         private Soldier typeAgentWantToBuy;
         private NPCPlayer npc;
         private MainPlayer mainPlayer;
 
+        private NodeState attackWaveState = NodeState.Failure;
         private QueryList<ConstructId, float> constructCountQuery;
         private QueryList<Soldier, float> agentCountQuery;
 
@@ -86,7 +90,7 @@ namespace AIs.BT.BehaviorTree
             List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
             for (int i = 0; i < agentItems.Count; i++)
             {
-                if((agentItems[i].key == Soldier.Warrior || agentItems[i].key == Soldier.HumanWarrior) 
+                if ((agentItems[i].key == Soldier.Warrior || agentItems[i].key == Soldier.HumanWarrior)
                     && !isUpdatedWarrior)
                 {
                     agentItems[i].value += deltaTime;
@@ -108,7 +112,7 @@ namespace AIs.BT.BehaviorTree
                     continue;
                 }
 
-                if(isUpdatedTank && isUpdatedWarrior & isUpdatedRange)
+                if (isUpdatedTank && isUpdatedWarrior & isUpdatedRange)
                 {
                     break;
                 }
@@ -124,12 +128,11 @@ namespace AIs.BT.BehaviorTree
 
         private void InitBT()
         {
-            //Root = new Selector(new List<BaseNode>()
-            //{
-            //    //new ActionNode(CheckGameStatus),
-            //    BuyRefineryConstructSequence(),
-            //});
-            Root = ProduceAgentSequence();
+            Root = new Selector(new List<BaseNode>()
+            {
+                new ActionNode(CheckGameTerminalAction),
+                ClearAllUnitProgressSequence(),
+            });
         }
 
         private void ResetAgentCheckUpdated()
@@ -144,12 +147,11 @@ namespace AIs.BT.BehaviorTree
             List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
             for (int i = 0; i < agentItems.Count; i++)
             {
-                if(agentItems[i].value >= AgentBuyDelay[agentItems[i].key])
+                if (agentItems[i].value >= AgentBuyDelay[agentItems[i].key])
                 {
                     if (CheckEnoughGoldToBuyAgent(agentItems[i].key) == NodeState.Success)
                     {
                         CreateAgent(agentItems[i].key);
-                        PayAgentGold(agentItems[i].key);
                         agentCountQuery.RemoveAt(i);
                         break;
                     }
@@ -189,7 +191,7 @@ namespace AIs.BT.BehaviorTree
         {
             GameObject prefab = AssetUtils.Instance.GetAsset(type.ToString()) as GameObject;
             Construct barrack = npc.GetConstruct(typeof(Barrack));
-            if(prefab != null && barrack != null)
+            if (prefab != null && barrack != null)
             {
                 AIAgent agent = GameObject.Instantiate(prefab, barrack.transform.root.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = npc;
@@ -198,6 +200,12 @@ namespace AIs.BT.BehaviorTree
             }
         }
         //  commons action node
+        private NodeState CheckGameTerminalAction()
+        {
+            if (!npc.IsAlive() || !mainPlayer.IsAlive()) return NodeState.Success;
+            return NodeState.Failure;
+        }
+
         private NodeState CheckGameStatus()
         {
             if (UpdateGameStatus.Instance.GameIsRunning)
@@ -280,21 +288,22 @@ namespace AIs.BT.BehaviorTree
             if (type == typeof(Soldier))
             {
                 List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
-                for (int i = 0; i < agentItems.Count; i++)
-                {
-                    if (agentItems[i].value < AgentBuyDelay[agentItems[i].key]) return NodeState.Failure;
-                }
-                return NodeState.Success;
+                //for (int i = 0; i < agentItems.Count; i++)
+                //{
+                //    if (agentItems[i].value < AgentBuyDelay[agentItems[i].key]) return NodeState.Failure;
+                //}
+                if (agentItems.Count <= 0)
+                    return NodeState.Success;
             }
             return NodeState.Failure;
         }
 
         private NodeState MoveAgentsTo(Vector3 pos, TargetType targetType)
         {
-            List<AIAgent> agent = npc.Agents;
-            for (int i = 0; i < agent.Count; i++)
+            List<AIAgent> agents = npc.Agents;
+            for (int i = 0; i < agents.Count; i++)
             {
-                agent[i].SetTarget(TargetType.Place, pos);
+                agents[i].SetTarget(TargetType.Place, pos);
             }
             return NodeState.Success;
         }
@@ -319,9 +328,9 @@ namespace AIs.BT.BehaviorTree
         {
             if (!constructCountQuery.ContainsKey(type))
             {
-                constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f),true);
+                constructCountQuery.Add(new QueryItem<ConstructId, float>(type, 0.0f), true);
                 int price = 0;
-                switch(type)
+                switch (type)
                 {
                     case ConstructId.Barrack:
                         price = ConstructPrice.Barrack;
@@ -337,7 +346,7 @@ namespace AIs.BT.BehaviorTree
                         break;
                 }
                 npc.TakeGold(-price);
-            }            
+            }
             return NodeState.Success;
         }
 
@@ -345,7 +354,15 @@ namespace AIs.BT.BehaviorTree
         {
             if (!agentCountQuery.ContainsKey(type))
             {
-                agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f),false);
+                if(CheckEnoughGoldToBuyAgent(type) == NodeState.Success)
+                {
+                    agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f), false);
+                    return NodeState.Success;
+                }
+                else
+                {
+                    return NodeState.Failure;
+                }
             }
             return NodeState.Success;
         }
@@ -398,7 +415,7 @@ namespace AIs.BT.BehaviorTree
             Construct yard = yardGameObj.GetComponentInChildren<Construct>();
             yard.Player = npc;
             yard.Group = Group.NPC;
-            yardGameObj.SetActive(true);            
+            yardGameObj.SetActive(true);
             yard.Build();
 
             return SetConstructPosition(ConstructId.Yard, LocationOffset.Yard, yardGameObj.transform);
@@ -585,7 +602,7 @@ namespace AIs.BT.BehaviorTree
         }
 
         private NodeState BuyAgentAction()
-        {           
+        {
             return BuyAgent(typeAgentWantToBuy);
         }
 
@@ -616,7 +633,7 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CheckAgentQueueFull()
         {
-            if(agentCountQuery.Count + npc.Agents.Count >= NumAgentToAttack)
+            if (agentCountQuery.Count + npc.Agents.Count >= NumAgentToAttack)
             {
                 return NodeState.Success;
             }
@@ -668,7 +685,7 @@ namespace AIs.BT.BehaviorTree
         {
             return CheckContainConstruct(typeof(Barrack));
         }
-        
+
         #endregion
 
         #region Buy Can Barrack Sequence
@@ -765,6 +782,143 @@ namespace AIs.BT.BehaviorTree
                 ProduceAgentSequence(),
             });
         }
+        #endregion
+
+        #region Can Attack Selector
+        private Selector CanAttackSelector()
+        {
+            return new Selector(new List<BaseNode>()
+            {
+                new ActionNode(CheckIsAttackAction),
+                EnoughAgentSelector(),
+            });
+        }
+
+        private NodeState CheckIsAttackAction()
+        {
+            if(attackWaveState == NodeState.Running)
+            {
+                return NodeState.Success;
+            }
+            return NodeState.Failure;
+        }
+        #endregion
+
+        #region Group Attack Wave Sequence
+        private Sequence GroupAttackSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                new ActionNode(MoveAgentsToWayPoint),
+                new ActionNode(CheckAgentsReachedTarget),
+                KillAllOrDeadAllRepeater(),
+
+            });
+        }
+
+        private NodeState MoveAgentsToWayPoint()
+        {
+            if (attackWaveState != NodeState.Running)
+            {
+                attackWaveState = NodeState.Running;
+                return MoveAgentsTo(WayPoint, TargetType.Place);
+            }
+            return NodeState.Success;
+        }
+
+        #endregion
+
+        #region Clear All Unit progress
+        private Sequence ClearAllUnitProgressSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                CanAttackSelector(),
+                ReqairAttackProgressSequence(),
+            });
+        }
+        #endregion
+
+        #region Reqair Attack Progress Sequence
+        private Sequence ReqairAttackProgressSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                GroupAttackSequence(),
+            });
+        }
+
+        private NodeState ResetAttackStateAction()
+        {
+            if (!isAttack)
+            {
+                isAttack = true;
+                return NodeState.Success;
+            }
+            else
+            {
+                if (npc.Agents.Count <= 0)
+                {
+                    isAttack = false;
+                    return NodeState.Failure;
+                }
+                return NodeState.Success;
+            }
+        }
+
+        #region Repeat until kill all or dead all
+        private RepeaterUntil KillAllOrDeadAllRepeater()
+        {
+            return new RepeaterUntil(AttackSequence(), CheckAttackWaveTerminal);
+        }
+
+        private NodeState CheckAttackWaveTerminal()
+        {
+            if(!mainPlayer.IsAlive() || !npc.IsAlive() || npc.Agents.Count <= 0)
+            {
+                attackWaveState = NodeState.Failure;
+                return NodeState.Success;
+            }
+            return NodeState.Failure;
+        }
+
+        private Sequence AttackSequence()
+        {
+            return new Sequence(new List<BaseNode>()
+            {
+                new ActionNode(ChooseTargetAction),
+                new ActionNode(SetTargetAction),
+            });
+        }
+
+        private NodeState ChooseTargetAction()
+        {
+            if (currentTarget == null || currentTarget.IsDead)
+            {
+                if (mainPlayer.Constructs.Count > 0)
+                {
+                    currentTarget = mainPlayer.Constructs[0];
+                }
+                else
+                {
+                    if (mainPlayer.Agents.Count > 0)
+                    {
+                        currentTarget = mainPlayer.Agents[0];
+                    }
+                }
+            }
+            return NodeState.Success;
+        }
+
+        private NodeState SetTargetAction()
+        {
+            if(currentTarget != null && !currentTarget.IsDead)
+            {
+                return MoveAgentsTo(currentTarget.Position, TargetType.NPC);
+            }
+            return NodeState.Success;
+        }
+        #endregion
         #endregion
     }
 }
