@@ -375,6 +375,7 @@ MonoBehaviour:
   Offset: {fileID: 11400000, guid: bc1424984bb3dea4a83e88183e0eebdf, type: 2}
   Player: {fileID: 0}
   destructEffect: {fileID: 100006, guid: e076683e0305e35498b8e8834978c0fa, type: 2}
+  Cellinfo: {fileID: 0}
   RefreshTime: 1
 --- !u!114 &114091180290130274
 MonoBehaviour:

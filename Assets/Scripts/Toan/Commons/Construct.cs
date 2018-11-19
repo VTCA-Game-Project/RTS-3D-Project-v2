@@ -19,6 +19,7 @@ namespace Common
         public GameAction AddConstruct      { protected get; set; }
         public GameAction RemoveConstruct   { protected get; set; }
         private HPBar hpimage;
+        public BuildElement Cellinfo;
         public override Vector3 Position
         {
             get
@@ -119,6 +120,12 @@ namespace Common
             RemoveConstruct(this);
             Destroy(transform.root.gameObject);
             Destroy(effect, 0.5f);
+            if (Cellinfo != null)
+
+            {
+               
+                Cellinfo.letOnDestroy(transform.position);
+            }
         }
 
     }

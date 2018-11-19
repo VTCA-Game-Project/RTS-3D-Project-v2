@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class AIGoblinWizard : AIAgent
 {
-    public Rigidbody effect;
-
-    public Transform startpoisition;
-    public float ShootForce;
-
-
-
-
-
+    public GameObject effect;
     public void Update()
     {
     }
@@ -21,15 +13,13 @@ public class AIGoblinWizard : AIAgent
         base.Attack();
         if(TargetEntity != null)
         {
-            if (startpoisition != null)
-            {
-                Rigidbody ef = Instantiate(effect, startpoisition.position, transform.rotation);
+            Vector3 effectpos = new Vector3(TargetEntity.transform.position.x, TargetEntity.transform.position.y+5f, TargetEntity.transform.position.z);
+                var ef = Instantiate(effect, effectpos, transform.rotation);
                 if (ef != null)
                 {
-                    ef.gameObject.SetActive(true);
-                    ef.AddForce(transform.forward * ShootForce);
+                    ef.gameObject.SetActive(true);                   
                 }
-            }
+           
 
             TargetEntity.TakeDamage(Damage);
         }

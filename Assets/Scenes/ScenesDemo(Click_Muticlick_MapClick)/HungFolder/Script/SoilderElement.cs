@@ -20,7 +20,7 @@ public class SoilderElement : MonoBehaviour {
     int Price;
     public GameEntityPrice offset;
     private float totaltime = 0f;
-    private float delaytime = 5f;
+    private float delaytime = 3f;
     private float TimeperUpdate = 0.5f;
     private int Count;
     Soldier UnitType;

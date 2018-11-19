@@ -31,7 +31,9 @@ public class BuildControl : MonoBehaviour
     public Vector2 BuildSize = new Vector2();
     public GameObject Map;
     private MapControl ControlMap;
-
+    private List<int> BuildCount;
+    private List<CubeManager> ListCubeWasUse;
+    private List<Vector2> ListBuildSize;
     public int BuildPrice;
     void Start()
     {
@@ -41,6 +43,9 @@ public class BuildControl : MonoBehaviour
         {
             ControlMap = Map.GetComponent<MapControl>();
         }
+        BuildCount = new List<int>();
+        ListCubeWasUse = new List<CubeManager>();
+        ListBuildSize = new List<Vector2>();
     }
 
     // Update is called once per frame
@@ -138,7 +143,7 @@ public class BuildControl : MonoBehaviour
                             ListBuildCube.Add(ListInSelect[k]);
                         }
 
-
+                      
                         GameObject NewGO = Instantiate(BuildModel, new Vector3(LatPoint.x+((int)BuildSize.x/2), 0, LatPoint.y+((int)BuildSize.y/2)), Quaternion.identity);
                         Construct construct = NewGO.GetComponentInChildren<Construct>();
                         construct.Group = EnumCollection.Group.Player;
@@ -234,6 +239,37 @@ public class BuildControl : MonoBehaviour
         return ListInSelect[taget].transform;
     }
 
+    public void letOnDestroy(Vector3 taget,Vector2 buildsize)
+    {
+        Vector2 deadtaget = new Vector2(taget.x, taget.z);
+        
+        for (int i = 0; i < buildsize.x; i++)
+        {
+            for (int j = 0; j < buildsize.y; j++)
+            {
+
+                CubeManager sub = ControlMap.GetCubeBylocal(deadtaget + new Vector2(i, j));
+                Debug.Log(sub.CodeLocal);
+                if (sub != null)
+
+                {
+                  foreach( CubeManager cube in ListBuildCube)
+                    {
+
+                        if(cube.CodeLocal==sub.CodeLocal)
+                        {
+                            sub.CanBuild = true;
+                            ListBuildCube.Remove(cube);
+                        }
+                    }
+
+                }
+
+
+
+            }
+        }
+    }
 
     public void ResetTaget()
     {

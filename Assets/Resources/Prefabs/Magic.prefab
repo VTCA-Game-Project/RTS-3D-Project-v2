@@ -2157,12 +2157,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73a3b198059f1c4ca21658634d7af8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartReachedTargetState: 0
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: 7e5269b6c2cd48d48afa61ce8996b669, type: 2}
   drawGizmos: 0
-  effect: {fileID: 0}
-  startpoisition: {fileID: 0}
-  ShootForce: 0
+  effect: {fileID: 1958893473484090, guid: cc92a4abbe37ed04d9a950b106e8944e, type: 2}
 --- !u!114 &114506077964530210
 MonoBehaviour:
   m_ObjectHideFlags: 1

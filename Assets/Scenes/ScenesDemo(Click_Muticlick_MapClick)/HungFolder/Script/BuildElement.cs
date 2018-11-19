@@ -153,6 +153,13 @@ public class BuildElement : MonoBehaviour {
     }
 
 
+    public void letOnDestroy(Vector3 buildpos)
+    {
+        Vector3 mypos = new Vector3(transform.position.x - info.x / 2, 0, transform.position.z - info.y / 2);
+        ClickEvent.letOnDestroy(mypos, info);
+    }
+
+
 
 
 }
