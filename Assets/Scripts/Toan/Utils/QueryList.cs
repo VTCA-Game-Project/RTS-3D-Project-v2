@@ -105,5 +105,11 @@ namespace Utils
             if (index >= 0)
                 dict.RemoveAt(index);
         }
+
+        public void Clear()
+        {
+            dict.Clear();
+        }
     }
+
 }

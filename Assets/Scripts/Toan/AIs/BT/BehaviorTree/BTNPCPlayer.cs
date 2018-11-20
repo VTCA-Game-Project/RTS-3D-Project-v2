@@ -14,8 +14,8 @@ namespace AIs.BT.BehaviorTree
 {
     public class BTNPCPlayer
     {
-        private readonly Vector3 WayPoint = new Vector3(48, 0, 48);
-        private const int NumAgentToAttack = 10;
+        private readonly int NumAgentToAttack = 10;
+        private readonly Vector3 WayPoint = new Vector3(48, 0, 48);      
         private readonly Dictionary<ConstructId, float> ConstructBuyDelay = new Dictionary<ConstructId, float>()
         {
             { ConstructId.Yard      , 5.0f },
@@ -47,6 +47,7 @@ namespace AIs.BT.BehaviorTree
             Soldier.HumanWarrior
        };
 
+        private float createAgentDelayCounter;
         private bool isAttack;
         private bool isUpdatedWarrior;
         private bool isUpdatedRange;
@@ -81,6 +82,7 @@ namespace AIs.BT.BehaviorTree
 
         public void UpdateCountDown(float deltaTime)
         {
+            createAgentDelayCounter += deltaTime;
             List<QueryItem<ConstructId, float>> queryItems = constructCountQuery.QueryItemList();
             for (int i = 0; i < queryItems.Count; i++)
             {
@@ -144,15 +146,21 @@ namespace AIs.BT.BehaviorTree
 
         private void InstantiateAgent()
         {
+            if(npc.GetConstruct(typeof(Barrack)) == null)
+            {
+                agentCountQuery.Clear();
+                return;
+            }
             List<QueryItem<Soldier, float>> agentItems = agentCountQuery.QueryItemList();
             for (int i = 0; i < agentItems.Count; i++)
             {
                 if (agentItems[i].value >= AgentBuyDelay[agentItems[i].key])
                 {
-                    if (CheckEnoughGoldToBuyAgent(agentItems[i].key) == NodeState.Success)
+                    if (CheckEnoughGoldToBuyAgent(agentItems[i].key) == NodeState.Success && createAgentDelayCounter > 0.2f)
                     {
                         CreateAgent(agentItems[i].key);
                         agentCountQuery.RemoveAt(i);
+                        createAgentDelayCounter = 0.0f;
                         break;
                     }
                 }
@@ -897,17 +905,48 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState ChooseTargetAction()
         {
+            List<AIAgent> agents = npc.Agents;
+            if (agents.Count <= 0) return NodeState.Failure;
             if (currentTarget == null || currentTarget.IsDead)
             {
+                Vector3 averagePos = agents[0].Position;
+                for (int i = 1; i < agents.Count; i++)
+                {
+                    averagePos += agents[i].Position;
+                }
+                averagePos /= agents.Count;
+
                 if (mainPlayer.Constructs.Count > 0)
                 {
-                    currentTarget = mainPlayer.Constructs[0];
+                    List<Construct> playerCons = mainPlayer.Constructs;
+                    currentTarget = playerCons[0];
+                    float minDis = Vector3.Distance(currentTarget.Position, averagePos);
+                    for (int i = 1; i < playerCons.Count; i++)
+                    {
+                        float dist = Vector3.Distance(playerCons[i].Position, averagePos);
+                        if(minDis > dist)
+                        {
+                            minDis = dist;
+                            currentTarget = playerCons[i];
+                        }
+                    }
                 }
                 else
                 {
                     if (mainPlayer.Agents.Count > 0)
                     {
+                        agents = mainPlayer.Agents;
                         currentTarget = mainPlayer.Agents[0];
+                        float minDis = Vector3.Distance(currentTarget.Position, averagePos);
+                        for (int i = 1; i < agents.Count; i++)
+                        {
+                            float dist = Vector3.Distance(agents[i].Position, averagePos);
+                            if (minDis > dist)
+                            {
+                                minDis = dist;
+                                currentTarget = agents[i];
+                            }
+                        }
                     }
                 }
             }

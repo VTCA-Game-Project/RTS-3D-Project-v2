@@ -41,6 +41,10 @@ public class GoScene : MonoBehaviour {
         fond.SetActive(true);
 
     }
+    public void OnQuit()
+    {
+        Application.Quit();
+    }
 
   
 
