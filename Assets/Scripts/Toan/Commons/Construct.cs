@@ -121,7 +121,6 @@ namespace Common
             Destroy(transform.root.gameObject);
             Destroy(effect, 0.5f);
             if (Cellinfo != null)
-
             {
                
                 Cellinfo.letOnDestroy(transform.position);

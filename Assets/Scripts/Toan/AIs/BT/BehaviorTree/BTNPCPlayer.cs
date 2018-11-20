@@ -196,7 +196,7 @@ namespace AIs.BT.BehaviorTree
                 AIAgent agent = GameObject.Instantiate(prefab, barrack.transform.root.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = npc;
                 agent.gameObject.SetActive(true);
-                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(barrack.transform.position + barrack.transform.forward * 5, Vector3.up));
+                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(barrack.transform.position + barrack.transform.forward * 8, Vector3.up),null);
             }
         }
         //  commons action node
@@ -298,12 +298,12 @@ namespace AIs.BT.BehaviorTree
             return NodeState.Failure;
         }
 
-        private NodeState MoveAgentsTo(Vector3 pos, TargetType targetType)
+        private NodeState MoveAgentsTo(Vector3 pos, TargetType targetType, GameEntity gameEntity)
         {
             List<AIAgent> agents = npc.Agents;
             for (int i = 0; i < agents.Count; i++)
             {
-                agents[i].SetTarget(TargetType.Place, pos);
+                agents[i].SetTarget(targetType, pos, gameEntity);
             }
             return NodeState.Success;
         }
@@ -354,7 +354,7 @@ namespace AIs.BT.BehaviorTree
         {
             if (!agentCountQuery.ContainsKey(type))
             {
-                if(CheckEnoughGoldToBuyAgent(type) == NodeState.Success)
+                if (CheckEnoughGoldToBuyAgent(type) == NodeState.Success)
                 {
                     agentCountQuery.Add(new QueryItem<Soldier, float>(type, 0.0f), false);
                     return NodeState.Success;
@@ -796,7 +796,7 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CheckIsAttackAction()
         {
-            if(attackWaveState == NodeState.Running)
+            if (attackWaveState == NodeState.Running)
             {
                 return NodeState.Success;
             }
@@ -818,10 +818,14 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState MoveAgentsToWayPoint()
         {
+            if (CheckAgentsReachedTarget() == NodeState.Failure) return NodeState.Failure;
             if (attackWaveState != NodeState.Running)
             {
                 attackWaveState = NodeState.Running;
-                return MoveAgentsTo(WayPoint, TargetType.Place);
+                if (currentTarget == null)
+                    return MoveAgentsTo(WayPoint, TargetType.Place, null);
+                else
+                    return MoveAgentsTo(currentTarget.Position, TargetType.NPC, currentTarget);
             }
             return NodeState.Success;
         }
@@ -874,7 +878,7 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState CheckAttackWaveTerminal()
         {
-            if(!mainPlayer.IsAlive() || !npc.IsAlive() || npc.Agents.Count <= 0)
+            if (!mainPlayer.IsAlive() || !npc.IsAlive() || npc.Agents.Count <= 0)
             {
                 attackWaveState = NodeState.Failure;
                 return NodeState.Success;
@@ -912,9 +916,9 @@ namespace AIs.BT.BehaviorTree
 
         private NodeState SetTargetAction()
         {
-            if(currentTarget != null && !currentTarget.IsDead)
+            if (currentTarget != null && !currentTarget.IsDead)
             {
-                return MoveAgentsTo(currentTarget.Position, TargetType.NPC);
+                return MoveAgentsTo(currentTarget.Position, TargetType.NPC, currentTarget);
             }
             return NodeState.Success;
         }

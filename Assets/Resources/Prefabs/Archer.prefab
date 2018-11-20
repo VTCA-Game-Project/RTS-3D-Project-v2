@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 224336574883598806}
   - component: {fileID: 223446278043275628}
   - component: {fileID: 114508612603683504}
-  - component: {fileID: 114239234917125908}
   - component: {fileID: 114330368329291992}
   m_Layer: 0
   m_Name: Canvas
@@ -1531,22 +1530,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114239234917125908
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1092954009976724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114257576710613608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1662,6 +1645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da819e99a4c9866459f6bd9546be6a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartReachedTargetState: 0
   Owner: {fileID: 0}
   offset: {fileID: 11400000, guid: f4431488a63a5c040841ab6cb8190422, type: 2}
   drawGizmos: 0

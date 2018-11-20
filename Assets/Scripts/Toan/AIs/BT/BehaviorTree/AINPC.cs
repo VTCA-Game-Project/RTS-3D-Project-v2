@@ -21,15 +21,13 @@ namespace AIs.BT.BehaviorTree
                 LocationOffset  = this.LocationOffset,
                 ConstructPrice  = this.ConstructPrice,
                 AgentPrice      = this.AgentPrice,
-            };
-
-           
+            };           
         }
 
         private void Update()
         {
             decisionTree.UpdateCountDown(Time.deltaTime);
-            Debug.Log(decisionTree.Evaluate());
+            decisionTree.Evaluate();
         }
     }
 }

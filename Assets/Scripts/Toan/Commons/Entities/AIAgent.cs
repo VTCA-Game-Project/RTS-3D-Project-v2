@@ -30,6 +30,7 @@ namespace Common.Entity
         public GameEntity TargetEntity { get; protected set; }
         public bool OnObsAvoidance { get; set; }
         public float AttackRange { get; protected set; }
+        public float DetectRange { get; protected set; }
         public float MinVelocity { get; protected set; }
         public float Separation { get; protected set; }
         public float Cohesion { get; protected set; }
@@ -98,7 +99,7 @@ namespace Common.Entity
             InitOffset();
 
             HP = MaxHP;
-            
+
             PlayerGroup = Owner.Group;
 
             steerBh = Singleton.SteerBehavior;
@@ -113,7 +114,10 @@ namespace Common.Entity
             aceleration = Vector3.zero;
             if (!IsReachedTarget)
             {
-                steering += steerBh.Seek(this, target) * SeekingWeight;
+                if (TargetEntity != null)
+                    steering += steerBh.Seek(this, TargetEntity.Position) * SeekingWeight;
+                else
+                    steering += steerBh.Seek(this, target) * SeekingWeight;
                 if (OnObsAvoidance)
                 {
                     neighbours = Owner.GetNeighbours(this);
@@ -134,8 +138,11 @@ namespace Common.Entity
                 steering += avoidanceBh.GetObsAvoidanceForce(this, obstacles) * AvoidanceWeight;
             }
             aceleration = steering / AgentRigid.mass;
-            AgentRigid.velocity = TruncateVel(AgentRigid.velocity + aceleration);
-
+            Vector3 tempVel = TruncateVel(AgentRigid.velocity + aceleration);
+            if (!float.IsNaN(tempVel.x) && !float.IsNaN(tempVel.y) && !float.IsNaN(tempVel.z))
+            {
+                AgentRigid.velocity = tempVel;
+            }
             RotateAgent();
             if (!IsReachedTarget)
             {
@@ -145,9 +152,6 @@ namespace Common.Entity
                     AgentRigid.velocity = Vector3.zero;
                 }
             }
-#if UNITY_EDITOR
-            // Debug.Log("steer: " + steering + " velocity: " + rigid.velocity + " max speed: " + maxSpeed * rigid.velocity.normalized);
-#endif
         }
 
         protected void MoveToTarget()
@@ -178,18 +182,20 @@ namespace Common.Entity
         }
         protected bool CheckReachedTarget()
         {
-            //targetType = pointer.TargetType;
             switch (TargetType)
             {
                 case TargetType.Place:
-                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity || Vector3.Distance(Position,target) < 1f)
-                        return true; 
+                    if (AgentRigid.velocity.sqrMagnitude <= MinVelocity || Vector3.Distance(Position, target) < 0.2f)
+                    {
+                        TargetType = TargetType.None;
+                        return true;
+                    }
                     break;
                 case TargetType.Construct:
                     return true;
                 case TargetType.NPC:
                     if (TargetEntity != null)
-                        return (Vector3.Distance(Position, TargetEntity.Position) <= AttackRange);
+                        return (Vector3.Distance(Position, TargetEntity.Position) <= AttackRange) || TargetEntity.IsDead;
                     else
                         return (Vector3.Distance(Position, target) <= AttackRange);
                 default:
@@ -198,18 +204,22 @@ namespace Common.Entity
             return false;
         }
 
-        public void SetTarget(TargetType type, Vector3 position)
+        public void SetTarget(TargetType type, Vector3 position, GameEntity gameEntity = null)
         {
-            IsReachedTarget = false;
-            TargetType = type;
-            target = position;
+            if (gameEntity != TargetEntity || (OutOfAttackRange() && type == TargetType.NPC) || type != TargetType)
+            {
+                IsReachedTarget = false;
+                TargetType = type;
+                target = position;
+                TargetEntity = gameEntity;
+            }
         }
         public void OffObsAvoidance() { OnObsAvoidance = false; }
         public override void Dead()
         {
             IsDead = true;
             Owner.RemoveAgent(this);
-            Destroy(gameObject, 2);
+            Destroy(gameObject, 1.5f);
         }
         public override void TakeDamage(int damage)
         {
@@ -236,14 +246,15 @@ namespace Common.Entity
             AttackRange = offset.AttackRadius;
             MaxHP = offset.MaxHP;
             Damage = offset.Damage;
+            DetectRange = offset.DetectRange;
 
             IsDead = false;
             IsSelected = false;
             IsReachedTarget = StartReachedTargetState;
             OnObsAvoidance = true;
-            MinDetectionBoxLenght = Radius;
-            Radius = SkinMeshRenderer.bounds.size.x;
-            MinVelocity = 0.01f;
+            Radius = SkinMeshRenderer.bounds.extents.x;
+            MinDetectionBoxLenght = Radius;           
+            MinVelocity = 0.1f;
         }
         // INTERFACE
         public void Select() { IsSelected = true; }
@@ -257,13 +268,27 @@ namespace Common.Entity
                 TargetType = TargetType.None;
                 anims.ForceResetState();
             }
+            else if(TargetEntity != null)
+            {
+                if(OutOfAttackRange())
+                {
+                    SetTarget(TargetType.NPC, TargetEntity.Position, TargetEntity);
+                }
+            }
+        }
+        private bool OutOfAttackRange()
+        {
+            if(TargetEntity != null)
+            {
+                return Vector3.Distance(TargetEntity.Position, Position) > AttackRange;
+            }
+            return true;
         }
         public void DetectEnemy()
         {
-            if (TargetEntity != null && Vector3.Distance(Position, TargetEntity.Position) > AttackRange)
+            if (TargetEntity != null && Vector3.Distance(Position, TargetEntity.Position) > DetectRange)
             {
-                TargetType = TargetType.None;
-                TargetEntity = null;
+                SetTarget(TargetType.Place, transform.position, null);
                 return;
             }
             if (TargetEntity != null) return;
@@ -278,11 +303,9 @@ namespace Common.Entity
                     enemies = players[i].Agents;
                     for (int j = 0; j < enemies.Count; j++)
                     {
-                        if (enemies[j] != null && !enemies[j].IsDead && Vector3.Distance(enemies[j].Position, Position) <= AttackRange)
+                        if (enemies[j] != null && !enemies[j].IsDead && Vector3.Distance(enemies[j].Position, Position) <= DetectRange)
                         {
-                            TargetEntity = enemies[j];
-                            TargetType = TargetType.NPC;
-                            target = enemies[j].Position;
+                            SetTarget(TargetType.NPC, enemies[j].Position, enemies[j]);
                             break;
                         }
                     }
@@ -291,9 +314,7 @@ namespace Common.Entity
                     {
                         if (enemyConstruct[j] != null && !enemyConstruct[j].IsDead && Vector3.Distance(enemyConstruct[j].Position, Position) <= AttackRange)
                         {
-                            TargetEntity = enemyConstruct[j];
-                            TargetType = TargetType.NPC;
-                            target = enemyConstruct[j].Position;
+                            SetTarget(TargetType.NPC, enemyConstruct[i].Position, enemyConstruct[i]);
                             break;
                         }
                     }

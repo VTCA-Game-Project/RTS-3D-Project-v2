@@ -13,6 +13,7 @@ namespace RTS_ScriptableObject
         public float Separation;
         public float Alignment;        
         public float AttackRadius;
+        public float DetectRange;
         public float NeighboursRadius;
         public float ObstacleAvoidance;
     }

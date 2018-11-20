@@ -53,11 +53,11 @@ namespace EnumCollection
 
     public enum TargetType
     {
+        None,
         Place,
         NPC,
         Construct,
-        UI,
-        None
+        UI,        
     }
 
     public enum GameStatus

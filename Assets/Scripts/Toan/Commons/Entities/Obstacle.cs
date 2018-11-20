@@ -22,9 +22,7 @@ namespace Common.Entity
         private void Awake()
         {
             meshRenderer = GetComponent<MeshRenderer>();
-            float sizeX = meshRenderer.bounds.size.x;
-            float sizeZ = meshRenderer.bounds.size.z;
-            BoundRadius = sizeX > sizeZ ? sizeX : sizeZ;
+            BoundRadius = meshRenderer.bounds.extents.x;
             StoredManager.AddObstacle(this);
         }
 

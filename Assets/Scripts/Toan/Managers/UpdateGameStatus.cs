@@ -7,7 +7,7 @@ public class UpdateGameStatus : MonoBehaviour
 {
     public static UpdateGameStatus Instance { get; private set; }
     public List<Player> Players             { get; private set; }
-    public bool GameIsRunning                { get; private set; }
+    public bool GameIsRunning               { get; private set; }
 
     private void Awake()
     {

@@ -51,7 +51,7 @@ namespace Common.Building
                 AIAgent agent = Instantiate(prefab, transform.position, Quaternion.identity).GetComponent<AIAgent>();
                 agent.Owner = Player;
                 agent.gameObject.SetActive(true);
-                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(transform.position + transform.forward * 5,Vector3.up));
+                agent.SetTarget(TargetType.Place, Vector3.ProjectOnPlane(transform.position + transform.forward * 8,Vector3.up));
             }
         }
     }
