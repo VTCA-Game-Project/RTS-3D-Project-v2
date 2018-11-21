@@ -3,6 +3,7 @@ using EnumCollection;
 using Manager;
 using Pattern;
 using RTS_ScriptableObject;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common
@@ -19,7 +20,7 @@ namespace Common
         public GameAction AddConstruct      { protected get; set; }
         public GameAction RemoveConstruct   { protected get; set; }
         private HPBar hpimage;
-        public BuildElement Cellinfo;
+        public List<CubeManager> CellInfo;
         public override Vector3 Position
         {
             get
@@ -120,10 +121,14 @@ namespace Common
             RemoveConstruct(this);
             Destroy(transform.root.gameObject);
             Destroy(effect, 0.5f);
-            if (Cellinfo != null)
+            if (CellInfo != null)
             {
-               
-                Cellinfo.letOnDestroy(transform.position);
+
+                foreach (CubeManager cube in CellInfo)
+                {
+
+                    MapControl.SetvaluesCube(cube);
+                }
             }
         }
 

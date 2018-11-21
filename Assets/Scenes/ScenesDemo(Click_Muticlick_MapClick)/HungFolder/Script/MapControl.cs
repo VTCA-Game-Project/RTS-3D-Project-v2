@@ -6,7 +6,7 @@ public class MapControl : MonoBehaviour {
     [HideInInspector]
     public Map battlefield;
 
-    private List<CubeManager> ListGO= new List<CubeManager>() ;
+    private static List<CubeManager> ListGO= new List<CubeManager>() ;
     public GameObject modelGO;
 
     public GameObject CubeParent;
@@ -48,7 +48,7 @@ public class MapControl : MonoBehaviour {
 
     }
 	
-    public CubeManager GetCubeBylocal(Vector2 local)
+    public static CubeManager GetCubeBylocal(Vector2 local)
     {
        
       for(int i=0;i<ListGO.Count;i++)
@@ -63,9 +63,21 @@ public class MapControl : MonoBehaviour {
       
         return null;
     }
+
+    public static void SetvaluesCube(CubeManager cube)
+    {
+        if(GetCubeBylocal(cube.CodeLocal)!= null)
+        {
+
+            var temp = GetCubeBylocal(cube.CodeLocal);
+            temp.CanBuild = true;
+        }
+    }
+
+    public static List<CubeManager> getListGo()
+    {
+        return ListGO;
+    }
    
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 }
